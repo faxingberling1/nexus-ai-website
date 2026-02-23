@@ -2,257 +2,200 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Code, Zap, PenTool, Gamepad2, Terminal, ArrowRight, ChevronRight } from 'lucide-react';
+import { Zap, Brain, Code, PenTool, Gamepad2, Terminal, ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const services = [
   {
     title: "Neural Infrastructure",
-    description: "Training and deploying proprietary LLMs and neural networks tailored for your enterprise logic and data security.",
+    description: "Training and deploying proprietary models tailored for your enterprise logic and deep data security.",
     icon: Brain,
-    size: "lg",
-    color: "#00f3ff",
+    colSpan: "col-span-1 md:col-span-2",
+    rowSpan: "row-span-2",
+    accent: "#00f3ff",
     tag: "Core AI",
   },
   {
     title: "Cortex Dev",
     description: "High-performance web applications built with AI-assisted code generation and neon-grade aesthetics.",
     icon: Code,
-    size: "tall",
-    color: "#bc00ff",
-    tag: "Web Dev",
+    colSpan: "col-span-1 md:col-span-2 lg:col-span-1",
+    rowSpan: "row-span-2",
+    accent: "#bc00ff",
+    tag: "Web",
   },
   {
-    title: "Pulse Marketing",
-    description: "Data-driven growth powered by AI audience analysis and real-time signal processing.",
+    title: "Pulse Growth",
+    description: "Data-driven marketing powered by real-time signals.",
     icon: Zap,
-    size: "sm",
-    color: "#ff003c",
-    tag: "Growth",
-  },
-  {
-    title: "Neural Copy",
-    description: "Neural-optimized content that converts at machine speed.",
-    icon: PenTool,
-    size: "sm",
-    color: "#00f3ff",
-    tag: "Content",
+    colSpan: "col-span-1",
+    rowSpan: "row-span-1",
+    accent: "#ff003c",
+    tag: "Scale",
   },
   {
     title: "Nexus Gaming",
-    description: "Next-gen game mechanics with AI-driven NPCs, dynamic events, and procedural storytelling.",
+    description: "Next-gen game mechanics with AI-driven NPCs.",
     icon: Gamepad2,
-    size: "wide",
-    color: "#39ff14",
-    tag: "Gaming",
+    colSpan: "col-span-1",
+    rowSpan: "row-span-1",
+    accent: "#39ff14",
+    tag: "Play",
+  },
+  {
+    title: "Neural Copy",
+    description: "Neuromarketing-optimized content that converts at machine speed.",
+    icon: PenTool,
+    colSpan: "col-span-1",
+    rowSpan: "row-span-1",
+    accent: "#00f3ff",
+    tag: "Content",
   },
   {
     title: "Auto-Ops",
-    description: "End-to-end workflow optimization and intelligent process automation at scale.",
+    description: "End-to-end workflow optimization and automation.",
     icon: Terminal,
-    size: "sm",
-    color: "#00f3ff",
-    tag: "Automation",
+    colSpan: "col-span-1 md:col-span-2",
+    rowSpan: "row-span-1",
+    accent: "#bc00ff",
+    tag: "Auto",
   }
 ];
-
-const stats = [
-  { label: "Active Neurons", value: "2.4B+" },
-  { label: "Uptime Protocol", value: "99.999%" },
-  { label: "Autonomous Ops", value: "140k+" },
-  { label: "System Latency", value: "<12ms" }
-];
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
+      {/* Pure Tailwind Ambient Background */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
+        <div className="absolute top-[10%] left-[10%] w-[40vw] h-[40vw] rounded-full bg-[radial-gradient(circle,rgba(0,243,255,0.08)_0%,transparent_50%)]" />
+        <div className="absolute top-[10%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-[radial-gradient(circle,rgba(188,0,255,0.08)_0%,transparent_50%)]" />
+        <div className="absolute bottom-[-10%] left-[25%] w-[50vw] h-[50vw] rounded-full bg-[radial-gradient(circle,rgba(255,0,60,0.05)_0%,transparent_50%)]" />
+      </div>
+
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-28 pb-20 overflow-hidden">
-        {/* Orb decorations */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00f3ff]/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse duration-1000" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#bc00ff]/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
 
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10 w-full">
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-card border-primary/20 mb-10"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/5 bg-black/40 backdrop-blur-md mb-12 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-t-[#00f3ff]/30"
           >
-            <span className="pulse-dot" />
-            <span className="text-xs font-bold tracking-widest uppercase text-primary">System Online: Mission Control 3.0</span>
+            <span className="w-2 h-2 rounded-full bg-[#00f3ff] animate-[pulse_2.5s_infinite_alternate]" style={{ boxShadow: '0 0 16px rgba(0, 243, 255, 0.8)' }} />
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#00f3ff]/90 font-inter">System Online: Mission Control 3.0</span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[1.0] tracking-tighter"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
+            className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tighter font-outfit"
           >
-            Accelerate Your<br />
-            <span className="neon-text">Digital Evolution</span>
+            <span className="text-white">Accelerate Your</span><br />
+            {/* Pure Tailwind text gradient */}
+            <span className="mt-3 block pb-4 text-transparent bg-clip-text bg-gradient-to-br from-[#00f3ff] to-[#bc00ff] drop-shadow-[0_0_16px_rgba(0,243,255,0.3)]">
+              Digital Evolution
+            </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-14 leading-relaxed"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-16 leading-relaxed font-light font-inter"
           >
-            Deploy next-generation AI tools, autonomous agents, and neural automation infrastructure — built for the digital elite.
+            Deploy next-generation AI tools, autonomous agents, and neural automation infrastructure — engineered for the digital elite.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row justify-center gap-4"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row justify-center gap-6 items-center"
           >
-            <button className="flex items-center justify-center gap-3 bg-primary text-darker text-sm font-black tracking-widest uppercase px-8 py-4 rounded-xl hover:bg-white transition-all shadow-lg shadow-primary/25 group">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white text-black text-xs font-black tracking-[0.2em] uppercase px-10 py-5 rounded-lg hover:bg-[#00f3ff] transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_50px_rgba(0,243,255,0.4)] hover:scale-105 group font-inter">
               Initialize Project
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="flex items-center justify-center gap-3 glass-card text-white text-sm font-bold tracking-widest uppercase px-8 py-4 rounded-xl hover:border-primary/30 transition-all">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#0a0a0f]/50 backdrop-blur-[20px] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] text-white text-xs font-bold tracking-[0.2em] uppercase px-10 py-5 rounded-lg hover:bg-white/10 transition-all duration-300 font-inter">
               Access Terminal
             </button>
           </motion.div>
 
-          {/* Floating Status HUD */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-20 flex flex-wrap justify-center gap-4"
+            transition={{ duration: 1, delay: 0.6 }}
+            className="mt-32 grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
           >
-            {stats.map((stat, i) => (
-              <div key={i} className="glass-card px-6 py-4 rounded-2xl text-center min-w-[130px]">
-                <div className="text-2xl font-black neon-text">{stat.value}</div>
-                <div className="text-xs text-white/30 tracking-widest uppercase mt-1">{stat.label}</div>
+            {[
+              { label: "Active Neurons", value: "2.4B+" },
+              { label: "Uptime Protocol", value: "99.999%" },
+              { label: "Autonomous Ops", value: "140k+" },
+              { label: "System Latency", value: "<12ms" }
+            ].map((stat, i) => (
+              <div key={i} className="bg-[#0a0a0f]/50 backdrop-blur-[20px] border border-white/5 border-t-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] px-6 py-8 rounded-2xl text-center">
+                <div className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight font-outfit">{stat.value}</div>
+                <div className="text-[10px] text-white/40 tracking-[0.2em] uppercase font-bold font-inter">{stat.label}</div>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Services Bento Grid */}
-      <section className="py-32" id="services">
+      <section className="py-40 relative z-10" id="capabilities">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="mb-24 md:flex items-end justify-between gap-8 text-center md:text-left">
             <div>
-              <p className="text-primary text-xs font-bold tracking-widest uppercase mb-3">Capabilities</p>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Tactical Arsenal</h2>
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-6">
+                <span className="w-8 h-[2px] bg-[#00f3ff]" />
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#00f3ff] font-inter">Hardware Specs</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white font-outfit">Tactical Arsenal</h2>
             </div>
-            <p className="text-white/30 max-w-sm text-sm leading-relaxed">
-              Comprehensive AI solutions engineered for extreme efficiency and autonomous execution.
+            <p className="text-white/40 max-w-sm text-lg leading-relaxed font-light mt-6 md:mt-0 mx-auto md:mx-0 font-inter">
+              Comprehensive AI capabilities engineered for autonomous execution across your stack.
             </p>
           </div>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="bento-grid"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[300px]">
             {services.map((service, i) => (
-              <motion.div
-                variants={item}
+              <div
                 key={i}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className={`glass-card bento-item group cursor-pointer
-                  ${service.size === 'lg' ? 'bento-lg' : ''}
-                  ${service.size === 'tall' ? 'bento-tall' : ''}
-                  ${service.size === 'wide' ? 'bento-wide' : ''}
-                `}
+                className={`bg-[#0a0a0f]/50 backdrop-blur-[20px] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#00f3ff]/30 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_24px_rgba(0,243,255,0.15)] hover:-translate-y-1 rounded-[2rem] p-8 flex flex-col relative overflow-hidden group ${service.colSpan} ${service.rowSpan}`}
               >
-                {/* Background icon */}
-                <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] group-hover:scale-105 transition-all duration-500 pointer-events-none">
-                  <service.icon size={service.size === 'lg' ? 160 : 100} style={{ color: service.color }} />
+                {/* Accent Glow hidden inside the card */}
+                <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[60px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none" style={{ backgroundColor: service.accent }} />
+
+                {/* Background Icon */}
+                <div className="absolute top-8 right-8 opacity-[0.03] group-hover:opacity-10 group-hover:scale-110 transition-all duration-700 pointer-events-none">
+                  <service.icon size={service.rowSpan === "row-span-2" ? 180 : 100} style={{ color: service.accent }} />
                 </div>
 
-                {/* Tag */}
-                <div className="flex items-start justify-between relative z-10">
-                  <span
-                    className="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full"
-                    style={{ color: service.color, background: `${service.color}15`, border: `1px solid ${service.color}25` }}
-                  >
+                <div className="flex justify-between items-start mb-auto relative z-10">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-black/60 border border-white/5 group-hover:-translate-y-1 transition-transform duration-500 shadow-xl">
+                    <service.icon size={26} style={{ color: service.accent }} />
+                  </div>
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 rounded-full border border-white/5 bg-black/40 text-white/60 font-inter">
                     {service.tag}
                   </span>
                 </div>
 
-                <div className="relative z-10">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors"
-                    style={{ background: `${service.color}15`, border: `1px solid ${service.color}25` }}
-                  >
-                    <service.icon size={22} style={{ color: service.color }} />
-                  </div>
-                  <h3 className="text-xl font-bold tracking-tight mb-3 text-white group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-white/30 text-sm leading-relaxed group-hover:text-white/50 transition-colors">
+                <div className="relative z-10 mt-8">
+                  <h3 className="text-2xl font-bold tracking-tight text-white mb-4 font-outfit">{service.title}</h3>
+                  <p className="text-white/40 text-sm leading-relaxed font-medium line-clamp-3 font-inter">
                     {service.description}
                   </p>
                 </div>
-
-                <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-white/20 group-hover:text-primary transition-colors relative z-10">
-                  Learn Protocol <ChevronRight size={14} />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-32" id="arsenal">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative glass-card rounded-3xl p-16 md:p-24 text-center overflow-hidden"
-          >
-            {/* Background orbs */}
-            <div className="absolute top-0 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10">
-              <p className="text-primary text-xs font-bold tracking-widest uppercase mb-4">Mission Critical</p>
-              <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-6">
-                Partner with<br />the Future.
-              </h2>
-              <p className="text-white/40 text-lg max-w-xl mx-auto mb-12 leading-relaxed">
-                Join the elite companies scaling with Neon Byte technology. Your digital evolution starts now.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <button className="flex items-center justify-center gap-3 bg-primary text-darker text-sm font-black tracking-widest uppercase px-10 py-5 rounded-xl hover:bg-white transition-all shadow-lg shadow-primary/25 group">
-                  Initiate Contact
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="glass-card text-white text-sm font-bold tracking-widest uppercase px-10 py-5 rounded-xl hover:border-primary/30 transition-all">
-                  View Pricing
-                </button>
               </div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

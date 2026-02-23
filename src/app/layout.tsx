@@ -1,27 +1,33 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Outfit } from 'next/font/google';
+
+
+import './globals.css';
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700']
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  weight: ['400', '600', '700', '900']
+});
 
 export const metadata: Metadata = {
-  title: "Neon Byte AI | Mission Control 3.0",
-  description: "Next-generation AI solutions — web development, marketing, copywriting, game dev, and autonomous agents.",
+  title: 'Neon Byte AI | Mission Control 3.0',
+  description: 'Next-generation AI solutions, neural infrastructure, and autonomous marketing.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">
+    <html lang="en" className={`${inter.variable} ${outfit.variable} scroll-smooth`}>
+      <body className={`font-sans antialiased bg-[#020202] text-white selection:bg-[#00f3ff]/30`}>
         {children}
       </body>
     </html>
