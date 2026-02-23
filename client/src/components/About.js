@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div className="page-container">
       <div className="hero">
-        <h1>About Nexus AI</h1>
+        <h1>About Neon Byte AI</h1>
         <p>Learn about our mission to democratize AI technology</p>
       </div>
     </div>

@@ -102,7 +102,7 @@ const Contact = () => {
     },
     {
       question: 'Can I schedule a demo before purchasing?',
-      answer: 'Absolutely! We offer personalized demos to show you how Nexus AI can solve your specific challenges.'
+      answer: 'Absolutely! We offer personalized demos to show you how Neon Byte AI can solve your specific challenges.'
     }
   ];
 
@@ -113,7 +113,7 @@ const Contact = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -128,7 +128,7 @@ const Contact = () => {
         <div className="container">
           <div className="hero-content">
             <h1>Get in Touch</h1>
-            <p>Ready to transform your business with AI? Let's start the conversation about how Nexus AI can help you achieve your goals.</p>
+            <p>Ready to transform your business with AI? Let's start the conversation about how Neon Byte AI can help you achieve your goals.</p>
           </div>
         </div>
       </section>
@@ -311,7 +311,7 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="contact-info-section">
               <div className="info-card">
-                <h3>Why Choose Nexus AI?</h3>
+                <h3>Why Choose Neon Byte AI?</h3>
                 <div className="benefits-list">
                   <div className="benefit-item">
                     <i className="fas fa-rocket"></i>
@@ -411,7 +411,7 @@ const Contact = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Get Started?</h2>
-            <p>Join thousands of companies already using Nexus AI to transform their business operations.</p>
+            <p>Join thousands of companies already using Neon Byte AI to transform their business operations.</p>
             <div className="cta-buttons">
               <Link to="/get-started" className="btn btn-primary btn-large">
                 Start Free Trial

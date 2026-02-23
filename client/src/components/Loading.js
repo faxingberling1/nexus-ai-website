@@ -11,7 +11,7 @@ const Loading = () => {
     }}>
       <div className="logo">
         <i className="fas fa-robot" style={{fontSize: '3rem', marginRight: '10px'}}></i>
-        <span style={{fontSize: '2rem', fontWeight: '700'}}>Nexus AI</span>
+        <span style={{fontSize: '2rem', fontWeight: '700'}}>Neon Byte AI</span>
       </div>
     </div>
   );

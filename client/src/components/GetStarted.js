@@ -115,7 +115,7 @@ const GetStarted = () => {
           <div className="get-started-header">
             <Link to="/" className="get-started-logo">
               <i className="fas fa-robot"></i>
-              <span>Nexus AI</span>
+              <span>Neon Byte AI</span>
             </Link>
             <h1>Get Started</h1>
             <p>Tell us about yourself to personalize your experience</p>
@@ -148,7 +148,7 @@ const GetStarted = () => {
 
           {/* Use Case Selection */}
           <div className="use-case-section">
-            <h3 className="section-title">What will you use Nexus AI for?</h3>
+            <h3 className="section-title">What will you use Neon Byte AI for?</h3>
             <div className="use-case-grid">
               {useCases.map((useCase) => (
                 <div

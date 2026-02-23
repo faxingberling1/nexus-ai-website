@@ -103,8 +103,8 @@ print(response.json())`
       case 'getting-started':
         return (
           <div className="api-content">
-            <h2>Getting Started with Nexus AI API</h2>
-            <p>Welcome to the Nexus AI API documentation. Our API provides programmatic access to powerful AI capabilities including chatbots, autonomous agents, and workflow automation.</p>
+            <h2>Getting Started with Neon Byte AI API</h2>
+            <p>Welcome to the Neon Byte AI API documentation. Our API provides programmatic access to powerful AI capabilities including chatbots, autonomous agents, and workflow automation.</p>
             
             <div className="steps-grid">
               <div className="step-card">
@@ -177,7 +177,7 @@ print(response.json())`
         return (
           <div className="api-content">
             <h2>API Endpoints</h2>
-            <p>Explore available endpoints to integrate Nexus AI capabilities into your applications.</p>
+            <p>Explore available endpoints to integrate Neon Byte AI capabilities into your applications.</p>
             
             <div className="endpoints-list">
               {endpoints.map(endpoint => (
@@ -283,7 +283,7 @@ print(response.json())`
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -298,7 +298,7 @@ print(response.json())`
         <div className="container">
           <div className="hero-content">
             <h1>API Documentation</h1>
-            <p>Complete reference for integrating Nexus AI capabilities into your applications with our powerful REST API.</p>
+            <p>Complete reference for integrating Neon Byte AI capabilities into your applications with our powerful REST API.</p>
             <div className="hero-buttons">
               <Link to="/get-started" className="btn btn-primary">
                 Get API Key

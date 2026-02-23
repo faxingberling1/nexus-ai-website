@@ -140,7 +140,7 @@ const ResetPassword = () => {
           <div className="forgot-password-header">
             <Link to="/" className="forgot-password-logo">
               <i className="fas fa-robot"></i>
-              <span>Nexus AI</span>
+              <span>Neon Byte AI</span>
             </Link>
             <h1>Create New Password</h1>
             <p>Choose a strong password for your account</p>

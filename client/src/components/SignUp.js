@@ -147,7 +147,7 @@ const SignUp = () => {
               <div className="success-icon">
                 <i className="fas fa-check"></i>
               </div>
-              <h3>Welcome to Nexus AI!</h3>
+              <h3>Welcome to Neon Byte AI!</h3>
               <p>Your account has been created successfully. Redirecting to your dashboard...</p>
               <div className="spinner" style={{ margin: '0 auto' }}></div>
             </div>
@@ -172,7 +172,7 @@ const SignUp = () => {
           <div className="signup-header">
             <Link to="/" className="signup-logo">
               <i className="fas fa-robot"></i>
-              <span>Nexus AI</span>
+              <span>Neon Byte AI</span>
             </Link>
             <h1>Create Account</h1>
             <p>Join thousands of AI-powered creators</p>

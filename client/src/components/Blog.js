@@ -41,10 +41,10 @@ const Blog = () => {
     },
     {
       id: 3,
-      title: 'Introducing Nexus AI Pro: Advanced Multi-Agent Workflows',
+      title: 'Introducing Neon Byte AI Pro: Advanced Multi-Agent Workflows',
       excerpt: 'Announcing our most powerful AI platform yet with collaborative multi-agent systems and enhanced automation.',
       category: 'updates',
-      author: 'Nexus AI Team',
+      author: 'Neon Byte AI Team',
       date: '2024-01-10',
       readTime: '6 min read',
       image: '/api/placeholder/400/250'
@@ -91,10 +91,10 @@ const Blog = () => {
     },
     {
       id: 8,
-      title: 'New Integration: Connect Nexus AI with Your Favorite Tools',
-      excerpt: 'We\'ve added 15 new integrations to help you connect Nexus AI with your existing workflow tools.',
+      title: 'New Integration: Connect Neon Byte AI with Your Favorite Tools',
+      excerpt: 'We\'ve added 15 new integrations to help you connect Neon Byte AI with your existing workflow tools.',
       category: 'updates',
-      author: 'Nexus AI Team',
+      author: 'Neon Byte AI Team',
       date: '2023-12-25',
       readTime: '5 min read',
       image: '/api/placeholder/400/250'
@@ -133,7 +133,7 @@ const Blog = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -147,7 +147,7 @@ const Blog = () => {
       <section className="blog-hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Nexus AI Blog</h1>
+            <h1>Neon Byte AI Blog</h1>
             <p>Insights, tutorials, and updates on AI technology, automation, and the future of intelligent business solutions.</p>
             
             <div className="search-container">

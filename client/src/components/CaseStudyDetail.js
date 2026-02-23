@@ -20,7 +20,7 @@ const CaseStudyDetail = () => {
       <p>TechSolutions Inc, a rapidly growing technology consulting firm, was facing significant challenges in scaling their customer support operations while maintaining quality. With a client base expanding by 40% annually, their manual processes were becoming unsustainable.</p>
       
       <h2>The Challenge</h2>
-      <p>Before implementing Nexus AI, TechSolutions struggled with:</p>
+      <p>Before implementing Neon Byte AI, TechSolutions struggled with:</p>
       <ul>
         <li>High response times during peak hours</li>
         <li>Inconsistent support quality across team members</li>
@@ -61,12 +61,12 @@ const CaseStudyDetail = () => {
     ],
     duration: '3 months',
     teamSize: '5-person implementation team',
-    technologies: ['Nexus AI Pro', 'Custom AI Agents', 'Workflow Automation', 'API Integration'],
+    technologies: ['Neon Byte AI Pro', 'Custom AI Agents', 'Workflow Automation', 'API Integration'],
     image: '/api/placeholder/800/400',
     featured: true,
     logo: 'TS',
     testimonial: {
-      text: "Nexus AI transformed our customer support operations. We're now handling twice the volume with higher satisfaction scores and significantly lower costs. The ROI was evident within the first month.",
+      text: "Neon Byte AI transformed our customer support operations. We're now handling twice the volume with higher satisfaction scores and significantly lower costs. The ROI was evident within the first month.",
       author: "Sarah Johnson",
       position: "Chief Operations Officer",
       company: "TechSolutions Inc",
@@ -107,7 +107,7 @@ const CaseStudyDetail = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -279,7 +279,7 @@ const CaseStudyDetail = () => {
               {/* Contact CTA */}
               <div className="sidebar-widget cta-widget">
                 <h3>Ready to Get Started?</h3>
-                <p>See how Nexus AI can transform your business operations.</p>
+                <p>See how Neon Byte AI can transform your business operations.</p>
                 <div className="cta-actions">
                   <Link to="/get-started" className="btn btn-primary btn-full">
                     Start Free Trial

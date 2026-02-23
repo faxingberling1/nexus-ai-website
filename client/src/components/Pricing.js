@@ -405,11 +405,11 @@ const Pricing = () => {
         {bundlePlans.map((plan) => (
           <div key={plan.id} className={`plan-card ${plan.popular ? 'popular' : ''}`}>
             {plan.popular && <div className="popular-badge">Most Popular</div>}
-            
+
             <div className="plan-header">
               <h3>{plan.name}</h3>
               <p>{plan.description}</p>
-              
+
               <div className="price">
                 <span className="currency">$</span>
                 <span className="amount">
@@ -419,7 +419,7 @@ const Pricing = () => {
                   /{billingPeriod === 'monthly' ? 'month' : 'year'}
                 </span>
               </div>
-              
+
               {billingPeriod === 'yearly' && (
                 <div className="savings">
                   Save ${plan.savings} monthly
@@ -437,7 +437,7 @@ const Pricing = () => {
                   </li>
                 ))}
               </ul>
-              
+
               {plan.limitations.length > 0 && (
                 <div className="limitations">
                   <h5>Limitations:</h5>
@@ -454,7 +454,7 @@ const Pricing = () => {
             </div>
 
             <div className="plan-actions">
-              <button 
+              <button
                 className={`btn btn-${plan.buttonVariant} btn-large`}
                 onClick={() => handleGetStarted(plan.id)}
               >
@@ -470,7 +470,7 @@ const Pricing = () => {
 
   const renderIndividualToolPricing = () => {
     const tools = individualTools[activeTab] || [];
-    
+
     return (
       <div className="pricing-section">
         <div className="section-header">
@@ -495,7 +495,7 @@ const Pricing = () => {
                 {tool.plans.map((plan, index) => (
                   <div key={index} className={`pricing-tier ${plan.popular ? 'popular' : ''}`}>
                     {plan.popular && <div className="popular-badge">Popular</div>}
-                    
+
                     <div className="tier-header">
                       <h4>{plan.name}</h4>
                       <div className="tier-price">
@@ -513,7 +513,7 @@ const Pricing = () => {
                           </li>
                         ))}
                       </ul>
-                      
+
                       {plan.limitations && plan.limitations.length > 0 && (
                         <div className="tier-limitations">
                           <ul>
@@ -528,7 +528,7 @@ const Pricing = () => {
                       )}
                     </div>
 
-                    <button 
+                    <button
                       className={`btn btn-${plan.buttonVariant}`}
                       onClick={() => handleToolSubscription(tool.id, plan.name)}
                     >
@@ -551,7 +551,7 @@ const Pricing = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">SPECIAL OFFER:</span> Get 2 months free with annual billing. 
+              <span className="banner-highlight">SPECIAL OFFER:</span> Get 2 months free with annual billing.
               <span className="banner-highlight"> Save up to 17%!</span>
             </div>
           </div>
@@ -604,7 +604,7 @@ const Pricing = () => {
               <h2 className="section-title">Save More with Bundle Plans</h2>
               <p className="section-subtitle">Get access to all tools at a discounted rate</p>
             </div>
-            
+
             <div className="bundle-cards">
               <div className="bundle-card">
                 <h3>Professional Bundle</h3>
@@ -616,14 +616,14 @@ const Pricing = () => {
                   <li><i className="fas fa-check"></i> 10,000 API Calls/Month</li>
                   <li><i className="fas fa-check"></i> Priority Support</li>
                 </ul>
-                <button 
+                <button
                   className="btn btn-primary"
                   onClick={() => setActiveTab('all-tools')}
                 >
                   View Bundle Plans
                 </button>
               </div>
-              
+
               <div className="bundle-card popular">
                 <div className="popular-badge">Best Value</div>
                 <h3>Save 40%+</h3>
@@ -642,7 +642,7 @@ const Pricing = () => {
                     <span className="save-amount">$51+/month</span>
                   </div>
                 </div>
-                <button 
+                <button
                   className="btn btn-outline"
                   onClick={() => setActiveTab('all-tools')}
                 >
@@ -659,9 +659,9 @@ const Pricing = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Get Started?</h2>
-            <p>Join thousands of businesses using Nexus AI to transform their workflows.</p>
+            <p>Join thousands of businesses using Neon Byte AI to transform their workflows.</p>
             <div className="cta-buttons">
-              <button 
+              <button
                 className="btn btn-primary btn-large"
                 onClick={() => navigate('/get-started')}
               >

@@ -28,8 +28,8 @@ const Home = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
-              <span className="banner-highlight">Try it free for 14 days!</span>
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows.
+              <span className="banner-highlight">Experience the future today!</span>
             </div>
           </div>
           <div className="banner-decoration"></div>
@@ -42,17 +42,17 @@ const Home = () => {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Transform Your Workflow with Advanced AI Tools</h1>
-            <p>Discover the next generation of AI chatbots, agents, and automation tools designed to boost productivity and creativity.</p>
+            <h1>Accelerate Your Evolution with Neon Byte AI</h1>
+            <p>Deploy the next generation of high-fidelity AI chatbots, autonomous agents, and neural automation tools.</p>
             <div className="hero-buttons">
-              <button 
-                className="btn btn-primary" 
+              <button
+                className="btn btn-primary"
                 onClick={() => handleNavigation('/ai-tools')}
               >
                 Explore AI Tools
               </button>
-              <button 
-                className="btn btn-outline" 
+              <button
+                className="btn btn-outline"
                 onClick={handleWatchDemo}
               >
                 Watch Demo
@@ -93,14 +93,14 @@ const Home = () => {
               <h2 className="section-title">Visualize Your AI-Powered Future</h2>
               <p className="section-subtitle">Our platform provides intuitive interfaces to manage and interact with your AI tools. See real-time analytics, configure workflows, and monitor performance all in one place.</p>
               <div className="hero-buttons">
-                <button 
-                  className="btn btn-primary" 
+                <button
+                  className="btn btn-primary"
                   onClick={() => handleNavigation('/dashboard')}
                 >
                   View Dashboard
                 </button>
-                <button 
-                  className="btn btn-outline" 
+                <button
+                  className="btn btn-outline"
                   onClick={() => handleNavigation('/ai-tools')}
                 >
                   See Examples
@@ -134,65 +134,65 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-<section className="features">
-  <div className="container">
-    <h2 className="section-title" style={{textAlign: 'center'}}>Powerful AI Capabilities</h2>
-    <p className="section-subtitle" style={{textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px'}}>
-      Unlock the full potential of artificial intelligence with our comprehensive suite of tools and features.
-    </p>
-    <div className="features-grid">
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-language"></i>
+      <section className="features">
+        <div className="container">
+          <h2 className="section-title" style={{ textAlign: 'center' }}>Powerful AI Capabilities</h2>
+          <p className="section-subtitle" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
+            Unlock the full potential of artificial intelligence with our comprehensive suite of tools and features.
+          </p>
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-language"></i>
+              </div>
+              <h3>Natural Language Processing</h3>
+              <p>Advanced NLP models that understand context, sentiment, and intent for more human-like interactions.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-chart-line"></i>
+              </div>
+              <h3>Predictive Analytics</h3>
+              <p>Leverage machine learning to forecast trends, behaviors, and outcomes with remarkable accuracy.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-robot"></i>
+              </div>
+              <h3>Autonomous Agents</h3>
+              <p>AI agents that can independently execute tasks, make decisions, and learn from outcomes.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-shield-alt"></i>
+              </div>
+              <h3>Enterprise Security</h3>
+              <p>Bank-grade security protocols to ensure your data and AI operations remain protected.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-sync-alt"></i>
+              </div>
+              <h3>Seamless Integration</h3>
+              <p>Easy integration with your existing tools and workflows through flexible APIs and connectors.</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <i className="fas fa-expand-arrows-alt"></i>
+              </div>
+              <h3>Scalable Infrastructure</h3>
+              <p>Our platform grows with your needs, handling from small tasks to enterprise-level operations.</p>
+            </div>
+          </div>
         </div>
-        <h3>Natural Language Processing</h3>
-        <p>Advanced NLP models that understand context, sentiment, and intent for more human-like interactions.</p>
-      </div>
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-chart-line"></i>
-        </div>
-        <h3>Predictive Analytics</h3>
-        <p>Leverage machine learning to forecast trends, behaviors, and outcomes with remarkable accuracy.</p>
-      </div>
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-robot"></i>
-        </div>
-        <h3>Autonomous Agents</h3>
-        <p>AI agents that can independently execute tasks, make decisions, and learn from outcomes.</p>
-      </div>
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-shield-alt"></i>
-        </div>
-        <h3>Enterprise Security</h3>
-        <p>Bank-grade security protocols to ensure your data and AI operations remain protected.</p>
-      </div>
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-sync-alt"></i>
-        </div>
-        <h3>Seamless Integration</h3>
-        <p>Easy integration with your existing tools and workflows through flexible APIs and connectors.</p>
-      </div>
-      <div className="feature-card">
-        <div className="feature-icon">
-          <i className="fas fa-expand-arrows-alt"></i>
-        </div>
-        <h3>Scalable Infrastructure</h3>
-        <p>Our platform grows with your needs, handling from small tasks to enterprise-level operations.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Testimonials Section */}
       <section className="testimonials">
         <div className="container">
           <h2 className="section-title">What Our Clients Say</h2>
           <p className="section-subtitle">Hear from businesses that have transformed their operations with our AI solutions.</p>
-          
+
           <div className="testimonials-grid">
             <div className="testimonial-card">
               <div className="testimonial-content">
@@ -206,10 +206,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="testimonial-card">
               <div className="testimonial-content">
-                <p>Nexus AI's predictive analytics helped us identify new market opportunities we had completely overlooked. Our revenue increased by 35% in just 6 months.</p>
+                <p>Neon Byte AI's predictive analytics helped us identify new market opportunities we had completely overlooked. Our revenue increased by 35% in just 6 months.</p>
               </div>
               <div className="testimonial-author">
                 <div className="author-avatar">MR</div>
@@ -219,7 +219,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="testimonial-card">
               <div className="testimonial-content">
                 <p>The autonomous agents have automated our most time-consuming workflows, freeing up our team to focus on strategic initiatives. It's been a game-changer.</p>
@@ -245,7 +245,7 @@ const Home = () => {
             <button className="btn btn-primary" onClick={handleCTAClick}>
               Start Free Trial
             </button>
-            <p style={{marginTop: '20px', fontSize: '0.9rem', opacity: '0.8'}}>
+            <p style={{ marginTop: '20px', fontSize: '0.9rem', opacity: '0.8' }}>
               No credit card required • 14-day free trial • Cancel anytime
             </p>
           </div>

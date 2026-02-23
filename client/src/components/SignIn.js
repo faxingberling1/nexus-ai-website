@@ -57,7 +57,7 @@ const Signin = () => {
           <div className="signin-header">
             <Link to="/" className="signin-logo">
               <i className="fas fa-robot"></i>
-              <span>Nexus AI</span>
+              <span>Neon Byte AI</span>
             </Link>
             <h1>Welcome Back</h1>
             <p>Sign in to your account to continue</p>

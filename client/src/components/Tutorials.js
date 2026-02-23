@@ -27,7 +27,7 @@ const Tutorials = () => {
   const tutorials = [
     {
       id: 1,
-      title: 'Getting Started with Nexus AI: First Steps',
+      title: 'Getting Started with Neon Byte AI: First Steps',
       description: 'Complete beginner guide to setting up your account and making your first API call.',
       category: 'getting-started',
       difficulty: 'beginner',
@@ -76,7 +76,7 @@ const Tutorials = () => {
     {
       id: 5,
       title: 'API Integration Guide',
-      description: 'Learn how to integrate Nexus AI with popular platforms and services.',
+      description: 'Learn how to integrate Neon Byte AI with popular platforms and services.',
       category: 'integrations',
       difficulty: 'intermediate',
       duration: '30 min',
@@ -210,7 +210,7 @@ const Tutorials = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -224,7 +224,7 @@ const Tutorials = () => {
       <section className="tutorials-hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Learn Nexus AI</h1>
+            <h1>Learn Neon Byte AI</h1>
             <p>Master AI tools and automation with our comprehensive tutorials and learning paths. From beginner to expert level.</p>
             
             <div className="search-container">

@@ -146,7 +146,7 @@ const PrivacyPolicy = () => {
               <div className="category-content">
                 <div className="content-intro">
                   <p>
-                    At Nexus AI, we take your privacy seriously. This Privacy Policy explains how we collect, 
+                    At Neon Byte AI, we take your privacy seriously. This Privacy Policy explains how we collect, 
                     use, disclose, and safeguard your information when you use our AI-powered services and platform.
                   </p>
                 </div>
@@ -155,7 +155,7 @@ const PrivacyPolicy = () => {
                 <section id="introduction" className="content-section">
                   <h2>1. Introduction</h2>
                   <p>
-                    Nexus AI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy 
+                    Neon Byte AI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy 
                     applies to all users of our Services, including visitors to our website, users of our AI tools, 
                     and customers of our platform.
                   </p>

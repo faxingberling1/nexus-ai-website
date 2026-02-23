@@ -149,7 +149,7 @@ const Automation = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -308,7 +308,7 @@ const Automation = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Automate Your Workflow?</h2>
-            <p>Join thousands of businesses already saving time with Nexus AI automation tools</p>
+            <p>Join thousands of businesses already saving time with Neon Byte AI automation tools</p>
             <div className="cta-buttons">
               <button 
                 className="btn btn-primary btn-large"
@@ -332,7 +332,7 @@ const Automation = () => {
       <section className="benefits-section">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose Nexus AI Automation?</h2>
+            <h2>Why Choose Neon Byte AI Automation?</h2>
             <p>Experience the power of intelligent automation</p>
           </div>
           <div className="benefits-grid">

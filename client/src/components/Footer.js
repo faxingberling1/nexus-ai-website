@@ -10,9 +10,9 @@ const Footer = () => {
           <div className="footer-column">
             <Link to="/" className="logo">
               <i className="fas fa-robot"></i>
-              <span>Nexus AI</span>
+              <span>Neon Byte AI</span>
             </Link>
-            <p style={{marginTop: '20px', color: 'rgba(255,255,255,0.7)'}}>Empowering businesses with cutting-edge AI solutions.</p>
+            <p style={{ marginTop: '20px', color: 'rgba(255,255,255,0.7)' }}>Empowering businesses with cutting-edge AI solutions.</p>
             <div className="social-links">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-twitter"></i>
@@ -34,7 +34,7 @@ const Footer = () => {
               <li><Link to="/ai-tools">AI Tools</Link></li>
               <li><Link to="/ai-agents">AI Agents</Link></li>
               <li><Link to="/automation">Automation Tools</Link></li>
-               <li><Link to="/api-docs">API Documentation</Link></li>
+              <li><Link to="/api-docs">API Documentation</Link></li>
               <li><Link to="/pricing">Pricing</Link></li>
             </ul>
           </div>
@@ -60,7 +60,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="copyright">
-          <p>&copy; 2024 Nexus AI. All rights reserved.</p>
+          <p>&copy; 2024 Neon Byte AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

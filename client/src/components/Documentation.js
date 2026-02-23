@@ -12,7 +12,7 @@ const Documentation = () => {
       id: 'getting-started',
       name: 'Getting Started',
       icon: 'fas fa-rocket',
-      description: 'Begin your journey with Nexus AI',
+      description: 'Begin your journey with Neon Byte AI',
       color: 'var(--primary)'
     },
     {
@@ -123,9 +123,9 @@ const Documentation = () => {
       case 'getting-started':
         return (
           <div className="category-content">
-            <h2>Getting Started with Nexus AI</h2>
+            <h2>Getting Started with Neon Byte AI</h2>
             <p className="content-description">
-              Welcome to Nexus AI! This guide will help you get up and running quickly with our platform.
+              Welcome to Neon Byte AI! This guide will help you get up and running quickly with our platform.
             </p>
             
             <div className="content-grid">
@@ -134,7 +134,7 @@ const Documentation = () => {
                   <i className="fas fa-user-plus"></i>
                 </div>
                 <h3>Create Your Account</h3>
-                <p>Sign up and verify your email to get started with Nexus AI.</p>
+                <p>Sign up and verify your email to get started with Neon Byte AI.</p>
                 <Link to="/get-started" className="btn btn-outline">Get Started</Link>
               </div>
               
@@ -162,7 +162,7 @@ const Documentation = () => {
               <div className="video-placeholder">
                 <div className="video-thumbnail">
                   <i className="fas fa-play"></i>
-                  <p>Getting Started with Nexus AI - 5 Minute Overview</p>
+                  <p>Getting Started with Neon Byte AI - 5 Minute Overview</p>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@ const Documentation = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>

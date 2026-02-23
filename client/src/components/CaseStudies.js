@@ -156,7 +156,7 @@ const CaseStudies = () => {
         <div className="container">
           <div className="banner-content">
             <div className="banner-text">
-              <span className="banner-highlight">NEW:</span> Introducing Nexus AI Pro with advanced multi-agent workflows. 
+              <span className="banner-highlight">NEW:</span> Introducing Neon Byte AI Pro with advanced multi-agent workflows. 
               <span className="banner-highlight"> Try it free for 14 days!</span>
             </div>
           </div>
@@ -171,7 +171,7 @@ const CaseStudies = () => {
         <div className="container">
           <div className="hero-content">
             <h1>Case Studies</h1>
-            <p>Discover how leading companies are transforming their businesses with Nexus AI solutions</p>
+            <p>Discover how leading companies are transforming their businesses with Neon Byte AI solutions</p>
             
             <div className="search-container">
               <i className="fas fa-search"></i>
@@ -434,7 +434,7 @@ const CaseStudies = () => {
           <div className="listing-cta-content">
             <h2>Ready to Transform Your Business?</h2>
             <p>
-              Join the growing list of companies achieving remarkable results with Nexus AI. 
+              Join the growing list of companies achieving remarkable results with Neon Byte AI. 
               Let's discuss how we can help you achieve similar success.
             </p>
             <div className="listing-cta-buttons">

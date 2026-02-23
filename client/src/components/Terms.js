@@ -127,7 +127,7 @@ const TermsOfService = () => {
               <div className="category-content">
                 <div className="content-intro">
                   <p>
-                    Welcome to Nexus AI. These Terms of Service ("Terms") govern your access to and use of 
+                    Welcome to Neon Byte AI. These Terms of Service ("Terms") govern your access to and use of 
                     our website, services, and applications (collectively, the "Services"). Please read these 
                     Terms carefully before using our Services.
                   </p>
@@ -159,7 +159,7 @@ const TermsOfService = () => {
                 <section id="services" className="content-section">
                   <h2>2. Services Description</h2>
                   <p>
-                    Nexus AI provides artificial intelligence tools and services including but not limited to:
+                    Neon Byte AI provides artificial intelligence tools and services including but not limited to:
                   </p>
                   <ul>
                     <li>AI Chatbots and conversational agents</li>
@@ -255,7 +255,7 @@ const TermsOfService = () => {
                   <h2>6. Intellectual Property Rights</h2>
                   <h3>6.1 Our Intellectual Property</h3>
                   <p>
-                    The Services and their original content, features, and functionality are owned by Nexus AI 
+                    The Services and their original content, features, and functionality are owned by Neon Byte AI 
                     and are protected by international copyright, trademark, patent, trade secret, and other 
                     intellectual property laws.
                   </p>
@@ -301,7 +301,7 @@ const TermsOfService = () => {
                 <section id="liability" className="content-section">
                   <h2>8. Limitation of Liability</h2>
                   <p>
-                    To the maximum extent permitted by law, Nexus AI shall not be liable for any indirect, 
+                    To the maximum extent permitted by law, Neon Byte AI shall not be liable for any indirect, 
                     incidental, special, consequential, or punitive damages, or any loss of profits or revenues, 
                     whether incurred directly or indirectly, or any loss of data, use, goodwill, or other 
                     intangible losses resulting from:
@@ -320,8 +320,8 @@ const TermsOfService = () => {
                     <div className="info-content">
                       <h4>Liability Cap</h4>
                       <p>
-                        In no event shall Nexus AI's aggregate liability exceed the greater of one hundred 
-                        U.S. dollars (U.S. $100.00) or the amount you paid Nexus AI, if any, in the past 
+                        In no event shall Neon Byte AI's aggregate liability exceed the greater of one hundred 
+                        U.S. dollars (U.S. $100.00) or the amount you paid Neon Byte AI, if any, in the past 
                         six months for the Services giving rise to the claim.
                       </p>
                     </div>
@@ -375,7 +375,7 @@ const TermsOfService = () => {
                   <h2>11. Miscellaneous</h2>
                   <h3>11.1 Entire Agreement</h3>
                   <p>
-                    These Terms constitute the entire agreement between you and Nexus AI regarding our Services 
+                    These Terms constitute the entire agreement between you and Neon Byte AI regarding our Services 
                     and supersede all prior agreements and understandings.
                   </p>
 
@@ -406,7 +406,7 @@ const TermsOfService = () => {
                 <div className="cta-section">
                   <h3>Understanding Your Agreement</h3>
                   <p>
-                    By using Nexus AI Services, you acknowledge that you have read, understood, and agree to be 
+                    By using Neon Byte AI Services, you acknowledge that you have read, understood, and agree to be 
                     bound by these Terms of Service.
                   </p>
                   <div className="hero-buttons">

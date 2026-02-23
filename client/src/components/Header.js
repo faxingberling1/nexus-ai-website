@@ -17,8 +17,8 @@ const Header = () => {
       <div className="container">
         <nav className="navbar">
           <div className="logo" onClick={() => navigate('/')} style={{cursor: 'pointer'}}>
-            <i className="fas fa-robot"></i>
-            <span>Nexus AI</span>
+            <i className="fas fa-microchip"></i>
+            <span>Neon Byte AI</span>
           </div>
           <div className="nav-links">
             <Link to="/">Home</Link>
