@@ -3,6 +3,8 @@ import { Inter, Outfit } from 'next/font/google';
 
 
 import './globals.css';
+import ChatBot from '@/components/ChatBot';
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -29,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${outfit.variable} scroll-smooth`}>
       <body className={`font-sans antialiased bg-[#020202] text-white selection:bg-[#00f3ff]/30`}>
         {children}
+        <ChatBot />
       </body>
     </html>
   );
