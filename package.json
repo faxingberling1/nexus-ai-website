@@ -1,20 +1,29 @@
 {
-  "name": "nexus-ai-website",
-  "version": "1.0.0",
-  "description": "Nexus AI - Advanced AI Tools & Agents",
+  "name": "neon-byte-v2",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "install-server": "cd server && npm install",
-    "install-client": "cd client && npm install",
-    "install-all": "npm install && npm run install-server && npm run install-client"
-  },
-  "devDependencies": {
-    "concurrently": "^7.6.0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "react-router-dom": "^7.9.4"
+    "@tailwindcss/postcss": "^4.2.0",
+    "framer-motion": "^12.34.3",
+    "lucide-react": "^0.575.0",
+    "next": "16.1.6",
+    "postcss": "^8.5.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "typescript": "^5"
   }
 }
