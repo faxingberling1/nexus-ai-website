@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Brain, Code, LineChart, Gamepad2, PenTool, GitBranch, ArrowRight, ArrowUpRight, CheckCircle2, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CommandMap from '@/components/CommandMap';
 
 const services = [
   {
@@ -17,7 +18,7 @@ const services = [
     title: "Web & Platform Development",
     description: "Enterprise-grade websites, SaaS platforms, dashboards, and scalable applications.",
     icon: Code,
-    image: "https://intersmart.ae/wp-content/uploads/2024/04/The-Essential-Web-Development-Tools-Every-Developer-Should-Know.png"
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop"
   },
   {
     title: "Growth & Performance",
@@ -152,6 +153,12 @@ const fadeUpVar = {
 };
 
 export default function Home() {
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#050505] text-[#EDEDED] selection:bg-[#FF6A00]/30 font-inter font-light relative overflow-hidden">
 
@@ -395,8 +402,27 @@ export default function Home() {
 
                   <div className={`relative z-10 ${isWide ? 'md:w-3/4 lg:w-2/3' : 'w-full'}`}>
                     {service.image ? (
-                      <div className="mb-8 rounded-xl overflow-hidden border border-white/[0.04] relative w-full aspect-video group-hover:border-white/[0.1] transition-colors shadow-lg">
-                        <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
+                      <div className="mb-8 rounded-xl overflow-hidden border border-white/[0.08] relative w-full aspect-video group-hover:border-[#FF6A00]/20 transition-all duration-700 shadow-2xl bg-[#0A0A0A]">
+                        {/* Browser Header Finishing (MailMind Style) */}
+                        <div className="h-7 border-b border-white/[0.06] flex items-center px-4 bg-white/[0.02] relative z-20">
+                          <div className="flex gap-1.5 mr-4">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#FF5F56]/40" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#FFBD2E]/40" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#27C93F]/40" />
+                          </div>
+                          <div className="h-4 w-32 bg-white/[0.03] border border-white/[0.05] rounded-sm flex items-center px-2">
+                            <div className="w-1 h-1 rounded-full bg-[#FF6A00]/40 mr-2" />
+                            <div className="h-[2px] w-12 bg-white/5" />
+                          </div>
+                          <div className="ml-auto flex gap-2">
+                            <div className="h-[1px] w-4 bg-white/10" />
+                            <div className="h-[1px] w-4 bg-white/10" />
+                          </div>
+                        </div>
+                        <div className="relative w-full h-[calc(100%-28px)] overflow-hidden">
+                          <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-70 group-hover:opacity-100" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        </div>
                       </div>
                     ) : (
                       <div className="mb-8 h-40 relative overflow-hidden rounded-xl border border-white/[0.03] bg-white/[0.01]">
@@ -429,7 +455,7 @@ export default function Home() {
                             ))}
                           </div>
                         )}
-                        {i === 3 && ( /* Game Dev */
+                        {i === 3 && isMounted && ( /* Game Dev - Client-side only dots to avoid hydration mismatch */
                           <div className="absolute inset-0">
                             {[...Array(15)].map((_, j) => (
                               <motion.div
@@ -735,6 +761,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <CommandMap />
 
       {/* FINAL CTA */}
       <section className="py-48 relative z-10 border-t border-white/[0.02] bg-[#0A0A0A]">

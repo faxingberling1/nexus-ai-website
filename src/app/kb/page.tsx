@@ -1,52 +1,70 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Search, BookOpen, Cpu, Shield, BarChart, ArrowRight, ExternalLink } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, ChevronRight, ArrowRight, ExternalLink, Cpu, Shield, BarChart, Globe, Zap, Layers, Gamepad2, PenTool, ClipboardList, BookOpen, MessageSquare, Target, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-const categories = [
-    {
-        title: "Enterprise AI",
-        icon: Cpu,
-        count: 12,
-        topics: ["Neural Integration", "LLM Fine-tuning", "Autonomous Agents"]
-    },
-    {
-        title: "Architecture",
-        icon: Shield,
-        count: 8,
-        topics: ["Microservices", "Cloud Scaling", "Security Protocols"]
-    },
-    {
-        title: "Growth Systems",
-        icon: BarChart,
-        count: 15,
-        topics: ["AI-Driven SEO", "Conversion Data", "Attribution"]
-    }
-];
+import { kbData, KBArticle, KBCategory } from '@/data/kbData';
 
 export default function KnowledgeBasePage() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const easing = [0.16, 1, 0.3, 1] as any;
+
+    const filteredArticles = useMemo(() => {
+        let results: KBArticle[] = [];
+        kbData.forEach(cat => {
+            results = [...results, ...cat.articles];
+        });
+
+        if (searchQuery) {
+            results = results.filter(art =>
+                art.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                art.answer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                art.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+            );
+        }
+
+        if (activeCategory) {
+            results = results.filter(art => art.category === kbData.find(c => c.id === activeCategory)?.title);
+        }
+
+        return results;
+    }, [searchQuery, activeCategory]);
+
+    const displayedCategories = useMemo(() => {
+        if (!searchQuery) return kbData;
+        return kbData.filter(cat =>
+            cat.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            cat.articles.some(art => art.question.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+    }, [searchQuery]);
 
     return (
         <main className="min-h-screen bg-[#020202] pt-32 relative overflow-hidden">
             <Header />
 
-            <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-[#121212] to-transparent pointer-events-none" />
+            {/* Atmosphere */}
+            <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-[#121212] to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#FF6A00]/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
                 <div className="text-center max-w-3xl mx-auto mb-20">
-                    <motion.h1
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: easing }}
-                        className="text-5xl md:text-7xl font-semibold tracking-tight text-white font-outfit mb-8"
                     >
-                        Knowledge <br />
-                        <span className="text-white/20">Infrastructure.</span>
-                    </motion.h1>
+                        <h1 className="text-6xl md:text-8xl font-semibold tracking-tight text-white font-outfit mb-8">
+                            Knowledge <br />
+                            <span className="text-white/20">Infrastructure.</span>
+                        </h1>
+                        <p className="text-white/40 text-xl font-light leading-relaxed mb-12">
+                            Explore the technical protocols and operational blueprints that define the NEON-AI ecosystem.
+                        </p>
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -54,64 +72,113 @@ export default function KnowledgeBasePage() {
                         transition={{ duration: 0.8, delay: 0.2, ease: easing }}
                         className="relative max-w-2xl mx-auto"
                     >
-                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={20} />
+                        <div className="absolute inset-0 bg-[#FF6A00]/[0.05] blur-3xl -z-10 rounded-full" />
+                        <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[#FF6A00]" size={20} />
                         <input
                             type="text"
-                            placeholder="Search our technical protocols..."
-                            className="w-full bg-[#121212] border border-white/[0.08] rounded-3xl py-6 pl-16 pr-8 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all font-inter text-lg shadow-2xl"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Query neuro-data or technical guides..."
+                            className="w-full bg-[#121212]/80 backdrop-blur-3xl border border-white/[0.08] rounded-3xl py-6 pl-16 pr-8 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all font-inter text-lg shadow-2xl"
                         />
                     </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-                    {categories.map((cat, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: i * 0.1 }}
-                            className="p-10 bg-[#121212]/30 border border-white/[0.04] rounded-[2.5rem] hover:border-[#FF6A00]/20 transition-all duration-500 group"
-                        >
-                            <div className="w-12 h-12 rounded-2xl bg-white/[0.02] border border-white/[0.04] flex items-center justify-center text-[#FF6A00] mb-8 group-hover:scale-110 transition-transform">
-                                <cat.icon size={24} />
-                            </div>
-                            <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-2xl font-medium text-white font-outfit">{cat.title}</h3>
-                                <span className="text-white/20 text-xs font-mono">{cat.count} Protocols</span>
-                            </div>
-                            <ul className="space-y-4 mb-10">
-                                {cat.topics.map((t, j) => (
-                                    <li key={j} className="text-white/40 font-light hover:text-white transition-colors cursor-pointer flex items-center justify-between group/link">
-                                        {t} <ExternalLink size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
-                                    </li>
-                                ))}
-                            </ul>
-                            <button className="w-full py-4 border border-white/[0.06] rounded-2xl text-[11px] font-semibold tracking-widest text-white/30 uppercase font-inter hover:bg-white/[0.02] hover:text-white transition-all">
-                                Explore Category
+                {/* Categories HUD */}
+                {!searchQuery && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-20">
+                        {kbData.map((cat) => (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
+                                className={`p-6 rounded-3xl border transition-all duration-500 flex flex-col items-center gap-4 group ${activeCategory === cat.id
+                                    ? 'bg-[#FF6A00] border-[#FF6A00] text-white'
+                                    : 'bg-[#121212]/30 border-white/[0.04] text-white/40 hover:border-white/[0.1] hover:text-white'
+                                    }`}
+                            >
+                                <cat.icon size={24} className={activeCategory === cat.id ? 'text-white' : 'text-[#FF6A00]'} />
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-center">{cat.title}</span>
                             </button>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* Popular Articles */}
-                <div className="py-20 border-t border-white/[0.04]">
-                    <h2 className="text-[11px] font-semibold tracking-widest text-[#FF6A00] uppercase font-inter mb-12">Latest Insights</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {[
-                            { title: "Zero-Latency Message Queues in Distributed Systems", cat: "Architecture" },
-                            { title: "Optimizing Neural Weights for Real-Time Sentiment Analysis", cat: "AI Solutions" },
-                            { title: "Scaling Global Digital Infrastructure for Viral Retail Events", cat: "Architecture" },
-                            { title: "The Impact of Generative Search on High-Intent ROI", cat: "Growth" }
-                        ].map((article, i) => (
-                            <div key={i} className="group p-8 border-b border-white/[0.04] flex items-center justify-between hover:bg-white/[0.01] transition-all cursor-pointer">
-                                <div>
-                                    <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest font-inter mb-2 block">{article.cat}</span>
-                                    <h4 className="text-lg font-medium text-white/80 group-hover:text-white transition-colors font-outfit">{article.title}</h4>
-                                </div>
-                                <ArrowRight size={20} className="text-white/10 group-hover:text-[#FF6A00] group-hover:translate-x-2 transition-all" />
-                            </div>
                         ))}
+                    </div>
+                )}
+
+                {/* Main Content Area */}
+                <div className="space-y-32">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeCategory + searchQuery}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5, ease: easing }}
+                            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                        >
+                            {filteredArticles.map((article, i) => (
+                                <motion.div
+                                    key={article.id}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                                    className="p-10 bg-[#121212]/40 border border-white/[0.05] rounded-[3rem] group hover:border-[#FF6A00]/30 transition-all duration-700 relative overflow-hidden"
+                                >
+                                    {/* Glass Highlight */}
+                                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#FF6A00]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <span className="text-[10px] font-bold text-[#FF6A00] uppercase tracking-[0.2em]">{article.subcategory}</span>
+                                            <div className="h-px flex-1 bg-white/[0.05]" />
+                                            <span className={`px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest border ${article.priority === 'High' ? 'border-red-500/20 text-red-500 bg-red-500/5' : 'border-white/10 text-white/30'
+                                                }`}>
+                                                {article.priority}
+                                            </span>
+                                        </div>
+
+                                        <h3 className="text-2xl font-semibold text-white font-outfit mb-6 group-hover:text-[#FF6A00] transition-colors">{article.question}</h3>
+                                        <p className="text-white/40 text-sm leading-relaxed font-light mb-8 line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+                                            {article.answer}
+                                        </p>
+
+                                        {article.link && (
+                                            <Link href={article.link.href} className="flex items-center gap-2 text-[#FF6A00] text-[11px] font-bold uppercase tracking-widest hover:gap-3 transition-all mb-8 w-fit">
+                                                {article.link.label} <ArrowUpRight size={14} />
+                                            </Link>
+                                        )}
+
+                                        <div className="flex flex-wrap gap-2 pt-8 border-t border-white/[0.04]">
+                                            {article.tags.map(tag => (
+                                                <span key={tag} className="px-3 py-1 bg-white/[0.02] border border-white/[0.05] rounded-lg text-[9px] text-white/20 uppercase font-mono tracking-tighter">
+                                                    #{tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Technical Support HUD */}
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-[#FF6A00]/[0.02] rounded-[4rem] blur-3xl -z-10" />
+                        <div className="p-16 border border-white/[0.06] rounded-[4rem] bg-[#121212]/20 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-12 group">
+                            <div className="max-w-xl text-center md:text-left">
+                                <h4 className="text-4xl font-semibold text-white font-outfit mb-6 italic">Require deeper protocol access?</h4>
+                                <p className="text-white/40 text-lg font-light leading-relaxed">
+                                    Our engineering tactical cell is available for specialized integration audits and bespoke technical consultations.
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-4 w-full md:w-auto">
+                                <button className="bg-white text-black px-12 py-5 rounded-2xl font-bold tracking-tight hover:shadow-[0_20px_50px_-15px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                                    Contact Support <MessageSquare size={20} />
+                                </button>
+                                <button className="bg-[#121212] text-white border border-white/[0.1] px-12 py-5 rounded-2xl font-bold tracking-tight hover:border-[#FF6A00]/40 transition-all flex items-center justify-center gap-3">
+                                    Documentation Registry <BookOpen size={20} />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,3 +187,4 @@ export default function KnowledgeBasePage() {
         </main>
     );
 }
+
