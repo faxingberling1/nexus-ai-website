@@ -10,14 +10,14 @@ const steps = [
     {
         step: "01",
         title: "Discovery & Blueprint",
-        description: "We dive deep into your operational primitives, identifying bottlenecks and opportunities for intelligent intervention. We deliver a comprehensive technical roadmap.",
+        description: "We dive deep into your business operations, identifying bottlenecks and opportunities for strategic improvements. We deliver a comprehensive technical roadmap.",
         icon: Search,
         duration: "1-2 Weeks"
     },
     {
         step: "02",
         title: "Architectural Design",
-        description: "Our engineers build the structural foundation. We focus on scalability, security, and integration protocols to ensure a future-proof ecosystem.",
+        description: "Our engineers build the structural foundation. We focus on scalability, security, and system standards to ensure a future-proof ecosystem.",
         icon: PenTool,
         duration: "2-3 Weeks"
     },
@@ -30,15 +30,15 @@ const steps = [
     },
     {
         step: "04",
-        title: "Neural Integration",
-        description: "Injecting machine learning and autonomous agents into the workflow. We calibrate AI models to your specific datasets for maximum ROI.",
+        title: "Intelligence Integration",
+        description: "Implementing advanced automation and intelligence systems into the workflow. We calibrate models to your specific business data for maximum ROI.",
         icon: Zap,
         duration: "3-4 Weeks"
     },
     {
         step: "05",
         title: "Scale & Optimize",
-        description: "Stress testing, performance tuning, and global deployment. We ensure your systems are ready for millions of events per second.",
+        description: "Stress testing, performance tuning, and global deployment. We ensure your systems are ready for high-volume enterprise activity.",
         icon: ShieldCheck,
         duration: "Post-Launch"
     }

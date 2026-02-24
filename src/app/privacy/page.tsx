@@ -32,7 +32,7 @@ export default function PrivacyPage() {
                     </div>
                     <h1 className="text-7xl md:text-9xl font-semibold tracking-tighter text-white font-outfit leading-none mb-10">
                         Privacy <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/40 via-white to-white/40">Protocols.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/40 via-white to-white/40">Standards.</span>
                     </h1>
                 </motion.div>
 
