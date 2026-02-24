@@ -129,6 +129,22 @@ export default function PricingPage() {
 
     const currentCategory = pricingCategories.find(c => c.id === activeCategory)!;
 
+    // Handle Deep Linking from Services Portal
+    React.useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && pricingCategories.some(c => c.id === hash)) {
+                setActiveCategory(hash);
+                // Ensure we scroll to the pricing section if needed
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        handleHashChange(); // Check on mount
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
+
     const getPriceDisplay = (price: string) => {
         if (price === "Custom") return "Custom";
         const val = parseInt(price);
