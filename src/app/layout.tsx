@@ -18,7 +18,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Neon Byte AI | Mission Control 3.0',
+  title: 'Neon Byte AI',
   description: 'Next-generation AI solutions, neural infrastructure, and autonomous marketing.',
 };
 
