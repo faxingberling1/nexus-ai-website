@@ -48,7 +48,9 @@ export async function POST(request: Request) {
                 <div style="margin-bottom: 24px;">
                     <h2 style="font-size: 12px; letter-spacing: 2px; color: #FF6A01; margin-bottom: 12px; text-transform: uppercase;">Project Scope</h2>
                     <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                        <tr><td style="color: #888; padding: 6px 0; width: 130px;">Focus Area</td><td style="color: #fff;">${selections?.focusArea || 'N/A'}</td></tr>
+                        <tr><td style="color: #888; padding: 6px 0; width: 130px;">Engagement Model</td><td style="color: #FF6A01; font-weight: bold;">${selections?.pathway === 'package' ? 'Service Package' : 'Tailored Project'}</td></tr>
+                        <tr><td style="color: #888; padding: 6px 0;">Expertise Area</td><td style="color: #fff;">${selections?.focusArea || 'N/A'}</td></tr>
+                        ${selections?.pathway === 'package' ? `<tr><td style="color: #888; padding: 6px 0;">Service Plan</td><td style="color: #fff;">${selections?.projectTier || 'Custom Build'}</td></tr>` : ''}
                         <tr><td style="color: #888; padding: 6px 0;">Scale</td><td style="color: #fff;">${selections?.projectScale || 'N/A'}</td></tr>
                         <tr><td style="color: #888; padding: 6px 0;">Timeline</td><td style="color: #fff;">${selections?.timeline || 'N/A'}</td></tr>
                         <tr><td style="color: #888; padding: 6px 0;">Investment</td><td style="color: #fff;">${selections?.budget || 'N/A'}</td></tr>
