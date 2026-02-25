@@ -60,8 +60,8 @@ export default function Header() {
                     </nav>
 
                     <div className="flex items-center gap-2 px-2">
-                        <Link href="/contact" className="hidden md:flex text-xs font-medium text-white/50 hover:text-white px-4 py-2.5 rounded-full hover:bg-white/[0.04] transition-colors font-inter">
-                            Contact
+                        <Link href="/support" className="hidden md:flex text-xs font-medium text-white/50 hover:text-white px-4 py-2.5 rounded-full hover:bg-white/[0.04] transition-colors font-inter">
+                            Support
                         </Link>
 
                         <Link href="/start" className="relative group bg-[#1A1A1A] text-white text-xs font-medium px-6 py-2.5 rounded-full overflow-hidden transition-all duration-500 border border-white/[0.08] hover:border-[#FF6A00]/50 hover:shadow-[0_0_20px_rgba(255,106,0,0.2)] ml-2">

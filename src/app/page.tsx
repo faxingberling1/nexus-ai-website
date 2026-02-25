@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Brain, Code, LineChart, Gamepad2, PenTool, GitBranch, ArrowRight, ArrowUpRight, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Brain, Code, LineChart, Gamepad2, PenTool, GitBranch, ArrowRight, ArrowUpRight, CheckCircle2, ChevronRight, Link as LinkIcon, Cpu, Shield } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CommandMap from '@/components/CommandMap';
@@ -39,6 +39,12 @@ const services = [
     slug: "brand-messaging",
     description: "Strategic messaging that aligns with your brand and drives conversions.",
     icon: PenTool,
+  },
+  {
+    title: "Blockchain Apps",
+    slug: "blockchain-apps",
+    description: "Web3 integration, secure wallet creation, and custom decentralized services.",
+    icon: Cpu,
   },
   {
     title: "Business Automation",
@@ -172,12 +178,18 @@ export default function Home() {
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
 
       {/* Extreme subtle lighting */}
-      <div className="fixed top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-b from-[#FF6A00] to-transparent opacity-[0.03] blur-[160px] pointer-events-none" />
+      <div className="fixed top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-b from-[#FF6A00] to-transparent opacity-[0.04] blur-[160px] pointer-events-none" />
+      <div className="fixed bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-t from-[#FF6A00] to-transparent opacity-[0.02] blur-[160px] pointer-events-none" />
 
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-40 pb-20 z-10">
+      <section className="relative min-h-screen flex flex-col justify-center pt-40 pb-20 z-10 border-b border-[#FF6A00]/20 shadow-[0_10px_40px_-20px_rgba(255,106,0,0.15)]">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/40 to-transparent" />
+        <div className="absolute top-40 left-6 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/40 z-20 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+        <div className="absolute top-40 right-6 w-4 h-4 border-t-2 border-r-2 border-[#FF6A00]/40 z-20 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+
+
         <div className="max-w-[70rem] mx-auto px-6 relative z-10 flex flex-col items-center text-center">
 
           <motion.div
@@ -295,7 +307,12 @@ export default function Home() {
       </section>
 
       {/* PHILOSOPHY & MISSION SECTION */}
-      <section className="py-32 relative z-10 bg-[#080808]">
+      <section className="py-32 relative z-10 bg-[#080808] border-b border-[#FF6A00]/15 shadow-[0_10px_40px_-20px_rgba(255,106,0,0.1)]">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/30 to-transparent" />
+        <div className="absolute top-12 left-6 w-3 h-3 border-t-2 border-l-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+        <div className="absolute bottom-12 right-6 w-3 h-3 border-b-2 border-r-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+
+
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <motion.div
@@ -327,8 +344,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="p-8 bg-[#121212]/40 border border-white/[0.04] rounded-3xl hover:border-[#FF6A00]/20 transition-all duration-500 group"
+                  className="p-8 bg-[#121212]/40 border border-[#FF6A00]/10 rounded-3xl hover:border-[#FF6A00]/30 transition-all duration-500 group shadow-[0_0_20px_rgba(255,106,0,0.02)] hover:shadow-[0_0_30px_rgba(255,106,0,0.05)]"
                 >
+
                   <div className="w-8 h-[1px] bg-[#FF6A00]/40 mb-6 group-hover:w-12 transition-all duration-500" />
                   <h4 className="text-xl font-medium text-white mb-3 font-outfit">{value.title}</h4>
                   <p className="text-white/30 text-sm font-light leading-relaxed">{value.desc}</p>
@@ -339,8 +357,118 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BLOCKCHAIN ECOSYSTEM SECTION */}
+      <section className="py-40 relative z-10 bg-[#050505] overflow-hidden border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)]">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/50 to-transparent" />
+        <div className="absolute top-12 left-6 w-3 h-3 border-t-2 border-l-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+        <div className="absolute bottom-12 right-6 w-3 h-3 border-b-2 border-r-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+
+
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#F7931A]/[0.03] rounded-full blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5 }}
+                className="relative aspect-square max-w-lg mx-auto lg:mx-0"
+              >
+                {/* Abstract Blockchain Visual */}
+                <div className="absolute inset-0 border border-white/[0.04] rounded-[3rem] bg-gradient-to-br from-white/[0.02] to-transparent p-12 flex items-center justify-center">
+                  <div className="relative w-full h-full border border-dashed border-white/10 rounded-full animate-spin-slow flex items-center justify-center">
+                    <style dangerouslySetInnerHTML={{
+                      __html: `
+                        @keyframes spin-slow {
+                          from { transform: rotate(0deg); }
+                          to { transform: rotate(360deg); }
+                        }
+                        .animate-spin-slow {
+                          animation: spin-slow 20s linear infinite;
+                        }
+                      `}} />
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                      className="absolute inset-12 bg-[#F7931A]/10 rounded-full blur-3xl"
+                    />
+                    <Cpu size={80} className="text-[#F7931A] relative z-10" strokeWidth={1} />
+                  </div>
+
+                  {/* Connecting Nodes */}
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-2 h-2 rounded-full bg-[#F7931A] shadow-[0_0_10px_#F7931A]"
+                      style={{
+                        top: '50%',
+                        left: '50%',
+                        transform: `rotate(${i * 45}deg) translate(180px, -50%)`
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: easing }}
+              className="order-1 lg:order-2"
+            >
+              <h2 className="text-[11px] font-semibold tracking-widest text-[#F7931A] uppercase font-inter mb-6">Web3 Infrastructure</h2>
+              <h3 className="text-5xl md:text-7xl font-semibold tracking-tight text-white font-outfit leading-[0.95] mb-10">
+                Blockchain <br />
+                <span className="text-white/20">Architectures.</span>
+              </h3>
+
+              <div className="space-y-10">
+                <div className="group">
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-white/[0.08] flex items-center justify-center text-[#F7931A] group-hover:bg-[#F7931A] group-hover:text-black transition-all">
+                      <Shield size={18} />
+                    </div>
+                    <h4 className="text-xl font-medium text-white font-outfit">Secure Wallet Creation</h4>
+                  </div>
+                  <p className="text-white/40 text-[15px] font-light leading-relaxed max-w-md ml-14">
+                    Non-custodial and custodial infrastructures built with military-grade security for seamless enterprise asset management.
+                  </p>
+                </div>
+
+                <div className="group">
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-white/[0.08] flex items-center justify-center text-[#F7931A] group-hover:bg-[#F7931A] group-hover:text-black transition-all">
+                      <LinkIcon size={18} />
+                    </div>
+                    <h4 className="text-xl font-medium text-white font-outfit">DeFi Ecosystems</h4>
+                  </div>
+                  <p className="text-white/40 text-[15px] font-light leading-relaxed max-w-md ml-14">
+                    Decentralized protocols and liquidity systems designed for transparency, efficiency, and automated financial operations.
+                  </p>
+                </div>
+              </div>
+
+              <Link href="/services/blockchain-apps" className="inline-flex items-center gap-3 mt-16 text-sm font-semibold text-white group">
+                <span className="relative">
+                  Explore Blockchain Solutions
+                  <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#F7931A] group-hover:w-full transition-all duration-500" />
+                </span>
+                <ArrowRight size={16} className="text-[#F7931A] group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* TRUST & METRICS SECTION */}
-      <section className="py-24 relative z-10 border-y border-white/[0.02] bg-[#0A0A0A]">
+      <section className="py-24 relative z-10 bg-[#0A0A0A] border-b border-[#FF6A00]/5">
+        <div className="absolute top-8 left-6 w-2 h-2 border-t-2 border-l-2 border-[#FF6A00]/20 pointer-events-none" />
+        <div className="absolute bottom-8 right-6 w-2 h-2 border-b-2 border-r-2 border-[#FF6A00]/20 pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-[11px] font-semibold tracking-widest text-white/30 uppercase font-inter">Scale With Confidence</h2>
@@ -373,7 +501,12 @@ export default function Home() {
       </section>
 
       {/* SERVICES SECTION */}
-      <section className="py-40 relative z-10" id="services">
+      <section className="py-40 relative z-10 border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)]" id="services">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/50 to-transparent" />
+        <div className="absolute top-12 left-6 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+        <div className="absolute bottom-12 right-6 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+
+
         <div className="max-w-[85rem] mx-auto px-6">
           <div className="text-center md:text-left mb-24 max-w-2xl">
             <h2 className="text-5xl md:text-6xl font-semibold tracking-tight text-white font-outfit mb-6">Engineered solutions.</h2>
@@ -398,7 +531,8 @@ export default function Home() {
                   key={i}
                   className={`${colSpan}`}
                 >
-                  <Link href={`/services/${service.slug}`} className="block h-full group bg-gradient-to-b from-[#121212]/80 to-[#0B0B0B] border border-white/[0.04] rounded-[2rem] p-10 hover:border-white/[0.08] hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] cursor-pointer">
+                  <Link href={`/services/${service.slug}`} className="block h-full group bg-gradient-to-b from-[#121212]/80 to-[#0B0B0B] border border-[#FF6A00]/10 rounded-[2rem] p-10 hover:border-[#FF6A00]/30 hover:shadow-[0_8px_40px_rgba(255,106,0,0.05)] transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] cursor-pointer">
+
                     {/* Premium Hover Vignette */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#FF6A00]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6A00]/5 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none translate-x-1/2 -translate-y-1/2" />
@@ -506,8 +640,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Cyber orange section divider */}
+      <div className="max-w-7xl mx-auto px-6 px-0">
+        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#FF6A00]/20 to-transparent" />
+      </div>
+
+
       {/* TECH STACK SECTION */}
-      <section className="py-24 relative z-10 border-y border-white/[0.02] bg-[#080808]">
+      <section className="py-24 relative z-10 border-b border-[#FF6A00]/20 shadow-[0_10px_40px_-20px_rgba(255,106,0,0.1)] bg-[#080808]">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/30 to-transparent" />
+        <div className="absolute top-12 left-6 w-3 h-3 border-t-2 border-l-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+        <div className="absolute bottom-12 right-6 w-3 h-3 border-b-2 border-r-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+
+
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="max-w-md text-center md:text-left">
@@ -535,7 +680,12 @@ export default function Home() {
       </section>
 
       {/* PRODUCTS & TOOLS SECTION */}
-      <section className="py-40 relative z-10 bg-[#080808] border-y border-white/[0.02]" id="products">
+      <section className="py-40 relative z-10 bg-[#080808] border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)]" id="products">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/50 to-transparent" />
+        <div className="absolute top-12 left-6 w-3 h-3 border-t-2 border-l-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+        <div className="absolute bottom-12 right-6 w-3 h-3 border-b-2 border-r-2 border-[#FF6A00]/30 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+
+
         <div className="max-w-[85rem] mx-auto px-6">
           <div className="mb-24 flex flex-col items-center text-center">
             <h2 className="text-5xl md:text-6xl font-semibold tracking-tight text-white font-outfit mb-6">Products & Tools</h2>
@@ -553,8 +703,9 @@ export default function Home() {
                   visible: { opacity: 1, scale: 1, transition: { duration: 0.8, delay: i * 0.1, ease: easing } }
                 }}
                 key={i}
-                className="bg-[#121212]/30 border border-white/[0.04] rounded-[2rem] overflow-hidden group hover:border-white/[0.1] transition-all duration-700 flex flex-col cursor-pointer"
+                className="bg-[#121212]/30 border border-[#FF6A00]/10 rounded-[2rem] overflow-hidden group hover:border-[#FF6A00]/30 transition-all duration-700 flex flex-col cursor-pointer shadow-[0_0_20px_rgba(255,106,0,0.02)]"
               >
+
                 {/* Elite Dashboard Mockup Window */}
                 <div className="h-56 relative border-b border-white/[0.02] p-6 overflow-hidden bg-gradient-to-b from-[#111] to-[#0a0a0a]">
                   <div className="w-full h-full bg-[#181818] rounded-xl border border-white/[0.04] shadow-[0_20px_40px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col transform group-hover:-translate-y-2 group-hover:scale-[1.03] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
@@ -600,7 +751,12 @@ export default function Home() {
       </section>
 
       {/* PROCESS SECTION */}
-      <section className="py-40 relative z-10" id="process">
+      <section className="py-40 relative z-10 border-b border-[#FF6A00]/15 shadow-[0_10px_40px_-20px_rgba(255,106,0,0.1)]" id="process">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/30 to-transparent" />
+        <div className="absolute top-12 left-6 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/25 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+        <div className="absolute bottom-12 right-6 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/25 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.15)]" />
+
+
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-24">
             <h2 className="text-5xl md:text-6xl font-semibold tracking-tight text-white font-outfit mb-6">How We Build</h2>
@@ -636,7 +792,12 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section className="py-40 relative z-10 bg-[#080808] border-y border-white/[0.02]" id="work">
+      <section className="py-40 relative z-10 bg-[#080808] border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)]" id="work">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/50 to-transparent" />
+        <div className="absolute top-12 left-6 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+        <div className="absolute bottom-12 right-6 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
+
+
         <div className="max-w-[85rem] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
             <div className="max-w-2xl">
@@ -659,8 +820,9 @@ export default function Home() {
                   visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: i * 0.1, ease: easing } }
                 }}
                 key={i}
-                className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center p-8 lg:p-12 bg-[#121212]/30 border border-white/[0.04] rounded-[2rem] hover:bg-[#121212]/60 hover:border-white/[0.08] transition-all duration-700"
+                className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center p-8 lg:p-12 bg-[#121212]/30 border border-[#FF6A00]/10 rounded-[2rem] hover:bg-[#121212]/60 hover:border-[#FF6A00]/30 transition-all duration-700 shadow-[0_0_30px_rgba(255,106,0,0.02)]"
               >
+
                 {/* Portfolio Image Container - Abstract wireframe styling */}
                 <div className="lg:col-span-7 bg-[#1A1A1A] rounded-xl aspect-[16/9] border border-white/[0.04] relative overflow-hidden group-hover:border-white/[0.1] transition-all duration-700 shadow-2xl">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#121212] to-[#0A0A0A]" />
@@ -720,7 +882,12 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section className="py-40 relative z-10 bg-[#0A0A0A] overflow-hidden border-b border-white/[0.02]">
+      <section className="py-40 relative z-10 bg-[#0A0A0A] overflow-hidden border-b border-[#FF6A00]/15 shadow-[0_10px_40px_-20px_rgba(255,106,0,0.1)]">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/30 to-transparent" />
+        <div className="absolute top-12 left-6 w-3 h-3 border-t-2 border-l-2 border-[#FF6A00]/20 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.1)]" />
+        <div className="absolute bottom-12 right-6 w-3 h-3 border-b-2 border-r-2 border-[#FF6A00]/20 pointer-events-none shadow-[0_0_8px_rgba(255,106,0,0.1)]" />
+
+
         <div className="max-w-7xl mx-auto px-6 mb-24 text-center">
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-white font-outfit mb-6">Built on trust.</h2>
           <p className="text-white/40 text-lg font-light max-w-xl mx-auto">Working with global leaders to define the next generation of digital engineering.</p>
@@ -756,7 +923,12 @@ export default function Home() {
       <CommandMap />
 
       {/* FINAL CTA */}
-      <section className="py-48 relative z-10 border-t border-white/[0.02] bg-[#0A0A0A]">
+      <section className="py-48 relative z-10 border-t border-[#FF6A00]/30 bg-[#0A0A0A] shadow-[0_-10px_60px_-20px_rgba(255,106,0,0.2)]">
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/60 to-transparent" />
+        <div className="absolute top-12 left-6 w-5 h-5 border-t-2 border-l-2 border-[#FF6A00]/50 pointer-events-none shadow-[0_0_15px_rgba(255,106,0,0.3)]" />
+        <div className="absolute top-12 right-6 w-5 h-5 border-t-2 border-r-2 border-[#FF6A00]/50 pointer-events-none shadow-[0_0_15px_rgba(255,106,0,0.3)]" />
+
+
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#FF6A00]/[0.03] rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">

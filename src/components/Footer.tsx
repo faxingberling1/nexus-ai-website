@@ -56,7 +56,7 @@ export default function Footer() {
                             {[
                                 { name: 'About Us', href: '/about' },
                                 { name: 'Careers', href: '/careers' },
-                                { name: 'Contact', href: '/contact' },
+                                { name: 'Support', href: '/support' },
                                 { name: 'Twitter', href: 'https://twitter.com' }
                             ].map((item) => (
                                 <li key={item.name}>

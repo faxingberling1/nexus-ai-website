@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
     Brain, Globe, LineChart, Zap, Layers, Gamepad2, PenTool, ClipboardList,
-    ArrowUpRight, ChevronRight, CheckCircle2, Star, Sparkles
+    ArrowUpRight, ChevronRight, CheckCircle2, Star, Sparkles, Link as LinkIcon, Cpu, Shield
 } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -82,6 +82,15 @@ const services = [
         icon: ClipboardList,
         color: "#0075FF",
         features: ["Technology Audits", "Growth Blueprints", "Digital Strategy", "Business Advisory"]
+    },
+    {
+        title: "Blockchain Apps",
+        slug: "blockchain-apps",
+        pricingId: "blockchain",
+        description: "Secure Web3 infrastructure including custom wallet creation and decentralized service integration.",
+        icon: Cpu,
+        color: "#F7931A",
+        features: ["Wallet Creation", "Smart Contracts", "DeFi Integration", "Web3 Identity"]
     }
 ];
 
@@ -94,6 +103,7 @@ function AbstractServiceIndicator({ type, color, isHovered }: { type: string, co
     const isGame = type === "game-development";
     const isBrand = type === "brand-messaging";
     const isConsulting = type === "strategic-consulting";
+    const isBlockchain = type === "blockchain-apps";
 
     return (
         <div className="absolute top-12 right-12 w-32 h-32 pointer-events-none overflow-hidden rounded-2xl border border-white/[0.03] bg-white/[0.01] flex items-center justify-center group-hover:bg-white/[0.03] transition-all duration-700">
@@ -266,6 +276,30 @@ function AbstractServiceIndicator({ type, color, isHovered }: { type: string, co
                                 transition={{ delay: i * 0.05 }}
                             />
                         ))}
+                    </div>
+                )}
+
+                {isBlockchain && (
+                    <div className="relative w-20 h-20">
+                        <motion.div
+                            className="absolute inset-0 border-2 border-dashed border-white/20 rounded-xl"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                        />
+                        <div className="flex gap-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                            {[0, 1, 2].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    className="w-3 h-3 rounded-sm"
+                                    style={{ backgroundColor: color }}
+                                    animate={{
+                                        scale: [1, 1.2, 1],
+                                        opacity: [0.4, 1, 0.4]
+                                    }}
+                                    transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
+                                />
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

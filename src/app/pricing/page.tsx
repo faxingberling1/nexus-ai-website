@@ -117,10 +117,23 @@ const pricingCategories = [
             { name: "Product Strategy", price: "3500", cta: "Start Product Strategy", features: ["Market validation", "Pricing", "Go-to-market plan", "Launch strategy"] },
             { name: "Executive Advisory", price: "Custom", cta: "Schedule Consultation", features: ["Ongoing consulting", "Strategic sessions", "Expansion planning", "Custom Roadmap"] }
         ]
+    },
+    {
+        id: "blockchain",
+        title: "Blockchain",
+        icon: Cpu,
+        description: "One-Time + Maintenance",
+        tiers: [
+            { name: "Smart Audit", price: "1500", maintenance: "150", cta: "Start Audit", features: ["Security audit", "Gas optimization", "Vulnerability report", "Architecture review"] },
+            { name: "Wallet Launch", price: "3500", maintenance: "350", cta: "Build Wallet", features: ["Non-custodial setup", "Key management", "Mobile/Web integration", "Security layer"], popular: true },
+            { name: "DApp Build", price: "6000", maintenance: "600", cta: "Build DApp", features: ["Custom smart contracts", "Web3 frontend", "Wallet connect", "IPFS storage"] },
+            { name: "Protocol Integration", price: "9000", maintenance: "900", cta: "Integrate Protocol", features: ["Cross-chain bridges", "Custom L2 solutions", "Tokenomics design", "Liquidity setup"] },
+            { name: "Enterprise Chain", price: "Custom", maintenance: "Custom", cta: "Schedule Consultation", features: ["Private network", "Managed nodes", "Permissioning", "Full Support"] }
+        ]
     }
 ];
 
-const hiddenBillingSectors = ['ai', 'web', 'automation', 'product', 'game', 'brand', 'consulting'];
+const hiddenBillingSectors = ['ai', 'web', 'automation', 'product', 'game', 'brand', 'consulting', 'blockchain'];
 
 export default function PricingPage() {
     const [activeCategory, setActiveCategory] = useState(pricingCategories[0].id);
