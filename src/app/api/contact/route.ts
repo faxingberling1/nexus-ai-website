@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json();
-        const { type, name, email, message, selections, loeInitiated } = body;
+        const { type, name, email, phone, message, selections, loeInitiated } = body;
 
         const destinationEmail = type === 'project' ? 'sales@neonbyteai.com' : 'support@neonbyteai.com';
 
@@ -36,6 +36,7 @@ export async function POST(request: Request) {
                     <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                         <tr><td style="color: #888; padding: 6px 0; width: 130px;">Name</td><td style="color: #fff;">${name}</td></tr>
                         <tr><td style="color: #888; padding: 6px 0;">Email</td><td style="color: #fff;"><a href="mailto:${email}" style="color: #FF6A01;">${email}</a></td></tr>
+                        ${phone ? `<tr><td style="color: #888; padding: 6px 0;">Phone</td><td style="color: #fff;">${phone}</td></tr>` : ''}
                         ${isProject ? `
                         <tr><td style="color: #888; padding: 6px 0;">Company</td><td style="color: #fff;">${selections?.company || 'N/A'}</td></tr>
                         <tr><td style="color: #888; padding: 6px 0;">Role</td><td style="color: #fff;">${selections?.role || 'N/A'}</td></tr>

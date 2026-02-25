@@ -2,24 +2,29 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, MessageSquare, ArrowRight, ChevronRight, Check, Loader2 } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, ArrowRight, Check, Loader2 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumSelect from '@/components/PremiumSelect';
+import CaptchaWidget from '@/components/CaptchaWidget';
 
 const supportCategories = [
     { value: 'Technical Support', label: 'Technical Support' },
     { value: 'Project Inquiry', label: 'Project Inquiry' },
     { value: 'Billing & Account', label: 'Billing & Account' },
-    { value: 'Other Question', label: 'Other Question' }
+    { value: 'General Question', label: 'General Question' },
+    { value: 'Partnership', label: 'Partnership Opportunity' },
+    { value: 'Other', label: 'Other' }
 ];
 
 export default function SupportPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string }>({});
+    const [captchaVerified, setCaptchaVerified] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         category: 'Technical Support',
         message: ''
     });
@@ -28,6 +33,7 @@ export default function SupportPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!captchaVerified) return;
         setIsSubmitting(true);
         try {
             const response = await fetch('/api/contact', {
@@ -37,6 +43,7 @@ export default function SupportPage() {
                     type: 'support',
                     name: formData.name,
                     email: formData.email,
+                    phone: formData.phone,
                     message: formData.message,
                     selections: { category: formData.category }
                 })
@@ -44,10 +51,10 @@ export default function SupportPage() {
             const data = await response.json();
             setSubmitStatus({ success: data.success, message: data.message });
             if (data.success) {
-                setFormData({ name: '', email: '', category: 'Technical Support', message: '' });
+                setFormData({ name: '', email: '', phone: '', category: 'Technical Support', message: '' });
             }
         } catch (error) {
-            setSubmitStatus({ success: false, message: 'Critical connection failure. Please try again.' });
+            setSubmitStatus({ success: false, message: 'Connection failure. Please try again.' });
         } finally {
             setIsSubmitting(false);
         }
@@ -57,14 +64,12 @@ export default function SupportPage() {
         <main className="min-h-screen bg-[#050505] pt-32 relative overflow-hidden text-[#EDEDED] selection:bg-[#FF6A00]/30 font-inter font-light">
             <Header />
 
-            {/* Ultra-Premium Noise Background */}
+            {/* Background */}
             <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
 
-            {/* Extreme subtle lighting */}
             <div className="fixed top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-b from-[#FF6A00] to-transparent opacity-[0.05] blur-[160px] pointer-events-none" />
             <div className="fixed bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-t from-[#FF6A00] to-transparent opacity-[0.03] blur-[160px] pointer-events-none" />
 
-            {/* Interior Grid Lines */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden h-[200vh]">
                 <div className="absolute top-0 left-[20%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
                 <div className="absolute top-0 left-[40%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
@@ -75,7 +80,7 @@ export default function SupportPage() {
             <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
-                    {/* Contact Info */}
+                    {/* Left — Contact Info */}
                     <div className="flex flex-col justify-center">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
@@ -100,7 +105,6 @@ export default function SupportPage() {
                             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Assistance.</span>
                         </motion.h1>
 
-                        {/* Divider */}
                         <div className="w-24 h-[1px] bg-gradient-to-r from-[#FF6A00] to-transparent mb-12 shadow-[0_0_10px_rgba(255,106,0,0.5)]" />
 
                         <motion.p
@@ -138,21 +142,19 @@ export default function SupportPage() {
                         </div>
                     </div>
 
-                    {/* Contact Form */}
+                    {/* Right — Form */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: easing }}
                         className="bg-[#121212]/30 backdrop-blur-3xl border border-[#FF6A00]/10 rounded-[3rem] p-12 shadow-[0_0_50px_rgba(0,0,0,0.3)] relative overflow-hidden group hover:border-[#FF6A00]/20 transition-all duration-700"
                     >
-                        {/* Corner Brackets */}
                         <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/30 pointer-events-none transition-colors group-hover:border-[#FF6A00]/60" />
                         <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/30 pointer-events-none transition-colors group-hover:border-[#FF6A00]/60" />
-
                         <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF6A00]/[0.07] rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF6A00]/[0.03] rounded-full blur-[100px] pointer-events-none -translate-x-1/2 translate-y-1/2" />
 
-                        <form className="space-y-8 relative z-10" onSubmit={handleSubmit}>
+                        <form className="space-y-7 relative z-10" onSubmit={handleSubmit}>
                             {submitStatus.success ? (
                                 <div className="p-8 bg-[#FF6A00]/10 border border-[#FF6A00]/30 rounded-3xl text-center">
                                     <div className="w-16 h-16 bg-[#FF6A00]/20 border border-[#FF6A00]/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(255,106,0,0.2)]">
@@ -170,7 +172,8 @@ export default function SupportPage() {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Row 1: Name + Email */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
                                         <div className="space-y-3">
                                             <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Full Name</label>
                                             <input
@@ -195,19 +198,36 @@ export default function SupportPage() {
                                         </div>
                                     </div>
 
-                                    <PremiumSelect
-                                        label="Support Category"
-                                        options={supportCategories}
-                                        value={formData.category}
-                                        onChange={(val) => setFormData({ ...formData, category: val })}
-                                        placeholder="Select Category"
-                                    />
+                                    {/* Row 2: Phone + Category */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Phone Number</label>
+                                            <input
+                                                type="tel"
+                                                required
+                                                placeholder="+1 (555) 000-0000"
+                                                value={formData.phone}
+                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                className="w-full bg-[#1A1A1A]/50 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 focus:bg-[#1A1A1A]/80 transition-all duration-500 font-inter text-[15px] shadow-inner"
+                                            />
+                                        </div>
+                                        <div className="space-y-3">
+                                            <PremiumSelect
+                                                label="Support Category"
+                                                options={supportCategories}
+                                                value={formData.category}
+                                                onChange={(val) => setFormData({ ...formData, category: val })}
+                                                placeholder="Select Category"
+                                            />
+                                        </div>
+                                    </div>
 
+                                    {/* Message */}
                                     <div className="space-y-3">
                                         <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Message</label>
                                         <textarea
                                             required
-                                            rows={5}
+                                            rows={4}
                                             placeholder="How can we help you today?"
                                             value={formData.message}
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -215,28 +235,30 @@ export default function SupportPage() {
                                         />
                                     </div>
 
+                                    {/* CAPTCHA */}
+                                    <CaptchaWidget onVerified={setCaptchaVerified} />
+
                                     {submitStatus.success === false && (
                                         <p className="text-red-400 text-xs text-center font-medium">{submitStatus.message}</p>
                                     )}
 
                                     <button
-                                        disabled={isSubmitting}
-                                        className="w-full group relative bg-[#FF6A00] text-white font-semibold py-6 rounded-2xl overflow-hidden transition-all duration-700 shadow-[0_12px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-12px_rgba(255,106,0,0.7)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50"
+                                        disabled={isSubmitting || !captchaVerified}
+                                        className="w-full group relative bg-[#FF6A00] text-white font-semibold py-6 rounded-2xl overflow-hidden transition-all duration-700 shadow-[0_12px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-12px_rgba(255,106,0,0.7)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                                     >
                                         <span className="relative z-10 flex items-center justify-center gap-3 tracking-wide text-sm">
                                             {isSubmitting ? (
-                                                <>
-                                                    SENDING... <Loader2 size={18} className="animate-spin" />
-                                                </>
+                                                <>SENDING... <Loader2 size={18} className="animate-spin" /></>
                                             ) : (
-                                                <>
-                                                    SEND MESSAGE <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                                </>
+                                                <>SEND MESSAGE <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></>
                                             )}
                                         </span>
                                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF8C33] to-[#FF6A00] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.2)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                                     </button>
+
+                                    {!captchaVerified && (
+                                        <p className="text-white/20 text-[10px] text-center uppercase tracking-widest">Complete verification to enable submit</p>
+                                    )}
                                 </>
                             )}
                         </form>

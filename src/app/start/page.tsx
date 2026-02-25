@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumSelect from '@/components/PremiumSelect';
+import CaptchaWidget from '@/components/CaptchaWidget';
 
 const timelineOptions = [
     { value: '1-3-months', label: '1-3 Months (Rapid)' },
@@ -79,13 +80,14 @@ function StartProjectContent() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         company: '',
         role: '',
         timeline: '',
         budget: '',
-        description: '',
-        stack: ''
+        description: ''
     });
+    const [captchaVerified, setCaptchaVerified] = useState(false);
     const [loeInitiated, setLoeInitiated] = useState(false);
 
     const easing = [0.16, 1, 0.3, 1] as any;
@@ -94,6 +96,7 @@ function StartProjectContent() {
     const prevStep = () => currentStep > 0 && setCurrentStep(currentStep - 1);
 
     const handleSubmit = async () => {
+        if (!captchaVerified) return;
         setIsSubmitting(true);
         try {
             const response = await fetch('/api/contact', {
@@ -103,6 +106,7 @@ function StartProjectContent() {
                     type: 'project',
                     name: formData.name,
                     email: formData.email,
+                    phone: formData.phone,
                     message: formData.description,
                     selections: {
                         focusArea: selections.service,
@@ -227,9 +231,10 @@ function StartProjectContent() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-6">
                                             <div className="space-y-2">
-                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Identity</label>
+                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Full Name</label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     placeholder="Full Name"
                                                     value={formData.name}
                                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -240,6 +245,7 @@ function StartProjectContent() {
                                                 <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Professional Email</label>
                                                 <input
                                                     type="email"
+                                                    required
                                                     placeholder="work@company.com"
                                                     value={formData.email}
                                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -247,18 +253,41 @@ function StartProjectContent() {
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Company / Organization</label>
+                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Phone Number</label>
                                                 <input
-                                                    type="text"
-                                                    placeholder="Enterprise Name"
-                                                    value={formData.company}
-                                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                                    type="tel"
+                                                    required
+                                                    placeholder="+1 (555) 000-0000"
+                                                    value={formData.phone}
+                                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                     className="w-full bg-[#1A1A1A]/80 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all duration-500 font-inter text-[15px]"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-6">
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Company / Organization</label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    placeholder="Enterprise Name"
+                                                    value={formData.company}
+                                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                                    className="w-full bg-[#1A1A1A]/80 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all duration-500 font-inter text-[15px]"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Professional Role</label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    placeholder="CEO, CTO, Product Manager..."
+                                                    value={formData.role}
+                                                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                                    className="w-full bg-[#1A1A1A]/80 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all duration-500 font-inter text-[15px]"
+                                                />
+                                            </div>
                                             <PremiumSelect
                                                 label="Target Timeline"
                                                 options={timelineOptions}
@@ -266,29 +295,23 @@ function StartProjectContent() {
                                                 onChange={(val) => setFormData({ ...formData, timeline: val })}
                                                 placeholder="Select Timeline"
                                             />
-                                            <PremiumSelect
-                                                label="Investment Bracket"
-                                                options={budgetOptions}
-                                                value={formData.budget}
-                                                onChange={(val) => setFormData({ ...formData, budget: val })}
-                                                placeholder="Select Budget Range"
-                                            />
-                                            <div className="space-y-2">
-                                                <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Professional Role</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Product Manager, CTO, etc."
-                                                    value={formData.role}
-                                                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                                                    className="w-full bg-[#1A1A1A]/80 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all duration-500 font-inter text-[15px]"
-                                                />
-                                            </div>
                                         </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <PremiumSelect
+                                            label="Investment Bracket"
+                                            options={budgetOptions}
+                                            value={formData.budget}
+                                            onChange={(val) => setFormData({ ...formData, budget: val })}
+                                            placeholder="Select Budget Range"
+                                        />
                                     </div>
 
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-[#FF6A00] font-bold ml-1">Project Objectives</label>
                                         <textarea
+                                            required
                                             rows={4}
                                             placeholder="Briefly describe your goals and scope of work..."
                                             value={formData.description}
@@ -297,7 +320,24 @@ function StartProjectContent() {
                                         />
                                     </div>
 
-                                    <button onClick={nextStep} className="w-full bg-[#FF6A00] text-white font-semibold py-6 rounded-2xl hover:shadow-[0_15px_40px_rgba(255,106,0,0.5)] transition-all duration-700 flex items-center justify-center gap-3 group active:scale-[0.98]">
+                                    <button
+                                        onClick={() => {
+                                            if (
+                                                !formData.name.trim() ||
+                                                !formData.email.trim() ||
+                                                !formData.phone.trim() ||
+                                                !formData.company.trim() ||
+                                                !formData.role.trim() ||
+                                                !formData.timeline ||
+                                                !formData.budget ||
+                                                !formData.description.trim()
+                                            ) {
+                                                alert('Please complete all fields before continuing.');
+                                                return;
+                                            }
+                                            nextStep();
+                                        }}
+                                        className="w-full bg-[#FF6A00] text-white font-semibold py-6 rounded-2xl hover:shadow-[0_15px_40px_rgba(255,106,0,0.5)] transition-all duration-700 flex items-center justify-center gap-3 group active:scale-[0.98]">
                                         Review Summary <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                     </button>
                                 </div>
@@ -384,6 +424,7 @@ function StartProjectContent() {
                                                         <p className="text-[10px] uppercase tracking-[0.2em] text-[#FF6A00] font-bold mb-2">Contact Info</p>
                                                         <p className="text-white text-lg font-medium">{formData.name}</p>
                                                         <p className="text-white/40 text-sm mt-1">{formData.email}</p>
+                                                        {formData.phone && <p className="text-white/40 text-sm mt-1">{formData.phone}</p>}
                                                         <p className="text-white/60 text-[11px] mt-2 italic">{formData.role} @ {formData.company}</p>
                                                     </div>
                                                     <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.04]">
@@ -408,12 +449,15 @@ function StartProjectContent() {
                                                 </div>
                                             </div>
 
+                                            {/* CAPTCHA */}
+                                            <CaptchaWidget onVerified={setCaptchaVerified} />
+
                                             {submitStatus.success === false && (
                                                 <p className="text-red-400 text-sm mb-6 text-center">{submitStatus.message}</p>
                                             )}
 
                                             <button
-                                                disabled={isSubmitting}
+                                                disabled={isSubmitting || !captchaVerified}
                                                 onClick={handleSubmit}
                                                 className="w-full bg-[#FF6A00] text-white font-bold py-7 rounded-[2rem] hover:shadow-[0_20px_50px_rgba(255,106,0,0.4)] transition-all duration-700 flex items-center justify-center gap-4 group text-lg tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
@@ -423,6 +467,9 @@ function StartProjectContent() {
                                                     </>
                                                 )}
                                             </button>
+                                            {!captchaVerified && (
+                                                <p className="text-white/20 text-[10px] text-center uppercase tracking-widest">Complete verification to enable submit</p>
+                                            )}
                                         </div>
                                     )}
                                 </div>
