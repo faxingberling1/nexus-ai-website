@@ -324,7 +324,7 @@ const ModularSectorBuilder = ({ data }: { data: any }) => {
                                 }}
                                 className="bg-white text-[#FF6A00] px-16 py-6 rounded-3xl font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-white/10 flex items-center gap-3 w-full lg:w-fit justify-center"
                             >
-                                Request Proposal <ArrowRight />
+                                Next Step: Your Information <ArrowRight />
                             </button>
                             <p className="mt-6 text-[10px] text-white/40 font-medium italic lg:text-right">
                                 *Final price is calculated before development begins.
@@ -666,7 +666,7 @@ export default function PricingPage() {
                                                 ? 'bg-[#FF6A00] text-white hover:shadow-[0_8px_25px_-10px_rgba(255,106,0,0.6)]'
                                                 : 'bg-white text-black hover:bg-white/90'
                                                 }`}>
-                                            {tier.cta}
+                                            Next Step: Your Information
                                             <ArrowRight size={14} className="translate-x-0 group-hover/btn:translate-x-1 transition-transform" />
                                         </button>
                                     </div>
