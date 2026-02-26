@@ -35,7 +35,8 @@ const products = [
         description: "An AI-powered email marketing platform featuring automated campaigns, real-time analytics, and predictive segmentation to optimize engagement forecasting.",
         icon: Mail,
         metrics: ["Peak Engagement Forecast", "Neural Segmentation", "Real-time Analytics"],
-        link: "https://mailmind.neonbyteai.com/"
+        link: "https://mailmind.neonbyteai.com/",
+        image: "/mailmind.png"
     }
 ];
 
@@ -112,25 +113,44 @@ export default function ProductsPage() {
                                 </div>
 
                                 <div className="bg-[#1A1A1A] relative min-h-[400px] border-l border-white/[0.04] p-12 lg:p-20 overflow-hidden group">
-                                    {/* Abstract Dashboard Visual */}
-                                    <div className="absolute inset-x-12 inset-y-12 bg-[#0A0A0A] rounded-2xl border border-white/[0.05] shadow-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-1000">
-                                        <div className="h-8 border-b border-white/[0.05] flex items-center px-4 gap-2 bg-white/[0.01]">
-                                            <div className="w-2 h-2 rounded-full bg-white/10" />
-                                            <div className="w-2 h-2 rounded-full bg-white/10" />
-                                            <div className="w-2 h-2 rounded-full bg-white/10" />
-                                        </div>
-                                        <div className="p-8 space-y-4">
-                                            <div className="h-4 w-1/3 bg-white/[0.03] rounded" />
-                                            <div className="grid grid-cols-3 gap-4">
-                                                <div className="h-24 bg-[#FF6A00]/[0.05] rounded-xl border border-[#FF6A00]/10" />
-                                                <div className="h-24 bg-white/[0.02] rounded-xl border border-white/5" />
-                                                <div className="h-24 bg-white/[0.02] rounded-xl border border-white/5" />
+                                    {product.image ? (
+                                        <div className="absolute inset-x-12 inset-y-12 z-10">
+                                            <div className="w-full h-full bg-[#0A0A0A] rounded-2xl border border-white/[0.05] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform group-hover:scale-105 transition-transform duration-1000 flex flex-col">
+                                                <div className="h-8 shrink-0 border-b border-white/[0.05] flex items-center px-4 gap-2 bg-white/[0.01]">
+                                                    <div className="w-2 h-2 rounded-full bg-white/10" />
+                                                    <div className="w-2 h-2 rounded-full bg-white/10" />
+                                                    <div className="w-2 h-2 rounded-full bg-white/10" />
+                                                </div>
+                                                <div className="flex-1 relative overflow-hidden">
+                                                    <img
+                                                        src={product.image}
+                                                        alt={`${product.title} Dashboard`}
+                                                        className="absolute inset-0 w-full h-full object-cover object-center"
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="h-32 bg-white/[0.01] rounded-xl border border-white/5 relative overflow-hidden">
-                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6A00]/10 to-transparent w-1/2 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-2000" />
+                                        </div>
+                                    ) : (
+                                        /* Abstract Dashboard Visual */
+                                        <div className="absolute inset-x-12 inset-y-12 bg-[#0A0A0A] rounded-2xl border border-white/[0.05] shadow-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-1000">
+                                            <div className="h-8 border-b border-white/[0.05] flex items-center px-4 gap-2 bg-white/[0.01]">
+                                                <div className="w-2 h-2 rounded-full bg-white/10" />
+                                                <div className="w-2 h-2 rounded-full bg-white/10" />
+                                                <div className="w-2 h-2 rounded-full bg-white/10" />
+                                            </div>
+                                            <div className="p-8 space-y-4">
+                                                <div className="h-4 w-1/3 bg-white/[0.03] rounded" />
+                                                <div className="grid grid-cols-3 gap-4">
+                                                    <div className="h-24 bg-[#FF6A00]/[0.05] rounded-xl border border-[#FF6A00]/10" />
+                                                    <div className="h-24 bg-white/[0.02] rounded-xl border border-white/5" />
+                                                    <div className="h-24 bg-white/[0.02] rounded-xl border border-white/5" />
+                                                </div>
+                                                <div className="h-32 bg-white/[0.01] rounded-xl border border-white/5 relative overflow-hidden">
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF6A00]/10 to-transparent w-1/2 -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-2000" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    )}
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6A00]/5 rounded-full blur-[100px] pointer-events-none" />
                                 </div>
                             </div>

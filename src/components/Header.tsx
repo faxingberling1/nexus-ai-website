@@ -17,6 +17,7 @@ export default function Header() {
     }, []);
 
     const navLinks = [
+        { label: 'Our Work', href: '/our-work' },
         { label: 'Services', href: '/services' },
         { label: 'Pricing', href: '/pricing' },
         { label: 'Products', href: '/products' },
@@ -52,7 +53,7 @@ export default function Header() {
                             <Link
                                 key={link.label}
                                 href={link.href}
-                                className="text-xs font-medium text-white/50 hover:text-white hover:bg-white/[0.06] px-5 py-2.5 rounded-full transition-all duration-300 font-inter"
+                                className="text-[11px] lg:text-xs font-medium text-white/50 hover:text-white hover:bg-white/[0.06] px-3 lg:px-4 py-2 rounded-full transition-all duration-300 font-inter whitespace-nowrap"
                             >
                                 {link.label}
                             </Link>

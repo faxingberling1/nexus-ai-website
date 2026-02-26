@@ -233,12 +233,12 @@ export default function Home() {
               variants={fadeUpVar}
               className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto"
             >
-              <button className="relative group bg-[#FF6A00] text-white text-sm font-semibold px-9 py-4 rounded-full overflow-hidden transition-all duration-500 shadow-[0_8px_25px_-8px_rgba(255,106,0,0.6)] hover:shadow-[0_12px_35px_-12px_rgba(255,106,0,0.8)] hover:-translate-y-0.5">
+              <Link href="/start" className="relative group bg-[#FF6A00] text-white text-sm font-semibold px-9 py-4 rounded-full overflow-hidden transition-all duration-500 shadow-[0_8px_25px_-8px_rgba(255,106,0,0.6)] hover:shadow-[0_12px_35px_-12px_rgba(255,106,0,0.8)] hover:-translate-y-0.5">
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Start a Project <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#FF8C33] to-[#FF6A00] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </button>
+              </Link>
 
               <button className="flex items-center justify-center gap-2 bg-[#121212]/40 backdrop-blur-xl border border-white/[0.08] text-white text-sm font-semibold px-9 py-4 rounded-full hover:bg-white/[0.05] hover:border-white/[0.15] transition-all duration-300">
                 Explore Our Work

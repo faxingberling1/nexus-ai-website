@@ -106,7 +106,7 @@ function AbstractServiceIndicator({ type, color, isHovered }: { type: string, co
     const isBlockchain = type === "blockchain-apps";
 
     return (
-        <div className="absolute top-12 right-12 w-32 h-32 pointer-events-none overflow-hidden rounded-2xl border border-white/[0.03] bg-white/[0.01] flex items-center justify-center group-hover:bg-white/[0.03] transition-all duration-700">
+        <div className="absolute top-6 right-6 w-24 h-24 pointer-events-none overflow-hidden rounded-2xl border border-white/[0.03] bg-white/[0.01] flex items-center justify-center group-hover:bg-white/[0.03] transition-all duration-700">
             {/* Ambient Glow within indicator */}
             <motion.div
                 className="absolute inset-0 blur-2xl opacity-20"
@@ -114,7 +114,7 @@ function AbstractServiceIndicator({ type, color, isHovered }: { type: string, co
                 style={{ background: color }}
             />
 
-            <div className="relative w-full h-full flex items-center justify-center scale-75 lg:scale-100">
+            <div className="relative w-full h-full flex items-center justify-center scale-50 lg:scale-75">
                 {isAI && (
                     <div className="relative w-20 h-20">
                         {[...Array(6)].map((_, i) => (
@@ -344,7 +344,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* The Portal Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-40">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-40">
                     {services.map((service, idx) => {
                         const [isHovered, setIsHovered] = React.useState(false);
 
@@ -365,28 +365,28 @@ export default function ServicesPage() {
                                     style={{ background: `linear-gradient(to bottom right, ${service.color}, transparent)` }}
                                 />
 
-                                <div className="relative h-full bg-[#121212]/40 backdrop-blur-3xl border border-white/[0.05] rounded-[3rem] p-12 overflow-hidden transition-all duration-700 group-hover:bg-[#121212]/60 z-10">
+                                <div className="relative h-full bg-[#121212]/40 backdrop-blur-3xl border border-white/[0.05] rounded-[2rem] p-8 overflow-hidden transition-all duration-700 group-hover:bg-[#121212]/60 z-10 flex flex-col justify-between">
                                     {/* Card Glow */}
                                     <div
-                                        className="absolute top-0 right-0 w-80 h-80 opacity-0 group-hover:opacity-10 transition-opacity duration-1000 translate-x-1/3 -translate-y-1/3 blur-[100px]"
+                                        className="absolute top-0 right-0 w-64 h-64 opacity-0 group-hover:opacity-10 transition-opacity duration-1000 translate-x-1/3 -translate-y-1/3 blur-[80px]"
                                         style={{ background: service.color }}
                                     />
 
                                     {/* Abstract Service Indicator */}
                                     <AbstractServiceIndicator type={service.slug} color={service.color} isHovered={isHovered} />
 
-                                    <div className="relative z-10 flex flex-col h-full">
-                                        <div className="flex justify-between items-start mb-16">
-                                            <div className="flex flex-col gap-4">
+                                    <div className="relative z-10 flex flex-col h-full flex-grow">
+                                        <div className="flex justify-between items-start mb-10">
+                                            <div className="flex flex-col gap-3">
                                                 <div
-                                                    className="w-20 h-20 rounded-3xl border flex items-center justify-center transition-all duration-700 shadow-xl group-hover:rotate-[10deg] group-hover:scale-110"
+                                                    className="w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-700 shadow-xl group-hover:rotate-[10deg] group-hover:scale-110"
                                                     style={{
                                                         backgroundColor: `${service.color}10`,
                                                         borderColor: `${service.color}20`,
                                                         color: service.color
                                                     }}
                                                 >
-                                                    <service.icon size={36} strokeWidth={1.5} />
+                                                    <service.icon size={26} strokeWidth={1.5} />
                                                 </div>
                                                 <span
                                                     className="text-[10px] font-bold tracking-[0.3em] uppercase opacity-40 group-hover:opacity-100 transition-opacity"
@@ -397,40 +397,40 @@ export default function ServicesPage() {
                                             </div>
                                             <Link
                                                 href={`/services/${service.slug}`}
-                                                className="w-12 h-12 rounded-full border border-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 translate-x-4 group-hover:translate-x-0 hover:bg-white/10"
+                                                className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-700 translate-x-4 group-hover:translate-x-0 hover:bg-white/10"
                                             >
-                                                <ArrowUpRight size={24} style={{ color: service.color }} />
+                                                <ArrowUpRight size={20} style={{ color: service.color }} />
                                             </Link>
                                         </div>
 
-                                        <div className="mb-12 max-w-[70%]">
-                                            <h3 className="text-4xl font-medium mb-6 transition-colors duration-500 group-hover:text-white" style={{ color: `${service.color}CC` }}>{service.title}</h3>
-                                            <p className="text-lg text-white/40 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-500">
+                                        <div className="mb-8 flex-grow">
+                                            <h3 className="text-2xl font-medium mb-4 transition-colors duration-500 group-hover:text-white" style={{ color: `${service.color}CC` }}>{service.title}</h3>
+                                            <p className="text-[15px] text-white/40 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-500">
                                                 {service.description}
                                             </p>
                                         </div>
 
-                                        <div className="mt-auto pt-10 border-t border-white/[0.05] flex flex-wrap gap-4 mb-12">
+                                        <div className="mt-auto pt-6 border-t border-white/[0.05] flex flex-wrap gap-2 mb-8">
                                             {service.features.map((feature, fidx) => (
-                                                <div key={fidx} className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:border-white/10 transition-colors duration-500">
+                                                <div key={fidx} className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.05] group-hover:border-white/10 transition-colors duration-500">
                                                     <div className="w-1 h-1 rounded-full" style={{ backgroundColor: service.color }} />
-                                                    <span className="text-xs font-bold tracking-wider text-white/30 uppercase group-hover:text-white/70 transition-colors duration-500">{feature}</span>
+                                                    <span className="text-[10px] font-bold tracking-wider text-white/30 uppercase group-hover:text-white/70 transition-colors duration-500">{feature}</span>
                                                 </div>
                                             ))}
                                         </div>
 
-                                        <div className="flex flex-col gap-4">
+                                        <div className="flex flex-col gap-3">
                                             <Link
                                                 href={`/services/${service.slug}`}
-                                                className="inline-flex items-center justify-between w-full p-6 rounded-2xl bg-white/[0.03] border border-white/[0.05] group/btn transition-all hover:bg-white/[0.08] hover:border-white/20"
+                                                className="inline-flex items-center justify-between w-full p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group/btn transition-all hover:bg-white/[0.08] hover:border-white/20"
                                             >
-                                                <span className="text-sm font-bold tracking-[0.2em] text-white uppercase group-hover/btn:translate-x-1 transition-transform">Visit Page</span>
-                                                <ChevronRight className="w-5 h-5 text-white/40 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+                                                <span className="text-xs font-bold tracking-[0.2em] text-white uppercase group-hover/btn:translate-x-1 transition-transform">Visit Page</span>
+                                                <ChevronRight className="w-4 h-4 text-white/40 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
                                             </Link>
 
                                             <Link
                                                 href={`/pricing#${service.pricingId}`}
-                                                className="inline-flex items-center justify-center w-full p-4 rounded-xl text-[10px] font-bold tracking-[0.2em] uppercase transition-all hover:bg-white/[0.03] border border-transparent hover:border-white/10"
+                                                className="inline-flex items-center justify-center w-full p-3 rounded-lg text-[10px] font-bold tracking-[0.2em] uppercase transition-all hover:bg-white/[0.03] border border-transparent hover:border-white/10"
                                                 style={{ color: `${service.color}80` }}
                                                 onMouseEnter={(e) => (e.currentTarget.style.color = service.color)}
                                                 onMouseLeave={(e) => (e.currentTarget.style.color = `${service.color}80`)}
