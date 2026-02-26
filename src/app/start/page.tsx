@@ -1074,7 +1074,7 @@ export default function StartProjectPage() {
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-center justify-between text-sm py-3 border-b border-white/[0.05]">
                                             <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Email</span>
-                                            <a href="mailto:support@neonbyte.com" className="text-white font-medium hover:text-[#FF6A00] transition-colors underline decoration-white/10 underline-offset-4">support@neonbyte.com</a>
+                                            <a href="mailto:support@neonbyteai.com" className="text-white font-medium hover:text-[#FF6A00] transition-colors underline decoration-white/10 underline-offset-4">support@neonbyteai.com</a>
                                         </div>
                                         <div className="flex items-center justify-between text-sm py-3">
                                             <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Phone</span>

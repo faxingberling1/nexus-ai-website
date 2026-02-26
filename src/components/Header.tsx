@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Phone } from 'lucide-react';
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -47,7 +47,7 @@ export default function Header() {
                         </div>
                     </Link>
 
-                    <nav className="hidden md:flex items-center gap-1 px-4 bg-white/[0.02] rounded-full border border-white/[0.04]">
+                    <nav className="hidden md:flex items-center gap-1 px-4 bg-white/[0.03] rounded-full border border-white/[0.1]">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.label}
@@ -70,6 +70,11 @@ export default function Header() {
                                 Start Project
                             </span>
                         </Link>
+
+                        {/* Direct Call Button */}
+                        <a href="tel:3322321676" className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/40 hover:text-white hover:border-[#FF6A00]/40 transition-all duration-500 group ml-1">
+                            <Phone size={14} className="group-hover:scale-110 transition-transform duration-500" />
+                        </a>
 
                         {/* Mobile Toggle */}
                         <button

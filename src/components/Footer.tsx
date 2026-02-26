@@ -39,7 +39,7 @@ export default function Footer() {
                                 <div className="w-8 h-8 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center group-hover:border-[#FF6A00]/40 transition-all duration-500">
                                     <Mail size={14} className="text-white/30 group-hover:text-[#FF6A00]" />
                                 </div>
-                                <a href="mailto:support@neonbyte.com" className="text-xs font-medium text-white/40 group-hover:text-white transition-colors duration-500 tracking-wide font-inter">support@neonbyte.com</a>
+                                <a href="mailto:support@neonbyteai.com" className="text-xs font-medium text-white/40 group-hover:text-white transition-colors duration-500 tracking-wide font-inter">support@neonbyteai.com</a>
                             </div>
                             <div className="flex items-center gap-4 group cursor-pointer">
                                 <div className="w-8 h-8 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center group-hover:border-[#FF6A00]/40 transition-all duration-500">

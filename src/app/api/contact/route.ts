@@ -20,10 +20,10 @@ export async function POST(request: Request) {
         const isProject = type === 'project';
 
         // Define destination and sender based on inquiry type
-        const destinationEmail = isProject ? 'sales@neonbyteai.com' : 'support@neonbyte.com';
+        const destinationEmail = isProject ? 'sales@neonbyteai.com' : 'support@neonbyteai.com';
         const fromEmail = isProject
             ? 'NeonByte AI Sales <sales@neonbyteai.com>'
-            : 'NeonByte AI Support <support@neonbyte.com>';
+            : 'NeonByte AI Support <support@neonbyteai.com>';
 
         const subject = isProject
             ? `[PROJECT] New Inquiry: ${selections?.company || name}`

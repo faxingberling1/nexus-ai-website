@@ -181,7 +181,7 @@ export default function SupportPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] uppercase font-bold tracking-widest text-white/20">Email</p>
-                                    <p className="text-sm">support@neonbyte.com</p>
+                                    <p className="text-sm">support@neonbyteai.com</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 text-white/50 hover:text-white transition-colors cursor-pointer group">

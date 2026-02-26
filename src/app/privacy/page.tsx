@@ -173,7 +173,7 @@ export default function PrivacyPage() {
                             className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 flex flex-col justify-between"
                         >
                             <h2 className="text-[#FF6A00] font-bold uppercase tracking-widest text-xs mb-4">7. Your Rights</h2>
-                            <p className="text-white/40 text-xs leading-relaxed">Access, correction, deletion, and portability via support@neonbyte.com</p>
+                            <p className="text-white/40 text-xs leading-relaxed">Access, correction, deletion, and portability via support@neonbyteai.com</p>
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -182,7 +182,7 @@ export default function PrivacyPage() {
                         >
                             <h2 className="text-[#FF6A00] font-bold uppercase tracking-widest text-xs mb-4">11. Contact</h2>
                             <p className="text-white/80 font-medium text-sm">NEONBYTE Headquarters<br />Delaware, US</p>
-                            <p className="text-white font-bold mt-2">support@neonbyte.com</p>
+                            <p className="text-white font-bold mt-2">support@neonbyteai.com</p>
                         </motion.div>
                     </div>
                 </div>
