@@ -41,9 +41,7 @@ export default function Header() {
 
                     <Link href="/" className="flex items-center gap-2 group px-4">
                         <div className="font-semibold text-lg tracking-tight font-outfit text-white flex items-center gap-2">
-                            <div className="relative w-4 h-4 rounded-[4px] bg-gradient-to-br from-[#FF6A00] to-[#FF8C33] shadow-[0_0_12px_rgba(255,106,0,0.4)] overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-1/2 bg-white/20" />
-                            </div>
+                            <img src="/sad@2x.png" alt="Neon Byte AI Logo" className="w-5 h-5 object-contain" />
                             NEON<span className="text-white/40 font-medium">BYTE</span>
                         </div>
                     </Link>

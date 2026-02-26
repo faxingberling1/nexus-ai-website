@@ -22,9 +22,7 @@ export default function Footer() {
                     {/* Brand & Mission Brief */}
                     <div className="md:col-span-5">
                         <Link href="/" className="inline-flex items-center gap-3 mb-8 group">
-                            <div className="relative w-6 h-6 rounded-[5px] bg-gradient-to-br from-[#FF6A00] to-[#FF8C33] shadow-[0_0_15px_rgba(255,106,0,0.4)] overflow-hidden transition-transform duration-500 group-hover:scale-110">
-                                <div className="absolute top-0 left-0 w-full h-1/2 bg-white/20" />
-                            </div>
+                            <img src="/sad@2x.png" alt="Neon Byte AI Logo" className="w-8 h-8 object-contain transition-transform duration-500 group-hover:scale-110" />
                             <div className="font-semibold text-2xl tracking-tight font-outfit text-white">
                                 NEON<span className="text-white/40 font-medium">BYTE</span>
                             </div>
