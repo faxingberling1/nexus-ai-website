@@ -683,12 +683,15 @@ export default function PricingPage() {
                         <div className="w-20 h-20 rounded-3xl bg-[#FF6A00]/10 border border-[#FF6A00]/20 flex items-center justify-center text-[#FF6A00] mx-auto mb-10 shadow-2xl">
                             <Shield size={32} />
                         </div>
-                        <h4 className="text-4xl font-semibold text-white mb-6 font-outfit">Can't find your specific protocol?</h4>
+                        <h4 className="text-4xl font-semibold text-white mb-6 font-outfit">Got any questions?</h4>
                         <p className="text-white/40 text-lg font-light leading-relaxed mb-12">
-                            For global-scale infrastructure or highly complex AI orchestrations, we deploy a dedicated engineering cell to map out a custom technical blueprint.
+                            For large-scale projects or complex solutions, we provide dedicated support to build your custom business strategy.
                         </p>
-                        <button className="bg-white text-black px-12 py-5 rounded-2xl font-bold tracking-tight hover:shadow-[0_20px_50px_-15px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 flex items-center gap-3 mx-auto">
-                            Request Custom Enterprise Briefing
+                        <button
+                            onClick={() => (window as any).Tawk_API?.toggle()}
+                            className="bg-white text-black px-12 py-5 rounded-2xl font-bold tracking-tight hover:shadow-[0_20px_50px_-15px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 flex items-center gap-3 mx-auto"
+                        >
+                            Chat with an Expert
                             <ArrowRight size={20} />
                         </button>
                     </div>

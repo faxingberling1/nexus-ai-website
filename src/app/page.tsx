@@ -7,6 +7,7 @@ import { Brain, Code, LineChart, Gamepad2, PenTool, GitBranch, ArrowRight, Arrow
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CommandMap from '@/components/CommandMap';
+import BookingModal from '@/components/BookingModal';
 
 const systemLayers = [
   {
@@ -179,6 +180,7 @@ const fadeUpVar = {
 
 export default function Home() {
   const [isMounted, setIsMounted] = React.useState(false);
+  const [isBookingOpen, setIsBookingOpen] = React.useState(false);
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -873,12 +875,16 @@ export default function Home() {
           <h2 className="text-6xl md:text-[5rem] font-semibold tracking-[-0.03em] text-white font-outfit mb-12 leading-tight">
             Ready to Build<br /> Something Exceptional?
           </h2>
-          <button className="relative group inline-flex items-center justify-center bg-white text-black text-sm font-semibold px-10 py-5 rounded-full transition-all duration-500 hover:scale-[1.02] shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+          <button
+            onClick={() => setIsBookingOpen(true)}
+            className="relative group inline-flex items-center justify-center bg-white text-black text-sm font-semibold px-10 py-5 rounded-full transition-all duration-500 hover:scale-[1.02] shadow-[0_0_40px_rgba(255,255,255,0.1)]">
             <span className="relative z-10">Book a Strategy Call</span>
             <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
           </button>
         </div>
       </section>
+
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
 
       <Footer />
     </main>
