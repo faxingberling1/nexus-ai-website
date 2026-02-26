@@ -221,8 +221,8 @@ export default function ImmersivePortal({
                         <Link href="/pricing" className="inline-flex items-center space-x-4 border border-white/10 hover:border-[#FF6A00]/50 text-white/70 hover:text-white px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">
                             <span>View Pricing</span><ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link href="/contact" className="inline-flex items-center space-x-4 bg-[#FF6A00] hover:bg-[#FF7A1A] text-black px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">
-                            <span>Request Proposal</span><ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <Link href="/support" className="inline-flex items-center space-x-4 bg-[#FF6A00] hover:bg-[#FF7A1A] text-black px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">
+                            <span>Get Support</span><ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </motion.div>

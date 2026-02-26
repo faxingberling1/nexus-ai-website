@@ -12,37 +12,40 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { pricingCategories, modularBlockchain, modularWeb, modularAI, modularGrowth, modularAutomation, modularProduct, modularGame, modularBrand, modularConsulting } from '@/config/pricing';
+import { useRouter } from 'next/navigation';
 
 const hiddenBillingSectors = ['ai', 'web', 'automation', 'product', 'game', 'brand', 'consulting', 'blockchain'];
-// ... (rest of the component remains same until the render logic)
 
 const ModularSectorBuilder = ({ data }: { data: any }) => {
+    const router = useRouter();
     const [selectedId, setSelectedId] = useState<string>(data.packages[0].id);
-    const [selectedModules, setSelectedModules] = useState<string[]>([]);
+    const [moduleQuantities, setModuleQuantities] = useState<Record<string, number>>({});
     const [selectedMaintenance, setSelectedMaintenance] = useState<string | null>(null);
 
     const currentPackage = data.packages.find((p: any) => p.id === selectedId)!;
 
     // Reset selections when package changes
     React.useEffect(() => {
-        setSelectedModules([]);
+        setModuleQuantities({});
         setSelectedMaintenance(null);
     }, [selectedId]);
 
     const basePrice = parseInt(currentPackage.price.replace(',', ''));
 
-    const modulesPrice = selectedModules.reduce((acc, modName) => {
+    const modulesPrice = Object.entries(moduleQuantities).reduce((acc, [modName, quantity]) => {
+        if (quantity <= 0) return acc;
         const mod = currentPackage.addOns.find((i: any) => i.name === modName);
         if (mod && !mod.isMonthly) {
-            return acc + parseInt(mod.price.replace(',', ''));
+            return acc + (parseInt(mod.price.replace(',', '')) * quantity);
         }
         return acc;
     }, 0);
 
-    const monthlyModulesPrice = selectedModules.reduce((acc, modName) => {
+    const monthlyModulesPrice = Object.entries(moduleQuantities).reduce((acc, [modName, quantity]) => {
+        if (quantity <= 0) return acc;
         const mod = currentPackage.addOns.find((i: any) => i.name === modName);
         if (mod && mod.isMonthly) {
-            return acc + parseInt(mod.price.replace(',', ''));
+            return acc + (parseInt(mod.price.replace(',', '')) * quantity);
         }
         return acc;
     }, 0);
@@ -128,35 +131,60 @@ const ModularSectorBuilder = ({ data }: { data: any }) => {
                             <div className="text-center">Price</div>
                             <div className="text-right pr-4">When You Need It</div>
                         </div>
-                        {currentPackage.addOns.map((item: any, j: number) => (
-                            <button
-                                key={j}
-                                onClick={() => {
-                                    if (selectedModules.includes(item.name)) {
-                                        setSelectedModules(selectedModules.filter(m => m !== item.name));
-                                    } else {
-                                        setSelectedModules([...selectedModules, item.name]);
-                                    }
-                                }}
-                                className={`grid grid-cols-3 items-center p-6 text-left transition-all group ${selectedModules.includes(item.name)
-                                    ? 'bg-[#FF6A00]/10'
-                                    : 'hover:bg-white/[0.02]'
-                                    }`}
-                            >
-                                <div className="flex items-center gap-4 pl-4">
-                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${selectedModules.includes(item.name) ? 'bg-[#FF6A00] border-[#FF6A00]' : 'border-white/10 group-hover:border-white/20'}`}>
-                                        {selectedModules.includes(item.name) && <Check size={12} className="text-white" />}
+                        {currentPackage.addOns.map((item: any, j: number) => {
+                            const quantity = moduleQuantities[item.name] || 0;
+                            const isSelected = quantity > 0;
+
+                            return (
+                                <div
+                                    key={j}
+                                    className={`grid grid-cols-3 items-center p-6 text-left transition-all group ${isSelected
+                                        ? 'bg-[#FF6A00]/10'
+                                        : 'hover:bg-white/[0.02]'
+                                        }`}
+                                >
+                                    <button
+                                        onClick={() => {
+                                            setModuleQuantities(prev => ({
+                                                ...prev,
+                                                [item.name]: isSelected ? 0 : 1
+                                            }));
+                                        }}
+                                        className="flex items-center gap-4 pl-4"
+                                    >
+                                        <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#FF6A00] border-[#FF6A00]' : 'border-white/10 group-hover:border-white/20'}`}>
+                                            {isSelected && <Check size={12} className="text-white" />}
+                                        </div>
+                                        <span className={`text-[13px] font-medium ${isSelected ? 'text-white' : 'text-white/60'}`}>{item.name}</span>
+                                    </button>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="text-center font-mono text-[#FF6A00] text-sm">
+                                            +${item.price}{item.isMonthly ? '/mo' : ''}{item.perUnit ? ` ${item.perUnit}` : ''}
+                                        </div>
+                                        {item.perUnit && isSelected && (
+                                            <div className="flex items-center gap-3 bg-white/5 rounded-lg p-1 border border-white/10">
+                                                <button
+                                                    onClick={() => setModuleQuantities(prev => ({ ...prev, [item.name]: Math.max(0, quantity - 1) }))}
+                                                    className="w-6 h-6 flex items-center justify-center rounded bg-white/5 hover:bg-white/10 text-white transition-colors"
+                                                >
+                                                    -
+                                                </button>
+                                                <span className="text-xs font-bold text-white min-w-[1.5rem] text-center">{quantity}</span>
+                                                <button
+                                                    onClick={() => setModuleQuantities(prev => ({ ...prev, [item.name]: quantity + 1 }))}
+                                                    className="w-6 h-6 flex items-center justify-center rounded bg-white/5 hover:bg-white/10 text-white transition-colors"
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
-                                    <span className={`text-[13px] font-medium ${selectedModules.includes(item.name) ? 'text-white' : 'text-white/60'}`}>{item.name}</span>
+                                    <div className="text-right pr-4 text-[11px] text-white/30 font-light italic">
+                                        {item.when}
+                                    </div>
                                 </div>
-                                <div className="text-center font-mono text-[#FF6A00] text-sm">
-                                    +${item.price}{item.isMonthly ? '/mo' : ''}{item.perUnit ? ` ${item.perUnit}` : ''}
-                                </div>
-                                <div className="text-right pr-4 text-[11px] text-white/30 font-light italic">
-                                    {item.when}
-                                </div>
-                            </button>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
                 {currentPackage.tip && (
@@ -229,15 +257,20 @@ const ModularSectorBuilder = ({ data }: { data: any }) => {
                                 <span className="text-2xl font-black">${currentPackage.price}{currentPackage.isMonthly ? '/mo' : ''}</span>
                             </div>
 
-                            {selectedModules.length > 0 && (
+                            {Object.entries(moduleQuantities).filter(([_, q]) => q > 0).length > 0 && (
                                 <div className="space-y-3">
                                     <p className="text-[10px] uppercase font-bold text-white/50 ml-4">Selected Modules</p>
-                                    {selectedModules.map((modName, i) => {
+                                    {Object.entries(moduleQuantities).filter(([_, q]) => q > 0).map(([modName, quantity], i) => {
                                         const mod = currentPackage.addOns.find((m: any) => m.name === modName);
                                         return (
                                             <div key={i} className="flex justify-between items-center bg-white/5 px-6 py-4 rounded-xl border border-white/5">
-                                                <span className="text-sm font-medium">{modName}</span>
-                                                <span className="font-bold text-white/80">+${mod?.price}{mod?.isMonthly ? '/mo' : ''}</span>
+                                                <span className="text-sm font-medium">
+                                                    {modName} {quantity > 1 && <span className="text-[10px] text-white/40 ml-1">(x{quantity})</span>}
+                                                </span>
+                                                <span className="font-bold text-white/80">
+                                                    +${((parseInt(mod?.price.replace(',', '') || '0')) * quantity).toLocaleString()}
+                                                    {mod?.isMonthly ? '/mo' : ''}
+                                                </span>
                                             </div>
                                         );
                                     })}
@@ -276,7 +309,21 @@ const ModularSectorBuilder = ({ data }: { data: any }) => {
                                     )}
                                 </div>
                             </div>
-                            <button className="bg-white text-[#FF6A00] px-16 py-6 rounded-3xl font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-white/10 flex items-center gap-3 w-full lg:w-fit justify-center">
+                            <button
+                                onClick={() => {
+                                    const selection = {
+                                        type: 'modular',
+                                        package: currentPackage,
+                                        modules: moduleQuantities,
+                                        maintenance: selectedMaintenance,
+                                        oneTimeTotal,
+                                        recurringTotal
+                                    };
+                                    localStorage.setItem('nexus_selected_plan', JSON.stringify(selection));
+                                    router.push('/start?source=pricing');
+                                }}
+                                className="bg-white text-[#FF6A00] px-16 py-6 rounded-3xl font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl shadow-white/10 flex items-center gap-3 w-full lg:w-fit justify-center"
+                            >
                                 Request Proposal <ArrowRight />
                             </button>
                             <p className="mt-6 text-[10px] text-white/40 font-medium italic lg:text-right">
@@ -291,6 +338,7 @@ const ModularSectorBuilder = ({ data }: { data: any }) => {
 };
 
 export default function PricingPage() {
+    const router = useRouter();
     const [activeCategory, setActiveCategory] = useState(pricingCategories[0].id);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
     const easing = [0.16, 1, 0.3, 1] as any;
@@ -602,10 +650,22 @@ export default function PricingPage() {
                                     </div>
 
                                     <div className="space-y-4 relative">
-                                        <button className={`w-full py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all duration-500 flex items-center justify-center gap-2 group/btn ${tier.popular
-                                            ? 'bg-[#FF6A00] text-white hover:shadow-[0_8px_25px_-10px_rgba(255,106,0,0.6)]'
-                                            : 'bg-white text-black hover:bg-white/90'
-                                            }`}>
+                                        <button
+                                            onClick={() => {
+                                                const selection = {
+                                                    type: 'tier',
+                                                    tier: tier,
+                                                    category: currentCategory,
+                                                    billingCycle: billingCycle,
+                                                    price: getPriceDisplay(tier.price)
+                                                };
+                                                localStorage.setItem('nexus_selected_plan', JSON.stringify(selection));
+                                                router.push('/start?source=pricing');
+                                            }}
+                                            className={`w-full py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all duration-500 flex items-center justify-center gap-2 group/btn ${tier.popular
+                                                ? 'bg-[#FF6A00] text-white hover:shadow-[0_8px_25px_-10px_rgba(255,106,0,0.6)]'
+                                                : 'bg-white text-black hover:bg-white/90'
+                                                }`}>
                                             {tier.cta}
                                             <ArrowRight size={14} className="translate-x-0 group-hover/btn:translate-x-1 transition-transform" />
                                         </button>

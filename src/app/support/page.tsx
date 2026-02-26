@@ -1,21 +1,70 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, ArrowRight, Check, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    Send, Mail, MapPin, Phone, ArrowRight, Check, Loader2,
+    Shield, Cpu, Zap, Search, BookOpen, MessageSquare,
+    LifeBuoy, ChevronDown, Activity, Terminal, Globe,
+    Lock, HelpCircle
+} from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumSelect from '@/components/PremiumSelect';
 import CaptchaWidget from '@/components/CaptchaWidget';
+import Link from 'next/link';
 
 const supportCategories = [
-    { value: 'Technical Support', label: 'Technical Support' },
-    { value: 'Project Inquiry', label: 'Project Inquiry' },
-    { value: 'Billing & Account', label: 'Billing & Account' },
-    { value: 'General Question', label: 'General Question' },
-    { value: 'Partnership', label: 'Partnership Opportunity' },
-    { value: 'Other', label: 'Other' }
+    { value: 'Technical', label: 'Technical Help', icon: Cpu },
+    { value: 'Project', label: 'Project Inquiry', icon: Rocket },
+    { value: 'Billing', label: 'Billing & Account', icon: DollarSign },
+    { value: 'General', label: 'General Question', icon: HelpCircle },
 ];
+
+// Re-defining Rocket and DollarSign since they weren't in the initial import
+import { Rocket, DollarSign } from 'lucide-react';
+
+const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+        <div className="border border-white/[0.05] bg-[#121212]/30 rounded-2xl overflow-hidden mb-4 transition-all hover:border-white/10">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full px-8 py-6 flex items-center justify-between text-left group"
+            >
+                <span className="text-white font-medium group-hover:text-[#FF6A00] transition-colors">{question}</span>
+                <ChevronDown className={`text-white/20 transition-transform duration-500 ${isOpen ? 'rotate-180 text-[#FF6A00]' : ''}`} size={20} />
+            </button>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className="px-8 pb-8 text-white/40 leading-relaxed text-sm">
+                            {answer}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
+
+const StatusMetric = ({ label, status, value }: { label: string, status: 'online' | 'busy' | 'offline', value: string }) => (
+    <div className="flex items-center justify-between bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3">
+        <div className="flex items-center gap-3">
+            <div className={`w-1.5 h-1.5 rounded-full ${status === 'online' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' :
+                    status === 'busy' ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]' :
+                        'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]'
+                }`} />
+            <span className="text-[10px] uppercase font-bold text-white/40 tracking-widest">{label}</span>
+        </div>
+        <span className="text-[10px] font-mono text-white/60">{value}</span>
+    </div>
+);
 
 export default function SupportPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +74,7 @@ export default function SupportPage() {
         name: '',
         email: '',
         phone: '',
-        category: 'Technical Support',
+        category: 'Technical',
         message: ''
     });
 
@@ -51,7 +100,7 @@ export default function SupportPage() {
             const data = await response.json();
             setSubmitStatus({ success: data.success, message: data.message });
             if (data.success) {
-                setFormData({ name: '', email: '', phone: '', category: 'Technical Support', message: '' });
+                setFormData({ name: '', email: '', phone: '', category: 'Technical', message: '' });
             }
         } catch (error) {
             setSubmitStatus({ success: false, message: 'Connection failure. Please try again.' });
@@ -61,208 +110,223 @@ export default function SupportPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#050505] pt-32 relative overflow-hidden text-[#EDEDED] selection:bg-[#FF6A00]/30 font-inter font-light">
+        <main className="min-h-screen bg-[#020202] pt-32 relative overflow-hidden flex flex-col font-inter">
             <Header />
 
-            {/* Background */}
-            <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
-
-            <div className="fixed top-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-b from-[#FF6A00] to-transparent opacity-[0.05] blur-[160px] pointer-events-none" />
-            <div className="fixed bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-t from-[#FF6A00] to-transparent opacity-[0.03] blur-[160px] pointer-events-none" />
-
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden h-[200vh]">
-                <div className="absolute top-0 left-[20%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
-                <div className="absolute top-0 left-[40%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
-                <div className="absolute top-0 left-[60%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
-                <div className="absolute top-0 left-[80%] w-[1px] h-full bg-gradient-to-b from-white/[0.03] via-white/[0.03] to-transparent" />
+            {/* Background Atmosphere */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                <div className="absolute top-0 right-10 w-[600px] h-[600px] bg-[#FF6A00]/[0.05] rounded-full blur-[120px]" />
+                <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-blue-500/[0.03] rounded-full blur-[100px]" />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="max-w-7xl mx-auto px-6 py-20 relative z-10 w-full">
+                {/* Hero Section */}
+                <div className="text-center mb-24">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, ease: easing }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-[#FF6A00] text-[10px] font-bold uppercase tracking-[0.2em] mb-8"
+                    >
+                        <LifeBuoy size={12} /> Help Center
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.1, ease: easing }}
+                        className="text-5xl md:text-7xl font-semibold text-white mb-6 font-outfit tracking-tight leading-tight"
+                    >
+                        How can we <br /><span className="text-white/20 font-light italic">help you?</span>
+                    </motion.h1>
+                </div>
 
-                    {/* Left — Contact Info */}
-                    <div className="flex flex-col justify-center">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, ease: easing }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#FF6A00]/20 bg-[#121212]/40 backdrop-blur-2xl mb-8 shadow-[0_0_20px_rgba(255,106,0,0.05)] w-fit"
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                    {/* Left Column: Stats & KB */}
+                    <div className="lg:col-span-4 space-y-8">
+                        {/* System Health Status */}
+                        <div className="p-8 rounded-[2.5rem] bg-[#0A0A0A]/40 border border-white/[0.06] backdrop-blur-3xl space-y-6">
+                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6A00]">System Health</h3>
+                            <div className="space-y-3">
+                                <StatusMetric label="Main API" status="online" value="12ms Latency" />
+                                <StatusMetric label="Database" status="online" value="Optimized" />
+                                <StatusMetric label="Network" status="online" value="High Load (Ready)" />
+                                <StatusMetric label="Engine" status="busy" value="Processing" />
+                            </div>
+                        </div>
+
+                        {/* Knowledge Base Link */}
+                        <Link
+                            href="/kb"
+                            className="group block p-8 rounded-[2.5rem] bg-gradient-to-br from-[#FF6A00]/10 to-transparent border border-[#FF6A00]/20 backdrop-blur-3xl relative overflow-hidden"
                         >
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6A00] opacity-40" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF6A00]" />
-                            </span>
-                            <span className="text-xs font-medium tracking-wide text-white/70">Get in Touch with our Team</span>
-                        </motion.div>
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-125 transition-transform duration-500">
+                                <BookOpen size={80} />
+                            </div>
+                            <div className="relative z-10">
+                                <h3 className="text-2xl font-bold text-white mb-2 font-outfit uppercase">Knowledge Hub</h3>
+                                <p className="text-white/40 text-sm mb-6 max-w-[200px]">Explore documentation and self-help guides.</p>
+                                <div className="flex items-center gap-2 text-[#FF6A00] font-bold text-[10px] uppercase tracking-widest">
+                                    Explore KB <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                                </div>
+                            </div>
+                        </Link>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: easing }}
-                            className="text-6xl md:text-[5.5rem] font-semibold tracking-tight text-white font-outfit leading-[0.9] mb-8"
-                        >
-                            Support <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">Assistance.</span>
-                        </motion.h1>
-
-                        <div className="w-24 h-[1px] bg-gradient-to-r from-[#FF6A00] to-transparent mb-12 shadow-[0_0_10px_rgba(255,106,0,0.5)]" />
-
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1, ease: easing }}
-                            className="text-white/40 text-xl font-light leading-relaxed mb-12 max-w-md"
-                        >
-                            Need help with your current project or have a general inquiry? Our support experts are ready to assist you.
-                        </motion.p>
-
-                        <div className="space-y-8">
-                            {[
-                                { icon: Mail, label: "Email Address", value: "support@neonbyteai.com" },
-                                { icon: Phone, label: "Support Line", value: "(332) - 232 - 1676" },
-                                { icon: MapPin, label: "Studio Location", value: "Delaware" }
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: easing }}
-                                    className="flex items-center gap-6 group cursor-pointer"
-                                >
-                                    <div className="w-14 h-14 rounded-2xl bg-[#1A1A1A] border border-white/[0.08] flex items-center justify-center text-white/40 group-hover:text-[#FF6A00] group-hover:border-[#FF6A00]/30 transition-all duration-500 shadow-sm relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-[#FF6A00]/[0.02] opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        <item.icon size={22} strokeWidth={1.5} />
-                                    </div>
-                                    <div>
-                                        <p className="text-[11px] font-semibold tracking-widest text-[#FF6A00] uppercase font-inter mb-1">{item.label}</p>
-                                        <p className="text-white text-lg font-medium font-outfit tracking-tight leading-none">{item.value}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
+                        {/* Direct Contact Info */}
+                        <div className="p-8 space-y-6">
+                            <div className="flex items-center gap-4 text-white/50 hover:text-white transition-colors cursor-pointer group">
+                                <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.1] flex items-center justify-center group-hover:border-[#FF6A00]/40 transition-all">
+                                    <Mail size={18} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] uppercase font-bold tracking-widest text-white/20">Email</p>
+                                    <p className="text-sm">support@neonbyteai.com</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-white/50 hover:text-white transition-colors cursor-pointer group">
+                                <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.1] flex items-center justify-center group-hover:border-[#FF6A00]/40 transition-all">
+                                    <Phone size={18} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] uppercase font-bold tracking-widest text-white/20">Phone</p>
+                                    <p className="text-sm">(332) - 232 - 1676</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Right — Form */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: easing }}
-                        className="bg-[#121212]/30 backdrop-blur-3xl border border-[#FF6A00]/10 rounded-[3rem] p-12 shadow-[0_0_50px_rgba(0,0,0,0.3)] relative overflow-hidden group hover:border-[#FF6A00]/20 transition-all duration-700"
-                    >
-                        <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/30 pointer-events-none transition-colors group-hover:border-[#FF6A00]/60" />
-                        <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/30 pointer-events-none transition-colors group-hover:border-[#FF6A00]/60" />
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF6A00]/[0.07] rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF6A00]/[0.03] rounded-full blur-[100px] pointer-events-none -translate-x-1/2 translate-y-1/2" />
+                    {/* Right Column: FAQs & Form */}
+                    <div className="lg:col-span-8 space-y-12">
 
-                        <form className="space-y-7 relative z-10" onSubmit={handleSubmit}>
-                            {submitStatus.success ? (
-                                <div className="p-8 bg-[#FF6A00]/10 border border-[#FF6A00]/30 rounded-3xl text-center">
-                                    <div className="w-16 h-16 bg-[#FF6A00]/20 border border-[#FF6A00]/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(255,106,0,0.2)]">
-                                        <Check size={32} className="text-[#FF6A00]" />
+                        {/* FAQs Section */}
+                        <div className="space-y-6">
+                            <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight ml-4 mb-8">Popular Questions</h2>
+                            <FAQItem
+                                question="How long does a standard project take?"
+                                answer="Most standard packages are deployed within 4-6 weeks. Custom enterprise projects typically range from 3-6 months depending on complexity and infrastructure requirements."
+                            />
+                            <FAQItem
+                                question="Do you provide ongoing technical support?"
+                                answer="Yes. All our packages include maintenance plans that cover security updates, system health monitoring, and direct technical assistance."
+                            />
+                            <FAQItem
+                                question="Can I upgrade my plan later?"
+                                answer="Absolutely. Our modular architecture allows for seamless transitions between tiers. You can add new features or scale your infrastructure at any time."
+                            />
+                        </div>
+
+                        {/* Interactive Form */}
+                        <div className="bg-[#121212]/30 border border-white/[0.08] rounded-[3rem] p-10 backdrop-blur-3xl relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6A00]/[0.05] rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
+
+                            <h2 className="text-3xl font-bold text-white mb-8 font-outfit uppercase tracking-tight">Send a Message</h2>
+
+                            <form className="space-y-7 relative z-10" onSubmit={handleSubmit}>
+                                {submitStatus.success ? (
+                                    <div className="p-8 bg-[#FF6A00]/10 border border-[#FF6A00]/30 rounded-[2.5rem] text-center">
+                                        <div className="w-20 h-20 bg-[#FF6A00]/20 border border-[#FF6A00]/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(255,106,0,0.2)]">
+                                            <Check size={40} className="text-[#FF6A00]" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-2 font-outfit uppercase">Message Sent</h3>
+                                        <p className="text-white/40 text-sm mb-8">Our team will reach out shortly.</p>
+                                        <button
+                                            type="button"
+                                            onClick={() => setSubmitStatus({})}
+                                            className="px-10 py-4 bg-white/[0.05] border border-white/[0.1] rounded-2xl text-[11px] font-bold uppercase tracking-widest text-white hover:bg-white/[0.08] transition-all"
+                                        >
+                                            Send Another
+                                        </button>
                                     </div>
-                                    <h3 className="text-2xl font-semibold text-white mb-2 font-outfit">Message Sent</h3>
-                                    <p className="text-white/40 text-sm mb-6">{submitStatus.message}</p>
-                                    <button
-                                        type="button"
-                                        onClick={() => setSubmitStatus({})}
-                                        className="text-[11px] font-bold uppercase tracking-widest text-[#FF6A00] hover:text-white transition-colors"
-                                    >
-                                        Send Another Message
-                                    </button>
-                                </div>
-                            ) : (
-                                <>
-                                    {/* Row 1: Name + Email */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+                                ) : (
+                                    <>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    placeholder="Your Name"
+                                                    value={formData.name}
+                                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all text-sm"
+                                                />
+                                            </div>
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    required
+                                                    placeholder="your@email.com"
+                                                    value={formData.email}
+                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all text-sm"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Phone Number</label>
+                                                <input
+                                                    type="tel"
+                                                    required
+                                                    placeholder="+1 (555) 000-0000"
+                                                    value={formData.phone}
+                                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all text-sm"
+                                                />
+                                            </div>
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Need help with?</label>
+                                                <div className="relative">
+                                                    <select
+                                                        value={formData.category}
+                                                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                                        className="w-full bg-white/[0.03] border border-white/[0.06] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all text-sm appearance-none cursor-pointer"
+                                                    >
+                                                        {supportCategories.map(c => (
+                                                            <option key={c.value} value={c.value} className="bg-[#020202]">{c.label}</option>
+                                                        ))}
+                                                    </select>
+                                                    <ChevronDown size={16} className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/20" />
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div className="space-y-3">
-                                            <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Full Name</label>
-                                            <input
-                                                type="text"
+                                            <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Your Message</label>
+                                            <textarea
                                                 required
-                                                placeholder="Your Name"
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                className="w-full bg-[#1A1A1A]/50 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 focus:bg-[#1A1A1A]/80 transition-all duration-500 font-inter text-[15px] shadow-inner"
+                                                rows={5}
+                                                placeholder="Tell us what's on your mind..."
+                                                value={formData.message}
+                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                                className="w-full bg-white/[0.03] border border-white/[0.06] rounded-3xl px-6 py-6 text-white focus:outline-none focus:border-[#FF6A00]/40 transition-all text-sm resize-none"
                                             />
                                         </div>
-                                        <div className="space-y-3">
-                                            <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Email Address</label>
-                                            <input
-                                                type="email"
-                                                required
-                                                placeholder="your@email.com"
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                className="w-full bg-[#1A1A1A]/50 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 focus:bg-[#1A1A1A]/80 transition-all duration-500 font-inter text-[15px] shadow-inner"
-                                            />
-                                        </div>
-                                    </div>
 
-                                    {/* Row 2: Phone + Category */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-                                        <div className="space-y-3">
-                                            <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Phone Number</label>
-                                            <input
-                                                type="tel"
-                                                required
-                                                placeholder="+1 (555) 000-0000"
-                                                value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                className="w-full bg-[#1A1A1A]/50 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 focus:bg-[#1A1A1A]/80 transition-all duration-500 font-inter text-[15px] shadow-inner"
-                                            />
-                                        </div>
-                                        <div className="space-y-3">
-                                            <PremiumSelect
-                                                label="Support Category"
-                                                options={supportCategories}
-                                                value={formData.category}
-                                                onChange={(val) => setFormData({ ...formData, category: val })}
-                                                placeholder="Select Category"
-                                            />
-                                        </div>
-                                    </div>
+                                        <CaptchaWidget onVerified={setCaptchaVerified} />
 
-                                    {/* Message */}
-                                    <div className="space-y-3">
-                                        <label className="text-xs font-semibold tracking-widest text-[#FF6A00]/60 uppercase font-inter ml-1">Message</label>
-                                        <textarea
-                                            required
-                                            rows={4}
-                                            placeholder="How can we help you today?"
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            className="w-full bg-[#1A1A1A]/50 border border-white/[0.08] rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-[#FF6A00]/40 focus:bg-[#1A1A1A]/80 transition-all duration-500 font-inter text-[15px] resize-none shadow-inner"
-                                        />
-                                    </div>
-
-                                    {/* CAPTCHA */}
-                                    <CaptchaWidget onVerified={setCaptchaVerified} />
-
-                                    {submitStatus.success === false && (
-                                        <p className="text-red-400 text-xs text-center font-medium">{submitStatus.message}</p>
-                                    )}
-
-                                    <button
-                                        disabled={isSubmitting || !captchaVerified}
-                                        className="w-full group relative bg-[#FF6A00] text-white font-semibold py-6 rounded-2xl overflow-hidden transition-all duration-700 shadow-[0_12px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-12px_rgba(255,106,0,0.7)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                                    >
-                                        <span className="relative z-10 flex items-center justify-center gap-3 tracking-wide text-sm">
+                                        <button
+                                            disabled={isSubmitting || !captchaVerified}
+                                            className="w-full group relative bg-[#FF6A00] text-white font-black py-6 rounded-2xl overflow-hidden transition-all duration-700 shadow-[0_12px_30px_-10px_rgba(255,106,0,0.5)] hover:shadow-[0_20px_45px_-12px_rgba(255,106,0,0.7)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.2em] text-xs"
+                                        >
                                             {isSubmitting ? (
-                                                <>SENDING... <Loader2 size={18} className="animate-spin" /></>
+                                                <span className="flex items-center justify-center gap-3">
+                                                    Sending... <Loader2 size={18} className="animate-spin" />
+                                                </span>
                                             ) : (
-                                                <>SEND MESSAGE <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" /></>
+                                                <span className="flex items-center justify-center gap-3">
+                                                    Send Message <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                                </span>
                                             )}
-                                        </span>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF8C33] to-[#FF6A00] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                    </button>
-
-                                    {!captchaVerified && (
-                                        <p className="text-white/20 text-[10px] text-center uppercase tracking-widest">Complete verification to enable submit</p>
-                                    )}
-                                </>
-                            )}
-                        </form>
-                    </motion.div>
+                                        </button>
+                                    </>
+                                )}
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 

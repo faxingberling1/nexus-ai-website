@@ -466,7 +466,7 @@ export default function ServicesPage() {
 
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                             <Link
-                                href="/contact"
+                                href="/support"
                                 className="group flex items-center space-x-4 bg-white text-black px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95"
                             >
                                 <span>Request Analysis</span>
