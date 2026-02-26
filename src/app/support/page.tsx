@@ -57,8 +57,8 @@ const StatusMetric = ({ label, status, value }: { label: string, status: 'online
     <div className="flex items-center justify-between bg-white/[0.02] border border-white/[0.05] rounded-xl px-4 py-3">
         <div className="flex items-center gap-3">
             <div className={`w-1.5 h-1.5 rounded-full ${status === 'online' ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' :
-                    status === 'busy' ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]' :
-                        'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]'
+                status === 'busy' ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]' :
+                    'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]'
                 }`} />
             <span className="text-[10px] uppercase font-bold text-white/40 tracking-widest">{label}</span>
         </div>
@@ -181,7 +181,7 @@ export default function SupportPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] uppercase font-bold tracking-widest text-white/20">Email</p>
-                                    <p className="text-sm">support@neonbyteai.com</p>
+                                    <p className="text-sm">support@neonbyte.com</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 text-white/50 hover:text-white transition-colors cursor-pointer group">

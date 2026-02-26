@@ -25,19 +25,91 @@ const HUDMetric = ({ label, value, color = "green" }: { label: string, value: st
     </div>
 );
 
+const projectTypes = [
+    "Website / Web App",
+    "Mobile App",
+    "Software / Automation Tool",
+    "AI Solution",
+    "Game / Interactive Experience",
+    "Marketing / Branding / SEO",
+    "Other"
+];
+
+const primaryGoals = [
+    "Generate Leads / Sales",
+    "Improve Productivity / Automation",
+    "Build a Platform / Product",
+    "Enhance User Experience / UI",
+    "Branding / Marketing",
+    "Other"
+];
+
+const keyFeatures = [
+    "Login / User Accounts",
+    "Payment / E-Commerce Integration",
+    "Admin Dashboard / Analytics",
+    "AI / Automation Integration",
+    "Third-party API Integration"
+];
+
+const projectScales = ["Small", "Standard", "Large"];
+const timelines = ["Quick (1-2 mo)", "Medium (3-6 mo)", "Long-term (6+ mo)"];
+const budgets = ["Startup", "Mid-range", "Enterprise"];
+const platforms = ["Web", "Mobile", "Both", "Desktop", "Other"];
+
 export default function StartProjectPage() {
     const [activeModule, setActiveModule] = useState<'selection' | 'modular' | 'custom' | 'checkout' | 'success'>('selection');
     const [selectedSector, setSelectedSector] = useState<string | null>(null);
     const [selectedPlan, setSelectedPlan] = useState<any>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+    const [currentStep, setCurrentStep] = useState(1);
+    const [errors, setErrors] = useState<string[]>([]);
+    const [showErrors, setShowErrors] = useState(false);
 
     const [formData, setFormData] = useState({
+        // 1. Basic Contact
         name: '',
         email: '',
         phone: '',
         company: '',
-        message: ''
+
+        // 2. Project Overview
+        projectTitle: '',
+        projectDescription: '',
+        projectType: '',
+        projectTypeOther: '',
+
+        // 3. Goals & Features
+        primaryGoal: [] as string[],
+        primaryGoalOther: '',
+        features: [] as string[],
+        featuresOther: '',
+
+        // 4. Scope & Scale
+        projectScale: 'Standard',
+        timeline: 'Quick (1-2 mo)',
+        budgetRange: 'Startup',
+
+        // 5. Technical
+        platformPreference: '',
+        preferredTech: '',
+        existingAssets: '',
+
+        // 6. Audience
+        targetAudience: '',
+        expectedUsers: '',
+        geography: '',
+
+        // 7. Additional
+        designGuidelines: '',
+        inspirations: '',
+        challenges: '',
+        mustHaves: '',
+
+        // 8. Consent
+        consent: false,
+        message: '' // For general notes
     });
 
     React.useEffect(() => {
@@ -57,8 +129,51 @@ export default function StartProjectPage() {
         description: c.description
     }));
 
+    const validateStep = (step: number) => {
+        const newErrors: string[] = [];
+        if (step === 1) {
+            if (!formData.name) newErrors.push('name');
+            if (!formData.email) newErrors.push('email');
+        } else if (step === 2) {
+            if (!formData.projectTitle) newErrors.push('projectTitle');
+            if (!formData.projectDescription) newErrors.push('projectDescription');
+            if (!formData.projectType) newErrors.push('projectType');
+        } else if (step === 3) {
+            if (formData.primaryGoal.length === 0) newErrors.push('primaryGoal');
+        } else if (step === 4) {
+            if (!formData.projectScale) newErrors.push('projectScale');
+        } else if (step === 5) {
+            if (!formData.platformPreference) newErrors.push('platformPreference');
+        } else if (step === 6) {
+            if (!formData.targetAudience) newErrors.push('targetAudience');
+        } else if (step === 7) {
+            if (!formData.consent) newErrors.push('consent');
+        }
+        setErrors(newErrors);
+        return newErrors.length === 0;
+    };
+
+    const handleNext = () => {
+        setShowErrors(true);
+        if (validateStep(currentStep)) {
+            setShowErrors(false);
+            setErrors([]);
+
+            let nextStep = currentStep + 1;
+            if (currentStep === 4) {
+                const needsTechnical = formData.projectType.toLowerCase().includes('app') ||
+                    formData.projectType.toLowerCase().includes('software') ||
+                    formData.projectType.toLowerCase().includes('ai');
+                if (!needsTechnical) nextStep = 6;
+            }
+            setCurrentStep(nextStep);
+        }
+    };
+
     const handleInquirySubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setShowErrors(true);
+        if (!validateStep(7)) return;
         if (!isCaptchaVerified) return;
 
         setIsSubmitting(true);
@@ -71,12 +186,33 @@ export default function StartProjectPage() {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    message: formData.message || (selectedPlan ? `Checkout: ${selectedPlan.package?.name || selectedPlan.tier?.name}` : 'Custom Inquiry'),
+                    message: formData.projectDescription || formData.message || (selectedPlan ? `Checkout: ${selectedPlan.package?.name || selectedPlan.tier?.name}` : 'Custom Inquiry'),
                     selections: {
                         company: formData.company,
                         pathway: selectedPlan ? 'package' : 'custom',
                         projectTier: selectedPlan?.package?.name || selectedPlan?.tier?.name || 'Custom Build',
-                        selectedPlan: selectedPlan
+                        selectedPlan: selectedPlan,
+                        // Expanded Fields
+                        projectTitle: formData.projectTitle,
+                        projectType: formData.projectType,
+                        projectTypeOther: formData.projectTypeOther,
+                        primaryGoal: formData.primaryGoal,
+                        primaryGoalOther: formData.primaryGoalOther,
+                        features: formData.features,
+                        featuresOther: formData.featuresOther,
+                        projectScale: formData.projectScale,
+                        timeline: formData.timeline,
+                        budgetRange: formData.budgetRange,
+                        platformPreference: formData.platformPreference,
+                        preferredTech: formData.preferredTech,
+                        existingAssets: formData.existingAssets,
+                        targetAudience: formData.targetAudience,
+                        expectedUsers: formData.expectedUsers,
+                        geography: formData.geography,
+                        designGuidelines: formData.designGuidelines,
+                        inspirations: formData.inspirations,
+                        challenges: formData.challenges,
+                        mustHaves: formData.mustHaves
                     }
                 })
             });
@@ -234,13 +370,67 @@ export default function StartProjectPage() {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.8, ease: easing }}
-                                className="max-w-4xl mx-auto"
+                                className="max-w-4xl mx-auto w-full"
                             >
+                                {/* Step Indicator */}
+                                <div className="flex items-center justify-between mb-12 px-2">
+                                    {[1, 2, 3, 4, 5, 6, 7].map((step) => {
+                                        // Skip step 5 (technical) if not an app/software/ai project
+                                        const isTechnical = step === 5;
+                                        const needsTechnical = formData.projectType.toLowerCase().includes('app') ||
+                                            formData.projectType.toLowerCase().includes('software') ||
+                                            formData.projectType.toLowerCase().includes('ai');
+
+                                        if (isTechnical && !needsTechnical) return null;
+
+                                        return (
+                                            <div key={step} className="flex items-center gap-3">
+                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-500 ${currentStep === step
+                                                    ? 'bg-blue-500 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.4)]'
+                                                    : currentStep > step
+                                                        ? 'bg-green-500/20 border-green-500/30 text-green-500'
+                                                        : 'bg-white/[0.03] border-white/[0.08] text-white/20'
+                                                    }`}>
+                                                    {currentStep > step ? <Check size={16} /> : <span className="text-xs font-bold">{step}</span>}
+                                                </div>
+                                                {currentStep === step && (
+                                                    <motion.span
+                                                        initial={{ opacity: 0, x: -10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        className="text-[10px] uppercase font-bold text-blue-500 tracking-widest hidden md:block"
+                                                    >
+                                                        {step === 1 ? 'Contact' :
+                                                            step === 2 ? 'Overview' :
+                                                                step === 3 ? 'Goals' :
+                                                                    step === 4 ? 'Scale' :
+                                                                        step === 5 ? 'Technical' :
+                                                                            step === 6 ? 'Users' : 'Final'}
+                                                    </motion.span>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                                     {/* Sidebar Stats */}
                                     <div className="lg:col-span-4 space-y-8">
                                         <button
-                                            onClick={() => setActiveModule('selection')}
+                                            onClick={() => {
+                                                if (currentStep > 1) {
+                                                    let prevStep = currentStep - 1;
+                                                    // Skip technical step if not needed
+                                                    if (prevStep === 5) {
+                                                        const needsTechnical = formData.projectType.toLowerCase().includes('app') ||
+                                                            formData.projectType.toLowerCase().includes('software') ||
+                                                            formData.projectType.toLowerCase().includes('ai');
+                                                        if (!needsTechnical) prevStep = 4;
+                                                    }
+                                                    setCurrentStep(prevStep);
+                                                } else {
+                                                    setActiveModule('selection');
+                                                }
+                                            }}
                                             className="flex items-center gap-2 text-white/30 hover:text-blue-500 transition-colors text-[10px] font-bold uppercase tracking-[0.2em] mb-4"
                                         >
                                             <ArrowLeft size={14} /> Back
@@ -248,17 +438,19 @@ export default function StartProjectPage() {
 
                                         <div className="p-8 rounded-[2.5rem] bg-blue-500/[0.03] border border-blue-500/10 space-y-8">
                                             <div className="flex flex-col gap-2">
+                                                <HUDMetric label="Module" value={`STEP 0${currentStep}`} color="blue" />
                                                 <HUDMetric label="Type" value="Custom Inquiry" color="blue" />
-                                                <HUDMetric label="Review" value="Project Review" color="blue" />
-                                                <HUDMetric label="Status" value="High Priority" color="blue" />
+                                                <HUDMetric label="Review" value="Live Entry" color="blue" />
                                             </div>
 
                                             <div className="pt-6 border-t border-white/[0.05] space-y-4">
-                                                <div className="flex items-center gap-3 text-[10px] text-white/40 font-bold uppercase tracking-widest">
-                                                    <Lock size={12} className="text-blue-500" /> Safe & Secure
-                                                </div>
-                                                <div className="flex items-center gap-3 text-[10px] text-white/40 font-bold uppercase tracking-widest">
-                                                    <Terminal size={12} className="text-blue-500" /> Direct Expert Support
+                                                <p className="text-[10px] text-white/30 uppercase font-black tracking-[0.2em] mb-2">Completion</p>
+                                                <div className="w-full h-1.5 bg-white/[0.03] rounded-full overflow-hidden">
+                                                    <motion.div
+                                                        className="h-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                                                        initial={{ width: 0 }}
+                                                        animate={{ width: `${(currentStep / 7) * 100}%` }}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -266,72 +458,390 @@ export default function StartProjectPage() {
 
                                     {/* Inquiry Form */}
                                     <div className="lg:col-span-8">
-                                        <div className="bg-[#121212]/30 border border-white/[0.08] rounded-[3rem] p-10 backdrop-blur-3xl">
-                                            <h2 className="text-3xl font-bold text-white mb-8 font-outfit uppercase tracking-tight">Tell us more</h2>
+                                        <div className="bg-[#121212]/30 border border-white/[0.08] rounded-[3rem] p-10 backdrop-blur-3xl min-h-[500px] flex flex-col">
 
-                                            <form onSubmit={handleInquirySubmit} className="space-y-6">
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Full Name</label>
-                                                        <input
-                                                            required
-                                                            type="text"
-                                                            placeholder="John Doe"
-                                                            className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40 transition-all"
-                                                        />
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Work Email</label>
-                                                        <input
-                                                            required
-                                                            type="email"
-                                                            placeholder="john@example.com"
-                                                            className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40 transition-all"
-                                                        />
-                                                    </div>
-                                                </div>
+                                            <AnimatePresence mode="wait">
+                                                {/* Step 1: Contact Info */}
+                                                {currentStep === 1 && (
+                                                    <motion.div key="step1" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Basic Contact Info</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div className="space-y-2">
+                                                                    <div className="flex justify-between items-center px-4">
+                                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Full Name</label>
+                                                                        {showErrors && !formData.name && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                    </div>
+                                                                    <input required type="text" placeholder="John Doe" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={`w-full bg-white/[0.02] border rounded-2xl px-6 py-4 text-sm text-white focus:outline-none transition-all ${showErrors && !formData.name ? 'border-red-500/50 bg-red-500/[0.02]' : 'border-white/[0.05] focus:border-blue-500/40'}`} />
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <div className="flex justify-between items-center px-4">
+                                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Work Email</label>
+                                                                        {showErrors && !formData.email && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                    </div>
+                                                                    <input required type="email" placeholder="john@example.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={`w-full bg-white/[0.02] border rounded-2xl px-6 py-4 text-sm text-white focus:outline-none transition-all ${showErrors && !formData.email ? 'border-red-500/50 bg-red-500/[0.02]' : 'border-white/[0.05] focus:border-blue-500/40'}`} />
+                                                                </div>
+                                                            </div>
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Phone (Optional)</label>
+                                                                    <input type="tel" placeholder="+1 (555) 000-0000" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Company (Optional)</label>
+                                                                    <input type="text" placeholder="Company Name" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
 
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">What are you looking to build?</label>
-                                                    <textarea
-                                                        required
-                                                        rows={4}
-                                                        placeholder="Tell us about your project requirements and goals..."
-                                                        className="w-full bg-white/[0.02] border border-white/[0.05] rounded-3xl px-6 py-5 text-sm text-white focus:outline-none focus:border-blue-500/40 transition-all resize-none"
-                                                    />
-                                                </div>
+                                                {/* Step 2: Project Overview */}
+                                                {currentStep === 2 && (
+                                                    <motion.div key="step2" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Project Overview</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Project Title / Name</label>
+                                                                    {showErrors && !formData.projectTitle && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <input required type="text" placeholder="e.g., Nexus AI Portal" value={formData.projectTitle} onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })} className={`w-full bg-white/[0.02] border rounded-2xl px-6 py-4 text-sm text-white focus:outline-none transition-all ${showErrors && !formData.projectTitle ? 'border-red-500/50 bg-red-500/[0.02]' : 'border-white/[0.05] focus:border-blue-500/40'}`} />
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">What do you want to build?</label>
+                                                                    {showErrors && !formData.projectDescription && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <textarea required rows={4} placeholder="Tell us about your project requirements and goals in simple words..." value={formData.projectDescription} onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })} className={`w-full bg-white/[0.02] border rounded-3xl px-6 py-5 text-sm text-white focus:outline-none resize-none transition-all ${showErrors && !formData.projectDescription ? 'border-red-500/50 bg-red-500/[0.02]' : 'border-white/[0.05] focus:border-blue-500/40'}`} />
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Type of Project</label>
+                                                                    {showErrors && !formData.projectType && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-2 gap-3">
+                                                                    {projectTypes.map(type => (
+                                                                        <button
+                                                                            key={type}
+                                                                            type="button"
+                                                                            onClick={() => setFormData({ ...formData, projectType: type })}
+                                                                            className={`px-4 py-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all ${formData.projectType === type
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                                                                                : showErrors && !formData.projectType
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/40 hover:border-white/20'
+                                                                                }`}
+                                                                        >
+                                                                            {type}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                                {formData.projectType === 'Other' && (
+                                                                    <input type="text" placeholder="Please specify..." value={formData.projectTypeOther} onChange={(e) => setFormData({ ...formData, projectTypeOther: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40 mt-3" />
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
 
-                                                <div className="grid grid-cols-3 gap-4">
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Project Scale</label>
-                                                        <select className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-xs font-bold text-white/60 focus:outline-none focus:border-blue-500/40 appearance-none cursor-pointer">
-                                                            <option className="bg-[#020202]">Standard</option>
-                                                            <option className="bg-[#020202]">Large Scale</option>
-                                                            <option className="bg-[#020202]">Complex System</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">When do you need it?</label>
-                                                        <select className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-xs font-bold text-white/60 focus:outline-none focus:border-blue-500/40 appearance-none cursor-pointer">
-                                                            <option className="bg-[#020202]">Quick (1-2 mo)</option>
-                                                            <option className="bg-[#020202]">Flexible (3-6 mo)</option>
-                                                            <option className="bg-[#020202]">Long term (6 mo+)</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Estimated Budget</label>
-                                                        <select className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-xs font-bold text-white/60 focus:outline-none focus:border-blue-500/40 appearance-none cursor-pointer">
-                                                            <option className="bg-[#020202]">Startup</option>
-                                                            <option className="bg-[#020202]">Growing Business</option>
-                                                            <option className="bg-[#020202]">Enterprise</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                {/* Step 3: Goals & Features */}
+                                                {currentStep === 3 && (
+                                                    <motion.div key="step3" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Goals & Features</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Primary Goal</label>
+                                                                    {showErrors && formData.primaryGoal.length === 0 && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                                    {primaryGoals.map(goal => (
+                                                                        <button
+                                                                            key={goal}
+                                                                            type="button"
+                                                                            onClick={() => {
+                                                                                const exists = formData.primaryGoal.includes(goal);
+                                                                                if (exists) {
+                                                                                    setFormData({ ...formData, primaryGoal: formData.primaryGoal.filter(g => g !== goal) });
+                                                                                } else {
+                                                                                    setFormData({ ...formData, primaryGoal: [...formData.primaryGoal, goal] });
+                                                                                }
+                                                                            }}
+                                                                            className={`px-4 py-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all text-left flex items-center justify-between ${formData.primaryGoal.includes(goal)
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                                                                                : showErrors && formData.primaryGoal.length === 0
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/40 hover:border-white/20'
+                                                                                }`}
+                                                                        >
+                                                                            {goal}
+                                                                            {formData.primaryGoal.includes(goal) && <Check size={12} />}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Key Features Needed</label>
+                                                                <div className="grid grid-cols-1 gap-2">
+                                                                    {keyFeatures.map(feature => (
+                                                                        <button
+                                                                            key={feature}
+                                                                            type="button"
+                                                                            onClick={() => {
+                                                                                const exists = formData.features.includes(feature);
+                                                                                if (exists) {
+                                                                                    setFormData({ ...formData, features: formData.features.filter(f => f !== feature) });
+                                                                                } else {
+                                                                                    setFormData({ ...formData, features: [...formData.features, feature] });
+                                                                                }
+                                                                            }}
+                                                                            className={`px-6 py-4 rounded-2xl border text-xs font-bold transition-all flex items-center justify-between ${formData.features.includes(feature)
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500'
+                                                                                : 'bg-white/[0.02] border-white/[0.05] text-white/40 hover:border-white/20'
+                                                                                }`}
+                                                                        >
+                                                                            {feature}
+                                                                            {formData.features.includes(feature) && <Check size={14} />}
+                                                                        </button>
+                                                                    ))}
+                                                                    <div className="space-y-2 mt-2">
+                                                                        <label className="text-[10px] uppercase font-bold text-white/20 tracking-widest ml-4">Other Features</label>
+                                                                        <input type="text" placeholder="e.g., Custom Chatbot, Map Integration..." value={formData.featuresOther} onChange={(e) => setFormData({ ...formData, featuresOther: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
 
-                                                <button className="w-full bg-blue-500 text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl hover:shadow-[0_8px_30px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center gap-3 group mt-6">
-                                                    Submit Request <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                                </button>
-                                            </form>
+                                                {/* Step 4: Scale & Scale */}
+                                                {currentStep === 4 && (
+                                                    <motion.div key="step4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Scope & Scale</h2>
+                                                        <div className="space-y-8">
+                                                            <div className="space-y-4">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Project Scale</label>
+                                                                    {showErrors && !formData.projectScale && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-3 gap-3">
+                                                                    {projectScales.map(scale => (
+                                                                        <button
+                                                                            key={scale}
+                                                                            type="button"
+                                                                            onClick={() => setFormData({ ...formData, projectScale: scale })}
+                                                                            className={`px-4 py-6 rounded-2xl border text-xs font-black uppercase tracking-widest transition-all ${formData.projectScale === scale
+                                                                                ? 'bg-blue-500 border-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]'
+                                                                                : showErrors && !formData.projectScale
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/20'
+                                                                                }`}
+                                                                        >
+                                                                            {scale}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                            <div className="space-y-4">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Urgency / Timeline</label>
+                                                                    {showErrors && !formData.timeline && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                                    {timelines.map(time => (
+                                                                        <button
+                                                                            key={time}
+                                                                            type="button"
+                                                                            onClick={() => setFormData({ ...formData, timeline: time })}
+                                                                            className={`px-4 py-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all ${formData.timeline === time
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500'
+                                                                                : showErrors && !formData.timeline
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/30 hover:border-white/10'
+                                                                                }`}
+                                                                        >
+                                                                            {time}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                            <div className="space-y-4">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Budget Range</label>
+                                                                    {showErrors && !formData.budgetRange && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                                    {budgets.map(budget => (
+                                                                        <button
+                                                                            key={budget}
+                                                                            type="button"
+                                                                            onClick={() => setFormData({ ...formData, budgetRange: budget })}
+                                                                            className={`px-4 py-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all ${formData.budgetRange === budget
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500'
+                                                                                : showErrors && !formData.budgetRange
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/30 hover:border-white/10'
+                                                                                }`}
+                                                                        >
+                                                                            {budget}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+
+                                                {/* Step 5: Technical Details (Conditional) */}
+                                                {currentStep === 5 && (
+                                                    <motion.div key="step5" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Technical Details</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Platform Preference</label>
+                                                                    {showErrors && !formData.platformPreference && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                                                    {platforms.map(platform => (
+                                                                        <button
+                                                                            key={platform}
+                                                                            type="button"
+                                                                            onClick={() => setFormData({ ...formData, platformPreference: platform })}
+                                                                            className={`px-4 py-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all ${formData.platformPreference === platform
+                                                                                ? 'bg-blue-500/20 border-blue-500 text-blue-500'
+                                                                                : showErrors && !formData.platformPreference
+                                                                                    ? 'bg-red-500/[0.02] border-red-500/30 text-white/20'
+                                                                                    : 'bg-white/[0.02] border-white/[0.05] text-white/40 hover:border-white/20'
+                                                                                }`}
+                                                                        >
+                                                                            {platform}
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Preferred Technologies (Optional)</label>
+                                                                <input type="text" placeholder="e.g., React, Unity, Shopify..." value={formData.preferredTech} onChange={(e) => setFormData({ ...formData, preferredTech: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Existing Assets / Systems</label>
+                                                                <textarea rows={2} placeholder="Any existing websites, apps, APIs, or databases we should know about?" value={formData.existingAssets} onChange={(e) => setFormData({ ...formData, existingAssets: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-3xl px-6 py-5 text-sm text-white focus:outline-none focus:border-blue-500/40 resize-none" />
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+
+                                                {/* Step 6: Audience & Users */}
+                                                {currentStep === 6 && (
+                                                    <motion.div key="step6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Audience & Users</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="space-y-2">
+                                                                <div className="flex justify-between items-center px-4">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Target Audience</label>
+                                                                    {showErrors && !formData.targetAudience && <span className="text-[10px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
+                                                                </div>
+                                                                <input required type="text" placeholder="e.g., B2B, Gamers, Internal Employees..." value={formData.targetAudience} onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })} className={`w-full bg-white/[0.02] border rounded-2xl px-6 py-4 text-sm text-white focus:outline-none transition-all ${showErrors && !formData.targetAudience ? 'border-red-500/50 bg-red-500/[0.02]' : 'border-white/[0.05] focus:border-blue-500/40'}`} />
+                                                            </div>
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Expected Number of Users</label>
+                                                                    <input type="text" placeholder="e.g., 500 - 1,000" value={formData.expectedUsers} onChange={(e) => setFormData({ ...formData, expectedUsers: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Geography / Languages</label>
+                                                                    <input type="text" placeholder="e.g., Global / English" value={formData.geography} onChange={(e) => setFormData({ ...formData, geography: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+
+                                                {/* Step 7: Additional Info & Consent */}
+                                                {currentStep === 7 && (
+                                                    <motion.div key="step7" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-8 flex-1">
+                                                        <h2 className="text-3xl font-bold text-white font-outfit uppercase tracking-tight">Final Details</h2>
+                                                        <div className="space-y-6">
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Design Guidelines</label>
+                                                                    <input type="text" placeholder="Links to brand kits or text details..." value={formData.designGuidelines} onChange={(e) => setFormData({ ...formData, designGuidelines: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Inspirations / References</label>
+                                                                    <input type="text" placeholder="Links to websites/apps you like..." value={formData.inspirations} onChange={(e) => setFormData({ ...formData, inspirations: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-blue-500/40" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <label className="text-[10px] uppercase font-bold text-white/30 tracking-widest ml-4">Priority / Must-Have Features</label>
+                                                                <textarea rows={2} placeholder="What are the absolute essentials for this project?" value={formData.mustHaves} onChange={(e) => setFormData({ ...formData, mustHaves: e.target.value })} className="w-full bg-white/[0.02] border border-white/[0.05] rounded-3xl px-6 py-5 text-sm text-white focus:outline-none focus:border-blue-500/40 resize-none" />
+                                                            </div>
+
+                                                            <div className="pt-6 border-t border-white/[0.05] space-y-6">
+                                                                <div className="flex flex-col gap-2">
+                                                                    <div className="flex items-start gap-4 cursor-pointer group" onClick={() => setFormData({ ...formData, consent: !formData.consent })}>
+                                                                        <div className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-all mt-1 ${formData.consent ? 'bg-blue-500 border-blue-500' : showErrors && !formData.consent ? 'border-red-500' : 'bg-white/[0.02] border-white/[0.1] group-hover:border-white/30'}`}>
+                                                                            {formData.consent && <Check size={14} className="text-white" />}
+                                                                        </div>
+                                                                        <p className="text-[10px] text-white/30 uppercase font-bold tracking-widest leading-relaxed">
+                                                                            I acknowledge the <Link href="/terms" target="_blank" className="text-white hover:text-blue-400 transition-colors underline decoration-white/20 underline-offset-4">Terms & Conditions</Link> and <Link href="/privacy" target="_blank" className="text-white hover:text-blue-400 transition-colors underline decoration-white/20 underline-offset-4">Privacy Policy</Link> regarding this project inquiry.
+                                                                        </p>
+                                                                    </div>
+                                                                    {showErrors && !formData.consent && <p className="text-[10px] text-red-500 font-bold uppercase tracking-widest ml-10">Consent is Required</p>}
+                                                                </div>
+
+                                                                <div className="bg-white/[0.02] border border-white/[0.05] p-6 rounded-[2rem]">
+                                                                    <CaptchaWidget onVerified={setIsCaptchaVerified} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+
+                                            <div className="flex items-center gap-4 mt-12">
+                                                {currentStep > 1 && (
+                                                    <button
+                                                        onClick={() => {
+                                                            setShowErrors(false);
+                                                            setErrors([]);
+                                                            let prevStep = currentStep - 1;
+                                                            if (currentStep === 6) {
+                                                                const needsTechnical = formData.projectType.toLowerCase().includes('app') ||
+                                                                    formData.projectType.toLowerCase().includes('software') ||
+                                                                    formData.projectType.toLowerCase().includes('ai');
+                                                                if (!needsTechnical) prevStep = 4;
+                                                            }
+                                                            setCurrentStep(prevStep);
+                                                        }}
+                                                        className="flex-1 bg-white/[0.05] text-white/60 font-black uppercase tracking-[0.2em] py-5 rounded-2xl border border-white/[0.1] hover:bg-white/[0.08] transition-all"
+                                                    >
+                                                        Back
+                                                    </button>
+                                                )}
+
+                                                {currentStep < 7 ? (
+                                                    <button
+                                                        onClick={handleNext}
+                                                        className="flex-1 bg-blue-500 text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl hover:shadow-[0_8px_30px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center gap-3 group"
+                                                    >
+                                                        Continue <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={handleInquirySubmit}
+                                                        disabled={isSubmitting || !isCaptchaVerified || !formData.consent}
+                                                        className={`flex-1 font-black uppercase tracking-[0.2em] py-5 rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-3 group ${isSubmitting || !isCaptchaVerified || !formData.consent
+                                                            ? 'bg-white/5 text-white/20 cursor-not-allowed'
+                                                            : 'bg-blue-600 text-white hover:bg-blue-500 hover:shadow-[0_8px_40px_rgba(59,130,246,0.4)]'
+                                                            }`}
+                                                    >
+                                                        {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <>Complete Briefing <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>}
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -387,17 +897,27 @@ export default function StartProjectPage() {
                                                         </div>
                                                     </div>
 
-                                                    {selectedPlan?.type === 'modular' && Object.entries(selectedPlan?.modules || {}).filter(([_, q]: any) => q > 0).length > 0 && (
+                                                    {selectedPlan?.type === 'modular' && (
                                                         <div className="space-y-3">
-                                                            <p className="text-[10px] uppercase font-bold text-white/30 ml-2 tracking-widest">Configured Modules</p>
-                                                            <div className="max-h-48 overflow-y-auto pr-2 space-y-2 custom-scrollbar">
-                                                                {Object.entries(selectedPlan.modules).filter(([_, q]: any) => q > 0).map(([name, q]: any, i) => (
-                                                                    <div key={i} className="flex justify-between text-xs py-2 border-b border-white/[0.05]">
-                                                                        <span className="text-white/60">{name} {q > 1 ? `(x${q})` : ''}</span>
-                                                                        <span className="text-white font-mono opacity-80">+ Included</span>
+                                                            {Object.entries(selectedPlan?.modules || {}).filter(([_, q]: any) => q > 0).length > 0 && (
+                                                                <>
+                                                                    <p className="text-[10px] uppercase font-bold text-white/30 ml-2 tracking-widest">Configured Modules</p>
+                                                                    <div className="max-h-48 overflow-y-auto pr-2 space-y-2 custom-scrollbar">
+                                                                        {Object.entries(selectedPlan.modules).filter(([_, q]: any) => q > 0).map(([name, q]: any, i) => (
+                                                                            <div key={i} className="flex justify-between text-xs py-2 border-b border-white/[0.05]">
+                                                                                <span className="text-white/60">{name} {q > 1 ? `(x${q})` : ''}</span>
+                                                                                <span className="text-white font-mono opacity-80">+ Included</span>
+                                                                            </div>
+                                                                        ))}
                                                                     </div>
-                                                                ))}
-                                                            </div>
+                                                                </>
+                                                            )}
+                                                            {selectedPlan.maintenance && (
+                                                                <div className="flex justify-between text-xs py-2 border-b border-white/[0.05] mt-2">
+                                                                    <span className="text-[#FF6A00] font-bold italic">{selectedPlan.maintenance}</span>
+                                                                    <span className="text-white font-mono opacity-80 tracking-widest uppercase text-[10px] bg-white/5 px-2 py-0.5 rounded">+ Active</span>
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     )}
 
@@ -468,7 +988,6 @@ export default function StartProjectPage() {
                                                                 <Phone size={12} className="text-[#FF6A00]" /> Phone Number
                                                             </label>
                                                             <input
-                                                                required
                                                                 value={formData.phone}
                                                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                                 type="tel"
@@ -481,7 +1000,6 @@ export default function StartProjectPage() {
                                                                 <Globe size={12} className="text-[#FF6A00]" /> Company Name
                                                             </label>
                                                             <input
-                                                                required
                                                                 value={formData.company}
                                                                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                                                                 type="text"
@@ -511,8 +1029,8 @@ export default function StartProjectPage() {
                                                     <button
                                                         disabled={isSubmitting || !isCaptchaVerified}
                                                         className={`w-full py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 group mt-4 ${isCaptchaVerified
-                                                                ? 'bg-[#FF6A00] text-white hover:shadow-[0_12px_40px_rgba(255,106,0,0.4)]'
-                                                                : 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'
+                                                            ? 'bg-[#FF6A00] text-white hover:shadow-[0_12px_40px_rgba(255,106,0,0.4)]'
+                                                            : 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'
                                                             }`}
                                                     >
                                                         {isSubmitting ? (
@@ -537,19 +1055,48 @@ export default function StartProjectPage() {
                                 transition={{ duration: 0.8, ease: easing }}
                                 className="text-center max-w-2xl mx-auto"
                             >
-                                <div className="w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500 mx-auto mb-10 shadow-[0_0_50px_rgba(34,197,94,0.2)]">
+                                <div className="w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500 mx-auto mb-8 shadow-[0_0_50px_rgba(34,197,94,0.2)]">
                                     <Check size={48} strokeWidth={3} />
                                 </div>
-                                <h2 className="text-5xl font-bold text-white mb-6 font-outfit uppercase tracking-tighter">Information Received</h2>
-                                <p className="text-white/40 text-xl font-light leading-relaxed mb-12">
-                                    We have received the package information, our team member will be sharing an agreement along with payment link to move forward with the project.
+                                <p className="text-[#FF6A00] font-bold uppercase tracking-[0.3em] text-[10px] mb-4">Briefing Successful</p>
+                                <h2 className="text-5xl font-bold text-white mb-6 font-outfit uppercase tracking-tighter leading-tight">
+                                    Thank You for <span className="text-white/20 text-4xl block mt-2">Partnering With Us.</span>
+                                </h2>
+                                <p className="text-white/40 text-xl font-light leading-relaxed mb-10">
+                                    Your project briefing has been successfully transmitted to our operations team. We are honored to be part of your mission. An assigned Project Manager will review your requirements and coordinate the next steps within the next 60 minutes.
                                 </p>
-                                <button
-                                    onClick={() => setActiveModule('selection')}
-                                    className="px-12 py-5 rounded-2xl bg-white/[0.04] border border-white/[0.1] text-white font-bold hover:bg-white/[0.08] transition-all"
-                                >
-                                    Back to Start
-                                </button>
+
+                                <div className="max-w-md mx-auto mb-12 p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] backdrop-blur-xl">
+                                    <p className="text-[10px] uppercase font-bold text-[#FF6A00] tracking-[0.2em] mb-4">Urgent Escalation</p>
+                                    <p className="text-sm text-white/50 mb-6 leading-relaxed">
+                                        If you require immediate assistance or prioritized support, please reach out to our dedicated operations desk.
+                                    </p>
+                                    <div className="flex flex-col gap-4">
+                                        <div className="flex items-center justify-between text-sm py-3 border-b border-white/[0.05]">
+                                            <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Email</span>
+                                            <a href="mailto:support@neonbyte.com" className="text-white font-medium hover:text-[#FF6A00] transition-colors underline decoration-white/10 underline-offset-4">support@neonbyte.com</a>
+                                        </div>
+                                        <div className="flex items-center justify-between text-sm py-3">
+                                            <span className="text-white/30 uppercase font-bold text-[10px] tracking-widest">Phone</span>
+                                            <a href="tel:3322321676" className="text-white font-medium hover:text-[#FF6A00] transition-colors">(332) - 232 - 1676</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                    <button
+                                        onClick={() => setActiveModule('selection')}
+                                        className="w-full sm:w-auto px-12 py-5 rounded-2xl bg-[#FF6A00] text-white font-black uppercase tracking-[0.2em] hover:shadow-[0_12px_40px_rgba(255,106,0,0.3)] transition-all"
+                                    >
+                                        New Briefing
+                                    </button>
+                                    <Link
+                                        href="/"
+                                        className="w-full sm:w-auto px-12 py-5 rounded-2xl bg-white/[0.04] border border-white/[0.1] text-white font-bold hover:bg-white/[0.08] transition-all"
+                                    >
+                                        Return Home
+                                    </Link>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>

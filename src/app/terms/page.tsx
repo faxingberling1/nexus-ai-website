@@ -128,7 +128,7 @@ export default function TermsPage() {
                             className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 group hover:bg-white/[0.04] transition-all duration-500"
                         >
                             <h2 className="text-2xl font-semibold text-[#FF6A00] mb-6 font-outfit uppercase tracking-tighter">4. Intellectual Property</h2>
-                            <p className="text-white/40 text-sm leading-relaxed mb-6">NEONBYTE retains all rights to proprietary algorithms, codebases, and AI models. User retains rights to their raw data and branding assets.</p>
+                            <p className="text-white/40 text-sm leading-relaxed mb-6">All systems, software, and solutions developed by NEONBYTE for the client will be the exclusive property of the client upon delivery and full payment. NEONBYTE retains rights only to any pre-existing proprietary algorithms, codebases, or AI models that are not specifically developed for the client. The client retains full ownership of their data, branding assets, and all work produced under the project.</p>
                             <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                 <motion.div className="h-full bg-[#FF6A00]" animate={{ x: ['-100%', '100%'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
                             </div>

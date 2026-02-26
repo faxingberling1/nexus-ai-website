@@ -20,10 +20,10 @@ export async function POST(request: Request) {
         const isProject = type === 'project';
 
         // Define destination and sender based on inquiry type
-        const destinationEmail = isProject ? 'sales@neonbyteai.com' : 'support@neonbyteai.com';
+        const destinationEmail = isProject ? 'sales@neonbyteai.com' : 'support@neonbyte.com';
         const fromEmail = isProject
             ? 'NeonByte AI Sales <sales@neonbyteai.com>'
-            : 'NeonByte AI Support <support@neonbyteai.com>';
+            : 'NeonByte AI Support <support@neonbyte.com>';
 
         const subject = isProject
             ? `[PROJECT] New Inquiry: ${selections?.company || name}`
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
                         ${activeModules.map(([name, qty]: any) => `
                             <tr style="border-bottom: 1px solid #1a1a1a;"><td style="color: #888; padding: 8px 0;">+ ${name}</td><td style="color: #fff; text-align: right;">x${qty}</td></tr>
                         `).join('')}
-                        ${plan.maintenance ? `<tr style="border-bottom: 1px solid #1a1a1a;"><td style="color: #888; padding: 8px 0;">Maintenance</td><td style="color: #fff; text-align: right;">${plan.maintenance.name}</td></tr>` : ''}
+                        ${plan.maintenance ? `<tr style="border-bottom: 1px solid #1a1a1a;"><td style="color: #888; padding: 8px 0;">Maintenance</td><td style="color: #fff; text-align: right;">${plan.maintenance}</td></tr>` : ''}
                         <tr><td style="color: #FF6A01; padding: 12px 0; font-weight: bold;">One-Time Total</td><td style="color: #FF6A01; text-align: right; font-weight: bold; font-size: 18px;">$${plan.oneTimeTotal?.toLocaleString()}</td></tr>
                         ${plan.recurringTotal > 0 ? `<tr><td style="color: #888; padding: 4px 0;">Monthly Recurring</td><td style="color: #fff; text-align: right;">$${plan.recurringTotal?.toLocaleString()}/mo</td></tr>` : ''}
                     </table>
