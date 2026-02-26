@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Phone } from 'lucide-react';
+import AnnouncementBar from './AnnouncementBar';
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -26,96 +28,99 @@ export default function Header() {
     ];
 
     return (
-        <motion.header
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pointer-events-none ${isScrolled ? 'py-4' : 'py-8'}`}
-        >
-            <div className="max-w-7xl mx-auto px-6 pointer-events-auto flex justify-center sticky">
-                {/* The ultra-premium floating pill header */}
-                <div className={`flex items-center justify-between px-2 py-2 rounded-full transition-all duration-700 w-full lg:w-[85%] ${isScrolled || isMobileMenuOpen
-                    ? 'bg-[#121212]/60 backdrop-blur-2xl border border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
-                    : 'bg-transparent border border-transparent'
-                    }`}>
+        <>
+            <AnnouncementBar isVisible={isAnnouncementVisible} onClose={() => setIsAnnouncementVisible(false)} />
+            <motion.header
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`fixed left-0 right-0 z-50 transition-all duration-500 pointer-events-none ${isAnnouncementVisible ? 'top-6' : 'top-0'} ${isScrolled ? 'py-4' : 'py-8'}`}
+            >
+                <div className="max-w-7xl mx-auto px-6 pointer-events-auto flex justify-center sticky">
+                    {/* The ultra-premium floating pill header */}
+                    <div className={`flex items-center justify-between px-2 py-2 rounded-full transition-all duration-700 w-full lg:w-[85%] ${isScrolled || isMobileMenuOpen
+                        ? 'bg-[#121212]/60 backdrop-blur-2xl border border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
+                        : 'bg-transparent border border-transparent'
+                        }`}>
 
-                    <Link href="/" className="flex items-center gap-2 group px-4">
-                        <div className="font-semibold text-lg tracking-tight font-outfit text-white flex items-center gap-2">
-                            <img src="/sad@2x.png" alt="Neon Byte AI Logo" className="w-5 h-5 object-contain" />
-                            NEON<span className="text-white/40 font-medium">BYTE</span>
-                        </div>
-                    </Link>
-
-                    <nav className="hidden md:flex items-center gap-1 px-4 bg-white/[0.03] rounded-full border border-white/[0.1]">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.label}
-                                href={link.href}
-                                className="text-[11px] lg:text-xs font-medium text-white/50 hover:text-white hover:bg-white/[0.06] px-3 lg:px-4 py-2 rounded-full transition-all duration-300 font-inter whitespace-nowrap"
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
-                    </nav>
-
-                    <div className="flex items-center gap-2 px-2">
-                        <Link href="/support" className="hidden md:flex text-xs font-medium text-white/50 hover:text-white px-4 py-2.5 rounded-full hover:bg-white/[0.04] transition-colors font-inter">
-                            Support
+                        <Link href="/" className="flex items-center gap-2 group px-4">
+                            <div className="font-semibold text-lg tracking-tight font-outfit text-white flex items-center gap-2">
+                                <img src="/sad@2x.png" alt="Neon Byte AI Logo" className="w-5 h-5 object-contain" />
+                                NEON<span className="text-white/40 font-medium">BYTE</span>
+                            </div>
                         </Link>
 
-                        <Link href="/start" className="relative group bg-[#1A1A1A] text-white text-xs font-medium px-6 py-2.5 rounded-full overflow-hidden transition-all duration-500 border border-white/[0.08] hover:border-[#FF6A00]/50 hover:shadow-[0_0_20px_rgba(255,106,0,0.2)] ml-2">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#FF6A00] to-[#E65C00] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                                Start Project
-                            </span>
-                        </Link>
-
-                        {/* Direct Call Button */}
-                        <a href="tel:3322321676" className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/40 hover:text-white hover:border-[#FF6A00]/40 transition-all duration-500 group ml-1">
-                            <Phone size={14} className="group-hover:scale-110 transition-transform duration-500" />
-                        </a>
-
-                        {/* Mobile Toggle */}
-                        <button
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors"
-                        >
-                            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Mobile Menu Drawer */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute top-full left-6 right-6 mt-4 p-8 bg-[#121212]/95 backdrop-blur-3xl border border-white/[0.06] rounded-[2rem] shadow-2xl md:hidden z-50 flex flex-col gap-6"
-                        >
-                            {navLinks.map((link, i) => (
-                                <motion.div
+                        <nav className="hidden md:flex items-center gap-1 px-4 bg-white/[0.03] rounded-full border border-white/[0.1]">
+                            {navLinks.map((link) => (
+                                <Link
                                     key={link.label}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.1 }}
+                                    href={link.href}
+                                    className="text-[11px] lg:text-xs font-medium text-white/50 hover:text-white hover:bg-white/[0.06] px-3 lg:px-4 py-2 rounded-full transition-all duration-300 font-inter whitespace-nowrap"
                                 >
-                                    <Link
-                                        href={link.href}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="text-xl font-medium text-white/60 hover:text-[#FF6A00] transition-colors flex items-center justify-between group"
-                                    >
-                                        {link.label}
-                                        <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
-                                    </Link>
-                                </motion.div>
+                                    {link.label}
+                                </Link>
                             ))}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-        </motion.header>
+                        </nav>
+
+                        <div className="flex items-center gap-2 px-2">
+                            <Link href="/support" className="hidden md:flex text-xs font-medium text-white/50 hover:text-white px-4 py-2.5 rounded-full hover:bg-white/[0.04] transition-colors font-inter">
+                                Support
+                            </Link>
+
+                            <Link href="/start" className="relative group bg-[#1A1A1A] text-white text-xs font-medium px-6 py-2.5 rounded-full overflow-hidden transition-all duration-500 border border-white/[0.08] hover:border-[#FF6A00]/50 hover:shadow-[0_0_20px_rgba(255,106,0,0.2)] ml-2">
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#FF6A00] to-[#E65C00] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                                    Start Project
+                                </span>
+                            </Link>
+
+                            {/* Direct Call Button */}
+                            <a href="tel:3322321676" className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/40 hover:text-white hover:border-[#FF6A00]/40 transition-all duration-500 group ml-1">
+                                <Phone size={14} className="group-hover:scale-110 transition-transform duration-500" />
+                            </a>
+
+                            {/* Mobile Toggle */}
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors"
+                            >
+                                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu Drawer */}
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                className="absolute top-full left-6 right-6 mt-4 p-8 bg-[#121212]/95 backdrop-blur-3xl border border-white/[0.06] rounded-[2rem] shadow-2xl md:hidden z-50 flex flex-col gap-6"
+                            >
+                                {navLinks.map((link, i) => (
+                                    <motion.div
+                                        key={link.label}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.1 }}
+                                    >
+                                        <Link
+                                            href={link.href}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="text-xl font-medium text-white/60 hover:text-[#FF6A00] transition-colors flex items-center justify-between group"
+                                        >
+                                            {link.label}
+                                            <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </motion.header>
+        </>
     );
 }
