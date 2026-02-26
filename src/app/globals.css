@@ -13,6 +13,10 @@ input[type="reset"],
 input[type="button"],
 label[for],
 select,
-summary {
-    cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='glow2' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeDropShadow dx='0' dy='0' stdDeviation='3' flood-color='%23FF6A00' flood-opacity='1'/%3E%3C/filter%3E%3ClinearGradient id='grad2' x1='2' y1='2' x2='20' y2='24' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%23FFFFFF'/%3E%3Cstop offset='50%25' stop-color='%23FF6A00'/%3E%3Cstop offset='100%25' stop-color='%23FF1100'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 2L22 13L13 15L7 26L2 2Z' fill='url(%23grad2)' stroke='white' stroke-width='2' stroke-linejoin='round' filter='url(%23glow2)'/%3E%3C/svg%3E") 2 2, pointer;
+summary,
+svg,
+.lucide,
+[class*="icon"],
+.cursor-pointer {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxmaWx0ZXIgaWQ9Imdsb3cyIiB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIj4KICAgICAgPGZlRHJvcFNoYWRvdyBkeD0iMCIgZHk9IjAiIHN0ZERldmlhdGlvbj0iMyIgZmxvb2QtY29sb3I9IiNGRjZBMDAiIGZsb29kLW9wYWNpdHk9IjEiLz4KICAgIDwvZmlsdGVyPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkMiIgeDE9IjAiIHkxPSI0IiB4Mj0iMjgiIHkyPSIyOCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkZGRkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNjAlIiBzdG9wLWNvbG9yPSIjRkY2QTAwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0ZGMTEwMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHBhdGggZD0iTTE0LjEsMjguN0MxMi4zLDI4LjcgMTAuNiwyOC4xIDkuMiwyNy4xTDMuNCwyMUMyLjgsMjAuNCAyLjgsMTkuNSAzLjMsMTguOUMzLjgsMTguNCA0LjcsMTguNCA1LjMsMTguOUw5LjYsMjNMOS42LDYuM0M5LjYsNSAxMC43LDQgMTIsNEMxMy4zLDQgMTQuNCw1IDE0LjQsNi4zTDE0LjQsMTRMMTQuNSwxNEMxNC45LDEzLjEgMTUuNywxMi41IDE2LjcsMTIuNUMxOCwxMi41IDE5LjEsMTMuNiAxOS4xLDE0LjlMMTkuMSwxNS4xQzE5LjUsMTQuMyAyMC4zLDEzLjggMjEuMiwxMy44QzIyLjUsMTMuOCAyMy42LDE0LjkgMjMuNiwxNi4yTDIzLjYsMTYuNEMyNCwxNS42IDI0LjgsMTUuMSAyNS43LDE1LjFDMjcuMSwxNS4xIDI4LjIsMTYuMSAyOC4yLDE3LjVMMjguMiwyMS41QzI4LjIsMjUuNCAyNSwyOC43IDIxLjEsMjguN0wxNC4xLDI4LjdaIiBmaWxsPSJ1cmwoI2dyYWQyKSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbHRlcj0idXJsKCNnbG93MikiLz4KPC9zdmc+') 12 4, pointer !important;
 }
