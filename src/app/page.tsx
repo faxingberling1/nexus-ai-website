@@ -248,25 +248,6 @@ export default function Home() {
 
         </div>
 
-        {/* Abstract Glowing Interface below hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.8, ease: easing }}
-          className="w-full max-w-[1200px] mx-auto mt-32 relative hidden md:block px-6 rounded-t-[2rem] border-x border-t border-white/[0.04] bg-gradient-to-b from-[#121212]/30 to-transparent h-[400px] overflow-hidden"
-        >
-          <div className="absolute top-0 left-1/4 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/40 to-transparent" />
-
-          {/* Fake Dashboard Layout Lines */}
-          <div className="absolute top-12 left-12 w-[calc(100%-6rem)] h-[1px] bg-white/[0.03]" />
-          <div className="absolute top-24 left-12 w-[20%] h-[1px] bg-[#FF6A00]/30" />
-          <div className="absolute top-12 bottom-0 left-[20%] w-[1px] bg-white/[0.03]" />
-          <div className="absolute bottom-0 right-[20%] top-12 w-[1px] bg-white/[0.03]" />
-
-          <div className="absolute top-[30%] left-[30%] w-[40px] h-[40px] rounded-full bg-[#121212] border border-[#FF6A00]/30 shadow-[0_0_30px_rgba(255,106,0,0.2)] flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-[#FF6A00] animate-pulse" />
-          </div>
-        </motion.div>
       </section>
 
       {/* CLIENT LOGO TICKER */}
