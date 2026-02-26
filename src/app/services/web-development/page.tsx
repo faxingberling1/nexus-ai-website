@@ -10,6 +10,7 @@ export default function WebDevelopmentPage() {
         <ImmersivePortal
             title="Web & Platform"
             badge="Digital Engineering"
+            pricingId="web"
             description="Engineering enterprise-grade digital infrastructure designed for speed, security, and reliable scalability."
             icon={Globe}
             features={[

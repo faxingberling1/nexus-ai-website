@@ -8,49 +8,62 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CommandMap from '@/components/CommandMap';
 
-const services = [
+const systemLayers = [
   {
+    layerName: "AI & Machine Learning",
+    icon: "🧠",
     title: "AI Solutions",
     slug: "ai-solutions",
-    description: "Custom AI systems and intelligent automation tailored to your operations.",
-    icon: Brain,
+    description: "Custom AI models, intelligent automation, and decision systems built to streamline your operations and drive measurable results.",
+    lucideIcon: Brain,
   },
   {
+    layerName: "Web & Software Development",
+    icon: "⚙️",
     title: "Web & Platform Development",
     slug: "web-development",
-    description: "Enterprise-grade websites, SaaS platforms, dashboards, and scalable applications.",
-    icon: Code,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop"
+    description: "Enterprise-grade websites, SaaS platforms, dashboards, and scalable web applications built for performance and growth.",
+    lucideIcon: Code,
   },
   {
-    title: "Growth & Performance",
-    slug: "growth-performance",
-    description: "SEO, paid media, and data-driven growth systems built for measurable impact.",
-    icon: LineChart,
-  },
-  {
-    title: "Game Development",
-    slug: "game-development",
-    description: "Immersive digital experiences powered by intelligent mechanics.",
-    icon: Gamepad2,
-  },
-  {
-    title: "Copy & Brand Systems",
-    slug: "brand-messaging",
-    description: "Strategic messaging that aligns with your brand and drives conversions.",
-    icon: PenTool,
-  },
-  {
-    title: "Blockchain Apps",
+    layerName: "Web3 & Decentralized Tech",
+    icon: "🌐",
+    title: "Blockchain & Web3",
     slug: "blockchain-apps",
-    description: "Web3 integration, secure wallet creation, and custom decentralized services.",
-    icon: Cpu,
+    description: "Decentralized applications, smart contracts, wallet integrations, and token infrastructure for next-generation products.",
+    lucideIcon: Cpu,
   },
   {
+    layerName: "Process & Workflow Automation",
+    icon: "🔄",
     title: "Business Automation",
     slug: "business-automation",
-    description: "Workflow design, integrations, CRM systems, and operational optimization.",
-    icon: GitBranch,
+    description: "Workflow design, CRM integration, and intelligent process automation that eliminate inefficiency and reduce operational overhead.",
+    lucideIcon: GitBranch,
+  },
+  {
+    layerName: "Marketing & Growth",
+    icon: "🚀",
+    title: "Growth & Performance",
+    slug: "growth-performance",
+    description: "SEO, paid media, analytics, and conversion systems engineered to scale your audience and maximize return on investment.",
+    lucideIcon: LineChart,
+  },
+  {
+    layerName: "Games & Interactive Media",
+    icon: "🎮",
+    title: "Game & Interactive Systems",
+    slug: "game-development",
+    description: "Immersive games and interactive digital experiences built with rich mechanics, engaging gameplay loops, and scalable architecture.",
+    lucideIcon: Gamepad2,
+  },
+  {
+    layerName: "Branding & Copywriting",
+    icon: "🧩",
+    title: "Copy & Brand Strategy",
+    slug: "brand-messaging",
+    description: "Strategic brand identity, messaging frameworks, and conversion-focused copy that establish authority and drive action.",
+    lucideIcon: PenTool,
   }
 ];
 
@@ -481,143 +494,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES SECTION */}
-      <section className="py-40 relative z-10 border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)]" id="services">
+      {/* SYSTEM ARCHITECTURE SECTION */}
+      <section className="py-40 relative z-10 bg-[#050505] border-b border-[#FF6A00]/20 shadow-[0_10px_50px_-20px_rgba(255,106,0,0.15)] overflow-hidden" id="services">
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF6A00]/50 to-transparent" />
         <div className="absolute top-12 left-6 w-4 h-4 border-t-2 border-l-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
         <div className="absolute bottom-12 right-6 w-4 h-4 border-b-2 border-r-2 border-[#FF6A00]/40 pointer-events-none shadow-[0_0_10px_rgba(255,106,0,0.2)]" />
 
+        {/* Subtle background layering */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-        <div className="max-w-[85rem] mx-auto px-6">
-          <div className="text-center md:text-left mb-24 max-w-2xl">
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-tight text-white font-outfit mb-6">Engineered solutions.</h2>
-            <p className="text-white/40 text-xl font-light">Custom software, intelligent automation, and marketing systems built for serious business.</p>
+        <div className="max-w-[85rem] mx-auto px-6 relative z-10">
+          <div className="text-center mb-20 max-w-3xl mx-auto">
+            <h2 className="text-[11px] font-semibold tracking-widest text-[#FF6A00] uppercase font-inter mb-6">Our Services</h2>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white font-outfit mb-8 leading-[1.1]">What We Build</h3>
+            <p className="text-white/50 text-xl font-light leading-relaxed">
+              From AI models and web platforms to blockchain apps and brand strategy — we cover every layer of your digital growth.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {services.map((service, i) => {
-              const isWide = i === 1 || i === 4;
-              const isMedium = i === 2 || i === 3;
-              const colSpan = isWide ? "md:col-span-8" : isMedium ? "md:col-span-6" : "md:col-span-4";
-
-              return (
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: i * 0.1, ease: easing } }
-                  }}
-                  key={i}
-                  className={`${colSpan}`}
-                >
-                  <Link href={`/services/${service.slug}`} className="block h-full group bg-gradient-to-b from-[#121212]/80 to-[#0B0B0B] border border-[#FF6A00]/10 rounded-[2rem] p-10 hover:border-[#FF6A00]/30 hover:shadow-[0_8px_40px_rgba(255,106,0,0.05)] transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] cursor-pointer">
-
-                    {/* Premium Hover Vignette */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF6A00]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF6A00]/5 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none translate-x-1/2 -translate-y-1/2" />
-
-                    <div className="w-14 h-14 rounded-2xl bg-[#1A1A1A] border border-white/[0.08] flex items-center justify-center text-white/40 mb-8 group-hover:text-[#FF6A00] group-hover:border-[#FF6A00]/30 transition-all duration-500 shadow-sm relative z-10 group-hover:-translate-y-1">
-                      <service.icon size={26} strokeWidth={1.5} />
-                    </div>
-
-                    <div className={`relative z-10 ${isWide ? 'md:w-3/4 lg:w-2/3' : 'w-full'}`}>
-                      {service.image ? (
-                        <div className="mb-8 rounded-xl overflow-hidden border border-white/[0.08] relative w-full aspect-video group-hover:border-[#FF6A00]/20 transition-all duration-700 shadow-2xl bg-[#0A0A0A]">
-                          {/* Browser Header Finishing (MailMind Style) */}
-                          <div className="h-7 border-b border-white/[0.06] flex items-center px-4 bg-white/[0.02] relative z-20">
-                            <div className="flex gap-1.5 mr-4">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#FF5F56]/40" />
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#FFBD2E]/40" />
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#27C93F]/40" />
-                            </div>
-                            <div className="h-4 w-32 bg-white/[0.03] border border-white/[0.05] rounded-sm flex items-center px-2">
-                              <div className="w-1 h-1 rounded-full bg-[#FF6A00]/40 mr-2" />
-                              <div className="h-[2px] w-12 bg-white/5" />
-                            </div>
-                            <div className="ml-auto flex gap-2">
-                              <div className="h-[1px] w-4 bg-white/10" />
-                              <div className="h-[1px] w-4 bg-white/10" />
-                            </div>
-                          </div>
-                          <div className="relative w-full h-[calc(100%-28px)] overflow-hidden">
-                            <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-70 group-hover:opacity-100" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="mb-8 h-40 relative overflow-hidden rounded-xl border border-white/[0.03] bg-white/[0.01]">
-                          {/* Abstract Visuals per Service */}
-                          {i === 0 && ( /* AI Solutions */
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="relative w-24 h-24">
-                                {[...Array(3)].map((_, j) => (
-                                  <motion.div
-                                    key={j}
-                                    animate={{ rotate: 360 }}
-                                    transition={{ duration: 10 + j * 5, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-0 border border-[#FF6A00]/20 rounded-full"
-                                    style={{ scale: 0.6 + j * 0.2 }}
-                                  />
-                                ))}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#FF6A00]/10 to-transparent blur-xl" />
-                              </div>
-                            </div>
-                          )}
-                          {i === 2 && ( /* Growth */
-                            <div className="absolute inset-0 flex items-end px-4 pb-8">
-                              {[...Array(12)].map((_, j) => (
-                                <motion.div
-                                  key={j}
-                                  initial={{ height: "20%" }}
-                                  animate={{ height: `${30 + (Math.sin(j) * 20) + (j * 5)}%` }}
-                                  className="flex-1 mx-[1px] bg-gradient-to-t from-[#FF6A00]/20 to-transparent rounded-t-sm"
-                                />
-                              ))}
-                            </div>
-                          )}
-                          {/* Game Dev - client-side conditional removed to match previous failure but now I'll just keep it simple */}
-                          {i === 3 && ( /* Game Dev */
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              {/* Simplified abstract for brevity */}
-                              <div className="w-16 h-16 rounded-full border border-[#FF6A00]/20 animate-spin" />
-                            </div>
-                          )}
-                          {i === 4 && ( /* Branding */
-                            <div className="absolute inset-0 flex gap-4 p-8">
-                              <div className="w-1/3 h-full bg-white/[0.03] border border-white/[0.05] rounded shadow-sm" />
-                              <div className="flex-1 flex flex-col gap-4">
-                                <div className="h-4 w-full bg-[#FF6A00]/10 rounded" />
-                                <div className="h-4 w-2/3 bg-white/[0.03] rounded" />
-                              </div>
-                            </div>
-                          )}
-                          {i === 5 && ( /* Automation */
-                            <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                              <div className="flex gap-4">
-                                <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className="w-16 h-16 border-2 border-dashed border-white/50 rounded-full flex items-center justify-center p-2"><div className="w-full h-full border border-white/20 rounded-full" /></motion.div>
-                                <motion.div animate={{ rotate: -360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-2 border-dashed border-white/50 rounded-full -mt-8 flex items-center justify-center p-2"><div className="w-full h-full border border-white/20 rounded-full" /></motion.div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      <h3 className="text-2xl font-medium text-white mb-4 font-outfit tracking-tight leading-tight">{service.title}</h3>
-                      <p className="text-white/40 text-[15px] leading-relaxed font-light">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Sliding Action Arrow */}
-                    <div className="absolute bottom-10 right-10 w-12 h-12 rounded-full border border-white/[0.05] flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:bg-white/[0.02] transition-all duration-500">
-                      <ArrowUpRight size={20} className="text-[#FF6A00]" />
-                    </div>
-                  </Link>
-                </motion.div>
-              )
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {systemLayers.map((layer, i) => (
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: i * 0.1, ease: easing } }
+                }}
+                className="h-full"
+              >
+                <Link href={`/services/${layer.slug}`} className="block h-full bg-[#121212]/80 backdrop-blur-xl border border-white/[0.05] rounded-3xl p-8 hover:border-[#FF6A00]/40 transition-all duration-500 relative overflow-hidden group/card hover:-translate-y-2 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(255,106,0,0.15)] flex flex-col min-h-[340px]">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[#FF6A00]/5 rounded-bl-[120px] blur-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FF6A00]/[0.03] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-xl">{layer.icon}</span>
+                    <h4 className="text-[12px] font-semibold tracking-widest text-[#FF6A00] uppercase font-inter">{layer.layerName}</h4>
+                  </div>
+                  <h3 className="text-2xl font-semibold tracking-tight text-white mb-4 font-outfit leading-tight">{layer.title}</h3>
+                  <p className="text-white/40 text-[14px] font-light leading-relaxed mb-6 flex-grow">{layer.description}</p>
+                  <div className="inline-flex items-center gap-2 text-[12px] font-medium tracking-wide text-white/30 uppercase group-hover/card:text-white transition-colors duration-300 mt-auto">
+                    Explore Component
+                    <ArrowRight size={14} className="group-hover/card:text-[#FF6A00] transition-transform group-hover/card:translate-x-1" />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Epic Bottom Conclusion Block */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mt-40 border border-white/[0.04] bg-[#121212]/40 backdrop-blur-2xl rounded-[2rem] p-12 lg:p-16 text-center max-w-4xl mx-auto shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden group"
+          >
+            {/* Ambient Background Grid for CTA */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#FF6A0008_1px,transparent_1px),linear-gradient(to_bottom,#FF6A0008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
+            <div className="relative z-10">
+              <h4 className="text-3xl lg:text-4xl font-semibold text-white font-outfit mb-6 tracking-tight leading-[1.2]">
+                Every component connects.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/30">Every layer compounds.</span>
+              </h4>
+              <p className="text-white/40 text-lg font-light mb-10 max-w-xl mx-auto">
+                We build ecosystems — not isolated tools.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
+                <Link href="/start" className="bg-[#FF6A00] hover:bg-[#FF8C33] text-white text-sm font-semibold px-10 py-5 rounded-full transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,106,0,0.2)] hover:shadow-[0_0_40px_rgba(255,106,0,0.5)]">
+                  Start Your Project <ArrowRight size={18} />
+                </Link>
+                <Link href="/pricing" className="bg-white/[0.02] hover:bg-white/[0.08] border border-white/10 text-white text-sm font-semibold px-10 py-5 rounded-full transition-colors duration-300 flex items-center justify-center">
+                  Explore Pricing
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 

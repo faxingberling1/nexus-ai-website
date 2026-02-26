@@ -419,25 +419,13 @@ export default function ServicesPage() {
                                             ))}
                                         </div>
 
-                                        <div className="flex flex-col gap-3">
-                                            <Link
-                                                href={`/services/${service.slug}`}
-                                                className="inline-flex items-center justify-between w-full p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group/btn transition-all hover:bg-white/[0.08] hover:border-white/20"
-                                            >
-                                                <span className="text-xs font-bold tracking-[0.2em] text-white uppercase group-hover/btn:translate-x-1 transition-transform">Visit Page</span>
-                                                <ChevronRight className="w-4 h-4 text-white/40 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
-                                            </Link>
-
-                                            <Link
-                                                href={`/pricing#${service.pricingId}`}
-                                                className="inline-flex items-center justify-center w-full p-3 rounded-lg text-[10px] font-bold tracking-[0.2em] uppercase transition-all hover:bg-white/[0.03] border border-transparent hover:border-white/10"
-                                                style={{ color: `${service.color}80` }}
-                                                onMouseEnter={(e) => (e.currentTarget.style.color = service.color)}
-                                                onMouseLeave={(e) => (e.currentTarget.style.color = `${service.color}80`)}
-                                            >
-                                                View Pricing
-                                            </Link>
-                                        </div>
+                                        <Link
+                                            href={`/services/${service.slug}`}
+                                            className="inline-flex items-center justify-center w-full p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group/btn transition-all hover:bg-white/[0.08] hover:border-white/20 gap-2"
+                                        >
+                                            <span className="text-xs font-bold tracking-[0.2em] text-white uppercase">Visit Page</span>
+                                            <ChevronRight className="w-4 h-4 text-white/40 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+                                        </Link>
                                     </div>
                                 </div>
                             </motion.div>

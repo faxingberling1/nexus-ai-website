@@ -10,6 +10,7 @@ export default function GameDevelopmentPage() {
         <ImmersivePortal
             title="Interactive Experiences"
             badge="Game Development"
+            pricingId="game"
             description="Creating immersive interactive experiences and engagement systems that drive long-term user loyalty."
             icon={Gamepad2}
             features={[

@@ -10,6 +10,7 @@ export default function BusinessAutomationPage() {
         <ImmersivePortal
             title="Efficient Business Automation"
             badge="Business Automation"
+            pricingId="automation"
             description="Optimizing operations through intelligent workflow design and seamless system integration for maximum business impact."
             icon={Zap}
             features={[

@@ -10,6 +10,7 @@ export default function BrandMessagingPage() {
         <ImmersivePortal
             title="Brand Communication Systems"
             badge="Brand & Messaging"
+            pricingId="brand"
             description="Strategic brand communication systems designed to align your brand value with effective, resonant messaging."
             icon={PenTool}
             features={[

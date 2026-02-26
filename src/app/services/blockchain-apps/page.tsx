@@ -10,6 +10,7 @@ export default function BlockchainAppsPage() {
         <ImmersivePortal
             title="Blockchain Apps"
             badge="Web3 & Decentralization"
+            pricingId="blockchain"
             description="Secure Web3 infrastructure including custom wallet creation, smart contract audits, and decentralized service integration for enterprise scale."
             icon={Cpu}
             features={[

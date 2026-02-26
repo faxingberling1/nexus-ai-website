@@ -37,6 +37,7 @@ interface ImmersivePortalProps {
         name: string;
         use: string;
     }[];
+    pricingId?: string;
 }
 
 const IntelligenceBackground = () => (
@@ -88,9 +89,11 @@ export default function ImmersivePortal({
     approach,
     features,
     integration,
-    techStack
+    techStack,
+    pricingId
 }: ImmersivePortalProps) {
     const easing = [0.16, 1, 0.3, 1] as any;
+    const pricingHref = pricingId ? `/pricing#${pricingId}` : '/pricing';
 
     return (
         <main className="min-h-screen bg-[#020202] pt-40 pb-20 relative overflow-hidden font-inter selection:bg-[#FF6A00]/30 text-white">
@@ -218,7 +221,7 @@ export default function ImmersivePortal({
                 <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: easing }} className="border-t border-white/5 pt-32 pb-40 text-center">
                     <h2 className="text-6xl md:text-8xl font-medium text-white mb-12 tracking-tighter font-outfit">Start Your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6A00] to-orange-400">Project Strategy.</span></h2>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <Link href="/pricing" className="inline-flex items-center space-x-4 border border-white/10 hover:border-[#FF6A00]/50 text-white/70 hover:text-white px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">
+                        <Link href={pricingHref} className="inline-flex items-center space-x-4 border border-white/10 hover:border-[#FF6A00]/50 text-white/70 hover:text-white px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">
                             <span>View Pricing</span><ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link href="/support" className="inline-flex items-center space-x-4 bg-[#FF6A00] hover:bg-[#FF7A1A] text-black px-12 py-6 rounded-full font-bold text-sm tracking-widest uppercase transition-all hover:scale-105 active:scale-95 group">

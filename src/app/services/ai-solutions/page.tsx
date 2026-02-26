@@ -10,6 +10,7 @@ export default function AISolutionsPage() {
         <ImmersivePortal
             title="Advanced AI Systems"
             badge="Intelligence Solutions"
+            pricingId="ai"
             description="Providing your business with advanced intelligence systems and custom-built automation solutions that integrate seamlessly into your current infrastructure."
             icon={Brain}
             features={[

@@ -10,6 +10,7 @@ export default function ProductDevelopmentPage() {
         <ImmersivePortal
             title="Product Engineering"
             badge="Software Development"
+            pricingId="product"
             description="Developing specialized digital products from initial concept to successful market launch with a focus on high-fidelity performance."
             icon={Layers}
             features={[

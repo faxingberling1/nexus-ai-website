@@ -10,6 +10,7 @@ export default function GrowthPerformancePage() {
         <ImmersivePortal
             title="Growth & Performance"
             badge="Growth Strategy"
+            pricingId="growth"
             description="Data-driven marketing systems built to increase your customer acquisition and business growth metrics."
             icon={LineChart}
             features={[

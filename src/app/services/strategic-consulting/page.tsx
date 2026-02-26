@@ -10,6 +10,7 @@ export default function StrategicConsultingPage() {
         <ImmersivePortal
             title="Strategic Consulting"
             badge="Technical Advisory"
+            pricingId="consulting"
             description="High-level technical advisory and planning to protect your projects and accelerate long-term growth."
             icon={ClipboardList}
             features={[
@@ -69,9 +70,9 @@ export default function StrategicConsultingPage() {
                         <div className="absolute inset-0 bg-gradient-to-br from-[#FF6A00]/10 to-transparent blur-3xl opacity-30" />
                         <div className="grid grid-cols-2 gap-4 relative z-20">
                             {[...Array(4)].map((_, i) => (
-                                <motion.div 
+                                <motion.div
                                     key={i}
-                                    animate={{ 
+                                    animate={{
                                         opacity: [0.4, 1, 0.4]
                                     }}
                                     transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
